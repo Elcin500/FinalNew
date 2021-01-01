@@ -1,0 +1,294 @@
+﻿@inject FinalHomeSale.Models.DataContext.HomeSaleDbContext db
+
+@{ 
+    var appInfo = db.AppInfos.FirstOrDefault();
+    var recentHomes = db.Homes.OrderBy(a => a.CreatedDate).Take(3).ToList();
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <base href="~/" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/bd705139b3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css"
+          integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A=="
+          crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css"
+          integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
+          crossorigin="anonymous" />
+    <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <nav>
+            <div class="header-top">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-2 login">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <a asp-controller="home" asp-action="login">
+                                Login/Registration
+                            </a>
+                        </div>
+                        <div class="info col-8">
+                            <ul>
+                                <li>
+                                    <i class="fas fa-phone-alt"></i>
+                                    <a href="#">@appInfo.Phone</a>
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope-open"></i>
+                                    <a href="#">@appInfo.Email</a>
+                                </li>
+                                @if (!string.IsNullOrWhiteSpace(appInfo.Address))
+                                {
+                                    <li>
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <a href="#">@appInfo.Address</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="col-2 socials">
+                            <ul>
+                                @if (!string.IsNullOrWhiteSpace(appInfo.FacebookLink))
+                                {
+                                    <li><a class="facebook" href="@appInfo.FacebookLink"><i class="fab fa-facebook-f"></i></a></li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(appInfo.TwitterLink))
+                                {
+                                    <li><a class="twitter" href="@appInfo.TwitterLink"><i class="fab fa-twitter"></i></a></li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(appInfo.InstagramLink))
+                                {
+                                    <li><a class="google" href="@appInfo.InstagramLink"><i class="fab fa-instagram"></i></a></li>
+                                }
+                            </ul>
+                        </div>
+                        <!-- <hr> -->
+                    </div>
+                </div>
+            </div>
+            <div class="header-bottom">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 col-top">
+                            <div class="logo">
+                                <a asp-controller="home" asp-action="index">
+                                    <img src="assets/img/@appInfo.LogoPath" alt="">
+                                </a>
+                            </div>
+                            <div class="right text-center">
+                                <a asp-controller="announces" asp-action="addAnnounce" class="text-center">Elan Yerləşdir</a>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-12 col-bottom">
+
+                            <span class="openNav">&#9776</span>
+
+                            <div class="logo">
+                                <a asp-controller="home" asp-action="index">
+                                    <img src="assets/img/@appInfo.LogoPath" alt="">
+                                </a>
+                            </div>
+
+                            <ul>
+                                <li><a asp-controller="home" asp-action="index">Home</a></li>
+                                <li><a asp-controller="agent" asp-action="index">Agents</a></li>
+                                <li><a asp-controller="client" asp-action="myannounces">My Announces</a></li>
+                                <li><a asp-controller="home" asp-action="favorites">Favorites</a></li>
+                                <li><a asp-controller="home" asp-action="contact">Contact</a></li>
+                                <li id="lang" class="nav-item hidden">
+                                    <img class="lang-img-main" src="assets/img/az.png" alt="">
+                                    <span>Az</span>
+                                    <i class="fas fa-sort-down"></i>
+                                    <div class="hidden-menu none" id="lang-div">
+                                        <a href="#">
+                                            <img class="lang-img" src="assets/img/az.png" alt=""> <span class="lang-hidden-span">Az</span>
+                                        </a>
+                                        <a href="#">
+                                            <img class="lang-img" src="assets/img/en.png" alt=""> <span class="lang-hidden-span">En</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="overlay"></div>
+
+    <div id="mySidenav" class="sidenav">
+        <div class="side-top">
+            <ul>
+                <li><a asp-controller="home" asp-action="index">Home</a></li>
+                <li><a asp-controller="agent" asp-action="index">Agents</a></li>
+                <li><a asp-controller="client" asp-action="myannounces">My Announces</a></li>
+                <li><a asp-controller="home" asp-action="favorites">Favorites</a></li>
+                <li><a asp-controller="home" asp-action="contact">Contact</a></li>
+            </ul>
+            <div class="add text-center">
+                <a asp-controller="announces" asp-action="addAnnounce" class="text-center">Elan Yerləşdir</a>
+            </div>
+            <hr>
+        </div>
+
+        <div class="side-bottom">
+            <div class="login">
+                <i class="fas fa-sign-in-alt"></i>
+                <a asp-controller="home" asp-action="login">
+                    Login/Registration
+                </a>
+            </div>
+            <div class="info ">
+                <ul>
+                    <li>
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="#">@appInfo.Phone</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope-open"></i>
+                        <a href="#">@appInfo.Email</a>
+                    </li>
+                    @if (!string.IsNullOrWhiteSpace(appInfo.Address))
+                    {
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <a href="#">@appInfo.Address</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="socials">
+                <ul>
+                    @if (!string.IsNullOrWhiteSpace(appInfo.FacebookLink))
+                    {
+                        <li><a class="facebook" href="@appInfo.FacebookLink"><i class="fab fa-facebook-f"></i></a></li>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(appInfo.TwitterLink))
+                    {
+                        <li><a class="twitter" href="@appInfo.TwitterLink"><i class="fab fa-twitter"></i></a></li>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(appInfo.InstagramLink))
+                    {
+                        <li><a class="google" href="@appInfo.InstagramLink"><i class="fab fa-instagram"></i></a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12 col-sm-12 first-col">
+                        <div class="footer-logo">
+                            <a href="#">
+                                <img src="assets/img/@appInfo.FooterLogoPath" alt="">
+                            </a>
+                        </div>
+                        <p>@appInfo.Description</p>
+                        <div class="footer-col-bottom">
+                            <p>Headquarters:</p>
+                            @if (!string.IsNullOrWhiteSpace(appInfo.Address))
+                            {
+                                <p>
+                                    @appInfo.Address
+                                </p>
+                            }
+                            <p>Phone <a href="#"> @appInfo.Phone</a></p>
+                            <p>Email <a href="#">@appInfo.Email</a></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-sm-12 second-col">
+                        <h6>Blogroll</h6>
+                        <ul>
+                            <li><i class="fas fa-chevron-right"></i><a asp-controller="home" asp-action="index">Home</a></li>
+                            <li><i class="fas fa-chevron-right"></i><a asp-controller="agent" asp-action="index">Agents</a></li>
+                            <li><i class="fas fa-chevron-right"></i><a asp-controller="client" asp-action="myannounces">My Announces</a></li>
+                            <li><i class="fas fa-chevron-right"></i><a asp-controller="home" asp-action="favorites">Favorites</a></li>
+                            <li><i class="fas fa-chevron-right"></i><a asp-controller="home" asp-action="contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-sm-12 third-col">
+                        <h6>Recent posts</h6>
+                        <ul>
+                            @foreach (var home in recentHomes)
+                            {
+                                <li>
+                                    <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">@home.Address</a>
+                                    <p>@home.CreatedDate</p>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 fourth-col">
+                        <h6>Newsletter</h6>
+                        <p>
+                            Enter your email address to receive all news, updates on new arrivals, special offers and other
+                            information.
+                        </p>
+                        <form class="needs-validation" novalidate>
+                            <div class="form-row">
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" placeholder="Email" id="email" required>
+                                    <div class="invalid-feedback">
+                                        Email Daxil Edin
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                            <li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+                            <li><a href="#"><i class="fab fa-google"></i></a></li>
+                            <li><a href="#"><i class="fas fa-rss"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"
+            integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA=="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

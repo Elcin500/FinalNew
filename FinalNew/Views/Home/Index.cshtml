@@ -1,0 +1,567 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Index";
+
+    var carouselHomes = Model.Homes.OrderBy(a => Guid.NewGuid()).Take(3).ToList();
+
+}
+
+<div class="photo-carousel owl-theme owl-carousel">
+    <div class="item" data-setbg="assets/img/@Model.AppInfos.HomePhoto1">
+        <div class="small-description">
+            <h3>
+                @if (carouselHomes[1].Address.Length > 25)
+                {
+                    @carouselHomes[1].Address.Substring(0, 25)@("...")
+                }
+                else
+                {
+                    @carouselHomes[1].Address
+                }
+            </h3>
+            <hr>
+            <p>
+                @if (carouselHomes[1].Description.Length > 100)
+                {
+                    @carouselHomes[1].Description.Substring(0, 100)@("...")
+                }
+                else
+                {
+                    @carouselHomes[1].Description
+                }
+            </p>
+            <span class="cost">
+                $@carouselHomes[1].Price
+                <span class="badge">
+                    /
+                    @if (carouselHomes[1].AnnounceType == "Rent")
+                    {
+                        @carouselHomes[1].Period
+                    }
+                    else if (carouselHomes[1].AnnounceType == "Sale")
+                    {
+                        @("sale")
+                    }
+                </span>
+            </span>
+            <a asp-controller="announces" asp-action="details" asp-route-id="@carouselHomes[1].Id">Etrafli</a>
+        </div>
+    </div>
+    <div class="item" data-setbg="assets/img/@Model.AppInfos.HomePhoto2">
+        <div class="small-description">
+            <h3>
+                @if (carouselHomes[2].Address.Length > 25)
+                {
+                    @carouselHomes[2].Address.Substring(0, 25)@("...")
+                }
+                else
+                {
+                    @carouselHomes[2].Address
+                }
+            </h3>
+            <hr>
+            <p>
+                @if (carouselHomes[2].Description.Length > 100)
+                {
+                    @carouselHomes[2].Description.Substring(0, 100)@("...")
+                }
+                else
+                {
+                    @carouselHomes[2].Description
+                }
+            </p>
+            <span class="cost">
+                $@carouselHomes[2].Price
+                <span class="badge">
+                    /
+                    @if (carouselHomes[2].AnnounceType == "Rent")
+                    {
+                        @carouselHomes[2].Period
+                    }
+                    else if (carouselHomes[2].AnnounceType == "Sale")
+                    {
+                        @("sale")
+                    }
+                </span>
+            </span>
+            <a asp-controller="announces" asp-action="details" asp-route-id="@carouselHomes[2].Id">Etrafli</a>
+        </div>
+    </div>
+    <div class="item" data-setbg="assets/img/@Model.AppInfos.HomePhoto3">
+        <div class="small-description">
+            <h3>
+                @if (carouselHomes[0].Address.Length > 25)
+                {
+                    @carouselHomes[0].Address.Substring(0, 25)@("...")
+                }
+                else
+                {
+                    @carouselHomes[0].Address
+                }
+            </h3>
+            <hr>
+            <p>
+                @if (carouselHomes[0].Description.Length > 100)
+                {
+                    @carouselHomes[0].Description.Substring(0, 100)@("...")
+                }
+                else
+                {
+                    @carouselHomes[0].Description
+                }
+            </p>
+            <span class="cost">
+                $@carouselHomes[0].Price
+                <span class="badge">
+                    /
+                    @if (carouselHomes[0].AnnounceType == "Rent")
+                    {
+                        @carouselHomes[0].Period
+                    }
+                    else if (carouselHomes[0].AnnounceType == "Sale")
+                    {
+                        @("sale")
+                    }
+                </span>
+            </span>
+            <a asp-controller="announces" asp-action="details" asp-route-id="@carouselHomes[0].Id">Etrafli</a>
+        </div>
+    </div>
+</div>
+
+
+<section class="search">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Find Your Home</h2>
+                <form class="row g-3" asp-controller="announces" asp-action="index">
+                    <div class="col-md-3">
+                        <label for="announceType" class="form-label">Announce Type</label>
+                        <select name="announceType" class="form-select">
+                            <option selected>Sale</option>
+                            <option>Rent</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="categoryId" class="form-label">Category</label>
+                        <select name="categoryId" class="form-select" asp-items="ViewBag.CategoryId">
+                            <option selected>All</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="cityId" class="form-label">State</label>
+                        <select name="cityId" class="form-select" asp-items="ViewBag.CityId">
+                            <option>All</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="metroId" class="form-label">Metro</label>
+                        <select name="metroId" class="form-select" asp-items="ViewBag.MetroId">
+                            <option>All</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <label for="minPrice" class="form-label">Price</label>
+                        <input type="number" name="minPrice" class="form-control" placeholder="Min">
+                    </div>
+                    <div class="col-lg-2 col-6 no-label">
+                        <!-- <label for="inputCity" class="form-label">Max</label> -->
+                        <input type="number" name="maxPrice" class="form-control" placeholder="Max">
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <label for="minArea" class="form-label">Area (Sq Ft)</label>
+                        <input type="number" name="minArea" class="form-control" placeholder="Min">
+                    </div>
+                    <div class="col-lg-2 col-6 no-label">
+                        <!-- <label for="inputCity" class="form-label">Max</label> -->
+                        <input type="number" name="maxArea" class="form-control" placeholder="Max">
+                    </div>
+                    <div class="col-lg-1 col-sm-12">
+                        <label for="minRoom" class="form-label">Min Room</label>
+                        <select name="minRoom" class="form-select">
+                            <option value="0" selected>All</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option value="5">5 və daha çox</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-1 col-sm-12">
+                        <label for="minBath" class="form-label">Min Bath</label>
+                        <select name="minBath" class="form-select">
+                            <option value="0" selected>All</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option value="4">4 və daha çox</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="popular-categories">
+    <div class="container">
+        <div class="title">
+            <h2>Popular categories</h2>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-12 catgeory">
+                <a asp-controller="announces" asp-action="index" asp-route-categoryId="@Model.Categories[5].Id">
+                    <img src="assets/img/categories-1.jpg" width="546" height="410" alt="">
+                    <div class="caption">
+                        <h4>@Model.Categories[5].Name</h4>
+                        <p><span class="product-count">55</span>properities</p>
+                    </div>
+                </a>
+
+            </div>
+            <div class="col-md-6 col-12 catgeory">
+                <a asp-controller="announces" asp-action="index" asp-route-categoryId="@Model.Categories[4].Id">
+                    <img src="assets/img/categories-2.jpg" width="546" height="410" alt="">
+                    <div class="caption">
+                        <h4>@Model.Categories[4].Name</h4>
+                        <p><span class="product-count">36</span>properities</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-12 catgeory">
+                <a asp-controller="announces" asp-action="index" asp-route-categoryId="@Model.Categories[3].Id">
+                    <img src="assets/img/categories-3.jpg" width="546" height="410" alt="">
+                    <div class="caption">
+                        <h4>@Model.Categories[3].Name</h4>
+                        <p><span class="product-count">24</span>properities</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-12 catgeory">
+                <a asp-controller="announces" asp-action="index" asp-route-categoryId="@Model.Categories[1].Id">
+                    <img src="assets/img/categories-4.jpg" width="546" height="410" alt="">
+                    <div class="caption">
+                        <h4>@Model.Categories[1].Name</h4>
+                        <p><span class="product-count">15</span>properities</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="homes">
+    <div class="container">
+        <div class="title">
+            <h2>Most Viewed Homes</h2>
+            <hr>
+        </div>
+        <div class="row">
+            @foreach (var home in Model.Homes)
+            {
+                <div class="col-lg-4 col-md-6 col-12 single-home">
+                    <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">
+                        <img src="assets/img/@home.Images.FirstOrDefault().Path" alt="">
+                    </a>
+                    <div class="caption">
+                        <h4> 
+                            <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">@home.Address</a><a class="like" onclick="addFavorite(@home.Id,event)" style="padding-right:0;">
+                           @if (Model.Ids!=null)
+                           {
+                                @if (Model.Ids.Contains(home.Id))
+                            {
+                                <i style="color:#EA2027" class="fas fa-heart"></i>
+                            }
+                            else
+                            {
+                            <i class="far fa-heart"></i>
+                            }
+                           } 
+                           else
+                            {
+                            <i class="far fa-heart"></i>
+                            }
+                            </a>
+                        </h4>
+                        <span>
+                            $@home.Price <span>
+                                /
+                                @if (home.AnnounceType == "Rent")
+                                {
+                                    @home.Period
+                                }
+                                else if (home.AnnounceType == "Sale")
+                                {
+                                    @("sale")
+                                }
+                            </span>
+                        </span>
+                        <ul>
+                            <li>
+                                <i class="fas fa-vector-square"></i><span>
+                                    @if (!string.IsNullOrWhiteSpace(home.Area))
+                                    {
+                                        @home.Area
+                                    } sq ft
+                                </span>
+                            </li>
+                            <li>
+                                <i class="fas fa-bath"></i> <span>
+                                    @if (home.BathCount > 0)
+                                    {
+                                        @home.BathCount
+                                    }
+                                    else
+                                    {
+                                        @(0)
+                                    }
+                                    bathrooms
+                                </span>
+                            </li>
+                        </ul>
+                        <ul class="second-ul">
+                            <li>
+                                <span>
+                                    <i class="fas fa-bed"></i>
+                                    @if (home.RoomCount > 0)
+                                    {
+                                        @home.RoomCount
+                                    }
+                                    else
+                                    {
+                                        @(0)
+                                    }
+                                    rooms
+                                </span>
+                            </li>
+                            <li>
+                                <span>
+                                    <i class="fas fa-car"></i>
+                                    @if (home.GarageCount > 0)
+                                    {
+                                        @home.GarageCount
+                                    }
+                                    else
+                                    {
+                                        @(0)
+                                    }
+                                    garages
+                                </span>
+                            </li>
+                        </ul>
+                        <p>
+                            @if (home.Description.Length > 100)
+                            {
+                                @home.Description.Substring(0, 100)@("...")
+                            }
+                            else
+                            {
+                                @home.Description
+                            }
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+        <a href="#">View All Proporities</a>
+    </div>
+</section>
+
+
+<section class="our-advantages">
+    <div class="container">
+        <div class="title">
+            <h2>Our Advantages</h2>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-xs-12 col-sm-6">
+                <div class="media-top">
+                    <div class="text-center">
+                        <i class="fas fa-home"></i>
+                    </div>
+                </div>
+                <div class="media-bottom">
+                    <h3>Elan Üstünlüklərimiz</h3>
+                    <p>
+                        @Model.AppInfos.AnnounceAdvantages
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-12 col-sm-6">
+                <div class="media-top">
+                    <div class="text-center">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <div class="media-bottom">
+                    <h3>Satış Agentləri üçün üstünlüklər</h3>
+                    <p>
+                        @Model.AppInfos.AgentAdvantages
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-12 col-sm-6">
+                <div class="media-top">
+                    <div class="text-center">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <div class="media-bottom">
+                    <h3>Privacy and Security</h3>
+                    <p>
+                        Search by state then by city to find an of the beach in Los Angeles or in the heart of
+                        Atlanta.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-12 col-sm-6">
+                <div class="media-top">
+                    <div class="text-center">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                </div>
+                <div class="media-bottom">
+                    <h3>Various Locations</h3>
+                    <p>
+                        Search by state then by city to find an apartment overlooking the lake in Chicago, within
+                        walking distance of the beach in Los Angeles or in the heart of Atlanta.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="agents">
+    <div class="container">
+        <div class="title">
+            <h2>Our Real Estate Agents</h2>
+            <hr>
+        </div>
+
+        <div class="agents-carousel owl-theme owl-carousel">
+            @foreach (var agent in Model.Agents)
+            {
+                <div class="item agent-1">
+                    <div class="media-top">
+                        <div class="media-img">
+                            <img src="assets/img/@agent.ImagePath" alt="" width="100" height="100">
+                        </div>
+                        <div class="media-body">
+                            <h4>@agent.Name @agent.Surname</h4>
+                            <p class="p-top">Listing Agent</p>
+                            <p class="p-bottom"> <span>tel</span> <a href="#">@agent.Phone</a></p>
+                        </div>
+                    </div>
+                    <p>
+                        @if (agent.Description.Length > 50)
+                        {
+                            @agent.Description.Substring(0, 50)
+                        }
+                        else
+                        {
+                            @agent.Description
+                        }
+                    </p>
+                    <a asp-controller="agent" asp-action="details" asp-route-id="@agent.Id">Get in touch</a>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
+
+
+
+@section scripts{
+ 
+    <script>
+
+
+        function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+        }
+
+        function addFavorite(id, event) {
+            // event.stopPropagation();
+            event.preventDefault();
+
+            let cardItems = $.cookie('card-items');
+            let items;
+
+            if ($(event.currentTarget.children[0]).hasClass('fas fa-heart')) {
+                $(event.currentTarget).html('<i class="far fa-heart"></i>');
+                console.log('--------ag');
+
+                if (cardItems == null) {
+                    items = [];
+                }
+                else {
+                    items = cardItems.split(',').map(e => parseInt(e));
+                }
+
+
+                //items.forEach(e => {
+                //    if (e==id) {
+                //        $(items).remove(e);
+
+
+                //        console.log('silindi');
+                //    }
+                //});
+                var removeItem = id;   
+
+                items = $.grep(items, function (value) {
+                    return value != removeItem;
+                })
+
+                console.log(items);
+
+                $.cookie('card-items', items.toString(), { expires: 5, path: '/'});
+
+                console.log('cookiden silindi');
+                console.log($.cookie('card-items'));
+
+
+            }
+            else {
+                $(event.currentTarget).html('<i style="color:#EA2027" class="fas fa-heart"></i>');
+                console.log('-----------qirmizi');
+
+             
+                if (cardItems == null) {
+                    items = [];
+                }
+                else {
+                    items = cardItems.split(',').map(e => parseInt(e));
+                }
+
+                items.push(id);
+                items = items.filter(onlyUnique);
+
+
+                $.cookie('card-items', items.toString(), { expires: 5,path: '/' });
+                console.log('cookide');
+
+            }
+
+            
+
+          
+           // $('.item-count').removeClass('d-none').html(items.length);
+
+
+        }
+
+    </script>
+
+}

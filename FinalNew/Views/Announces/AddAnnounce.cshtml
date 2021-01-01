@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewData["Title"] = "AddAnnounce";
+}
+
+
+<section class="background-img" data-setbg="assets/img/details-background.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Single Property Page</h1>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><span class="slash">/</span><a href="#">Property Catalog</a></li>
+                    <li><span class="slash">/</span><span>Single Property Page</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="addhome-main">
+    <div class="container-fluid">
+        <div class="title">
+            <h2>Fill The Form</h2>
+            <hr>
+        </div>
+
+        <form class="row g-3 needs-validation" novalidate>
+            <div class="col-md-6 col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="location" class="form-label">Location</label>
+                        <select id="location" class="form-select">
+                            <option selected>Any</option>
+                            <option>Baki</option>
+                            <option>Gence</option>
+                        </select>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="status" class="form-label">Property Status</label>
+                        <select id="status" class="form-select">
+                            <option selected>Any</option>
+                            <option>...</option>
+                        </select>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="type" class="form-label">Property Type</label>
+                        <select id="type" class="form-select">
+                            <option selected>Any</option>
+                            <option>...</option>
+                        </select>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="room" class="form-label">Min Rooms</label>
+                        <select id="room" class="form-select">
+                            <option selected>Any</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="bath" class="form-label">Min Bath</label>
+                        <select id="bath" class="form-select">
+                            <option selected>Any</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="priceMin" class="form-label">Price</label>
+                        <input type="text" class="form-control" placeholder="Min" id="priceMin">
+                    </div>
+                    <div class="col-6">
+                        <label for="inputCity" class="form-label">Max</label>
+                        <input type="text" class="form-control" placeholder="Max" id="priceMax">
+                    </div>
+                    <div class="col-6">
+                        <label for="areaMin" class="form-label">Area(Sq Ft)</label>
+                        <input type="text" class="form-control" placeholder="Min" id="areaMin">
+                    </div>
+                    <div class="col-6">
+                        <label for="inputCity" class="form-label">Max</label>
+                        <input type="text" class="form-control" placeholder="Max" id="areaMax">
+                    </div>
+                    <div class="col-12">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" rows="5" required></textarea>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter A Description
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-right col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address">
+                    </div>
+                    <div class="col-12">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d759.8473936453975!2d49.83113282920154!3d40.378057620346155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307dbd2753b5e1%3A0x94c5b9e402f8a047!2sE119%2C%20Bak%C4%B1%201009%2C%20Azerbaijan!5e0!3m2!1sen!2s!4v1608361669272!5m2!1sen!2s"
+                                width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen=""
+                                aria-hidden="false" tabindex="0"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-8">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+    </div>
+</section>

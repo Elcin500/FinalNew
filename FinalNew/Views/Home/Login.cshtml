@@ -1,0 +1,195 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+}
+
+<section class="background-img" data-setbg="assets/img/details-background.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Login</h1>
+                <ul>
+                    <li><a asp-controller="home" asp-action="index">Home</a></li>
+                    @*<li><span class="slash">/</span><a href="#">Property Catalog</a></li>*@
+                    <li><span class="slash">/</span><span>Login</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="login-form">
+    <div class="container">
+        <div class="title">
+            <h2>Sign In</h2>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-lg-5">
+
+                <ul>
+                    <li class="selected li-login">Login</li>
+                    <li class="li-registr">Registration</li>
+                    <li class="li-agent-registr">Registr As Agent</li>
+                </ul>
+
+                <form class="row g-3 needs-validation login-form-first" novalidate>
+                    <div class="col-12">
+                        <label for="username" class="form-label">Username or e-mail</label>
+                        <input type="text" class="form-control" id="username" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter Your Name
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter Password Correctly
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-8">
+                        <button type="submit" class="btn btn-primary">Daxil Ol</button>
+                    </div>
+                </form>
+
+                <form class="row g-3 needs-validation d-none registr-form-second" novalidate>
+                    <div class="col-12">
+                        <label for="usernameRegistr" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="usernameRegistr" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter Your Username
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="emailRegistr" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="emailRegistr" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter An Email Correctly
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="passwordRegistr" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="passwordRegistr" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter Password
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-8">
+                        <button type="submit" class="btn btn-primary">Təsdiqlə</button>
+                    </div>
+                </form>
+
+                <form class="row g-3 needs-validation d-none registr-agent-form-third" novalidate>
+                    <div class="col-12">
+                        <label for="agentName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="agentName" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter Your Name
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="agentSurname" class="form-label">Surname</label>
+                        <input type="text" class="form-control" id="agentSurname" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter Your Surname
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="agentPhone" class="form-label">Phone</label>
+                        <input type="text" class="form-control" id="agentPhone" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter Your Phone
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="agentPhone2" class="form-label">Phone (2)</label>
+                        <input type="text" class="form-control" id="agentPhone2" placeholder="Vacib deyil">
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="agentAdress" class="form-label">Adress</label>
+                        <input type="text" class="form-control" id="agentAdress" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter Your Adress
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="agnetDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="agnetDescription" rows="4" required></textarea>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter A Description
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="agnetUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="agnetUsername" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter Your Username
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="agnetEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="agentEmail" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter An Email Correctly
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="agentPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="agentPassword" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter Password
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-8">
+                        <button type="submit" class="btn btn-primary">Təsdiqlə</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

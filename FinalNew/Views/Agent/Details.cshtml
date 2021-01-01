@@ -1,0 +1,349 @@
+﻿@model AgentViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<section class="background-img" data-setbg="assets/img/details-background.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-xl-8 offset-xl-4">
+                <h1>Agent Personal Page</h1>
+                <ul>
+                    <li><a asp-controller="home" asp-action="index">Home</a></li>
+                    <li><span class="slash">/</span><a asp-controller="agent" asp-action="index">Agents</a></li>
+                    <li><span class="slash">/</span><span>Agent Personal Page</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="agentDetails-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-12 col-left">
+                <div class="agent-img">
+                    <img src="assets/img/@Model.Agent.ImagePath" alt="">
+                </div>
+                <div class="agent-contact">
+                    <div class="title-agent-name">
+                        <h2>
+                            @Model.Agent.Name @Model.Agent.Surname
+                        </h2>
+                        <hr>
+                    </div>
+                    <div class="title">
+                        <h2>Get In Touch</h2>
+                        <hr>
+                    </div>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+
+                    <form class="row g-3 needs-validation" novalidate>
+                        <div class="col-12">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" required>
+                            <div class="valid-feedback">
+                                Looks Good
+                            </div>
+                            <div class="invalid-feedback">
+                                Enter Your Name
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                            <div class="valid-feedback">
+                                Looks Good
+                            </div>
+                            <div class="invalid-feedback">
+                                Enter Email Correctly
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="3" required></textarea>
+                            <div class="valid-feedback">
+                                Looks Good
+                            </div>
+                            <div class="invalid-feedback">
+                                Enter A Message
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-12">
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-8 col-12 col-right">
+                <div class="row info">
+                    <div class="col-md-4 col-12">
+                        <h4>Phones</h4>
+                        <p>@Model.Agent.Phone</p>
+                        <p>@Model.Agent.Phone2</p>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <h4>E-mail</h4>
+                        <a>@Model.Agent.Email</a>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <h4>Address</h4>
+                        <p>@Model.Agent.Address</p>
+                    </div>
+                </div>
+                <div class="agent-description">
+                    <div class="title">
+                        <h2>About Agent</h2>
+                        <hr>
+                    </div>
+                    <p>
+                        @Model.Agent.Description
+                    </p>
+                </div>
+
+                <div class="agent-socials">
+                    <div class="title">
+                        <h2>Share</h2>
+                        <hr>
+                    </div>
+                    <div class="body">
+                        <ul>
+                            @if (!string.IsNullOrWhiteSpace(Model.Agent.FacebookLink))
+                            {
+                                <li><a class="facebook" href="@Model.Agent.FacebookLink"><i class="fab fa-facebook-f"></i></a></li>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(Model.Agent.TwitterLink))
+                            {
+                                <li><a class="twitter" href="@Model.Agent.TwitterLink"><i class="fab fa-twitter"></i></a></li>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(Model.Agent.InstagramLink))
+                            {
+                                <li><a class="google" href="@Model.Agent.InstagramLink"><i class="fab fa-instagram"></i></a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="agent-homes">
+    <div class="container">
+        <div class="title">
+            <h2>Agent's Announcements</h2>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-left">
+                <div class="row">
+                    @if (Model.Homes.Count > 0)
+                    {
+                        @foreach (var home in Model.Homes)
+                        {
+                            <div class="col-md-6 col-12 single-home">
+                                <a href="homeDetails.html">
+                                    <img src="assets/img/@home.Images.FirstOrDefault().Path" alt="">
+                                </a>
+                                <div class="caption">
+                                    <h4> <a href="homeDetails.html">@home.Address</a></h4>
+                                    <span>
+                                        $@home.Price <span>
+                                            /
+                                            @if (home.AnnounceType == "Rent")
+                                            {
+                                                @home.Period
+                                            }
+                                            else if (home.AnnounceType == "Sale")
+                                            {
+                                                @("sale")
+                                            }
+                                        </span>
+                                    </span>
+                                    <ul>
+                                        <li>
+                                            <i class="fas fa-vector-square"></i><span>
+                                                @if (!string.IsNullOrWhiteSpace(home.Area))
+                                                {
+                                                    @home.Area
+                                                } sq ft
+                                            </span>
+                                        </li>
+
+                                        <li>
+                                            <i class="fas fa-bath"></i> <span>
+                                                @if (home.BathCount > 0)
+                                                {
+                                                    @home.BathCount
+                                                }
+                                                else
+                                                {
+                                                    @(0)
+                                                } bathrooms
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <ul class="second-ul">
+                                        <li>
+                                            <span>
+                                                <i class="fas fa-bed"></i>
+                                                @if (home.RoomCount > 0)
+                                                {
+                                                    @home.RoomCount
+                                                }
+                                                else
+                                                {
+                                                    @(0)
+                                                } bedrooms
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span>
+                                                <i class="fas fa-car"></i>
+                                                @if (home.GarageCount > 0)
+                                                {
+                                                    @home.GarageCount
+                                                }
+                                                else
+                                                {
+                                                    @(0)
+                                                }
+                                                garages
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        @if (home.Description.Length > 100)
+                                        {
+                                            @home.Description.Substring(0, 100)
+                                        }
+                                        else
+                                        {
+                                            @home.Description
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <h1 style=" color: #46474a; margin-left: 10%; margin-top: 25px;">Hec Bir Elan Yoxdur</h1>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4 col-right">
+                <div class="title">
+                    <h2>Home Filter</h2>
+                    <hr>
+                </div>
+                <form id="agentsPosts" class="row g-3 login-form-first" method="post" asp-controller="agent" asp-action="details" novalidate>
+                    <input type="hidden" name="agentId" value="@Model.Agent.Id" />
+                    <div class="col-12">
+                        <label for="announceType" class="form-label">Announce Type</label>
+                        <select name="announceType" class="form-select">
+                            <option hidden selected>@ViewBag.AnnounceTypeSelected</option>
+                            <option >Sale</option>
+                            <option>Rent</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="categoryId" class="form-label">Category</label>
+                        <select name="categoryId" class="form-select" asp-items="ViewBag.CategoryId">
+                            <option selected>All</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="cityId" class="form-label">State</label>
+                        <select name="cityId" class="form-select" asp-items="ViewBag.CityId">
+                            <option>All</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="metroId" class="form-label">Metro</label>
+                        <select name="metroId" class="form-select" asp-items="ViewBag.MetroId">
+                            <option>All</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label for="minRoom" class="form-label">Min Room</label>
+                        <select name="minRoom" class="form-select">
+                            @Html.Raw(ViewBag.MinRoomSelected)
+                            <option value='0'>All</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option value='5'>5 və daha çox</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label for="minBath" class="form-label">Min Bath</label>
+                        <select name="minBath" class="form-select">
+                            @Html.Raw(ViewBag.MinBathSelected)
+                            <option value='0' >All</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option value='4'>4 və daha çox</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label for="minPrice" class="form-label">Price</label>
+                        <input type="number" name="minPrice" value="@ViewBag.MinPriceSelected" class="form-control" placeholder="Min">
+                    </div>
+                    <div class="col-6 no-label">
+                        <!-- <label for="inputCity" class="form-label">Max</label> -->
+                        <input type="number" value="@ViewBag.MaxPriceSelected"  name="maxPrice" class="form-control" placeholder="Max">
+                    </div>
+                    <div class="col-6">
+                        <label for="minArea" class="form-label">Area (Sq Ft)</label>
+                        <input type="number" name="minArea" value="@ViewBag.MinAreaSelected" class="form-control" placeholder="Min">
+                    </div>
+                    <div class="col-6 no-label">
+                        <!-- <label for="inputCity" class="form-label">Max</label> -->
+                        <input type="number" name="maxArea" value="@ViewBag.MaxAreaSelected" class="form-control" placeholder="Max">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section scripts{ 
+    @*<script>
+        $('#agentsPosts').submint(function(e){
+            e.preventDefault();
+
+            let url = e.currentTarget.action;
+            let method = e.currentTarget.method;
+            let formData = new FormData(e.currentTarget);
+
+            $.ajax({
+                url: `@Url.Action("Search")`,
+                type: method,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.error == true) {
+                        console.log('succes--error');
+                    }
+                    else {
+                        console.log('succes');
+                        $(e.currentTarget).html('Alinacaq');
+                    }
+                },
+                error: function (response) {
+                    console.log('error');
+                }
+            });
+
+        });
+    </script>*@
+}

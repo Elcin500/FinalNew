@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewData["Title"] = "Contact";
+}
+
+
+<section class="background-img" data-setbg="assets/img/details-background.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Contact</h1>
+                <ul>
+                    <li><a asp-controller="home" asp-action="index">Home</a></li>
+                    @*<li><span class="slash">/</span><a href="#">Property Catalog</a></li>*@
+                    <li><span class="slash">/</span><span>Contact</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-left">
+                <div class="title">
+                    <h2>Contact Us</h2>
+                    <hr>
+                </div>
+                <p>
+                    You can contact us any way that is convenient for you. We are available 24/7 via fax or
+                    email. You can also use a quick contact form below or visit our office personally.
+                </p>
+                <form class="row g-3 needs-validation" novalidate>
+                    <div class="col-md-6 col-12">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter Your Name
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" class="form-control" id="phone" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter A Phone Number
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter An Email Correctly
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="3" required></textarea>
+                        <div class="valid-feedback">
+                            Looks Good
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter An Email Correctly
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-12">
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 col-right">
+                <div class="contact-phone">
+                    <div class="title">
+                        <h2>Phone</h2>
+                        <hr>
+                    </div>
+                    <div class="body">
+                        <a href="#">012-545-78-87</a>
+                        <a href="#">012-545-55-22</a>
+                    </div>
+                </div>
+                <div class="contact-email">
+                    <div class="title">
+                        <h2>Email</h2>
+                        <hr>
+                    </div>
+                    <div class="body">
+                        <a href="#">Demo@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-socials">
+                    <div class="title">
+                        <h2>Follow Us</h2>
+                        <hr>
+                    </div>
+                    <div class="body">
+                        <ul>
+                            <li><a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a class="google" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="contact-adress">
+                    <div class="title">
+                        <h2>Address</h2>
+                        <hr>
+                    </div>
+                    <div class="body">
+                        <p>795 Folsom Ave, Suite 600 San Francisco, CA 94107</p>
+                    </div>
+                </div>
+                <div class="contact-hours">
+                    <div class="title">
+                        <h2>Open Hours</h2>
+                        <hr>
+                    </div>
+                    <div class="body">
+                        <p>8:00 - 18:00 Mon - Sat</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d759.8473936453975!2d49.83113282920154!3d40.378057620346155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307dbd2753b5e1%3A0x94c5b9e402f8a047!2sE119%2C%20Bak%C4%B1%201009%2C%20Azerbaijan!5e0!3m2!1sen!2s!4v1608361669272!5m2!1sen!2s" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+

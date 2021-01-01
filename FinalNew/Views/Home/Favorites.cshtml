@@ -1,0 +1,211 @@
+﻿@model ICollection<Home>
+@{
+    ViewData["Title"] = "Favorites";
+}
+
+<section class="background-img" data-setbg="assets/img/details-background.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>My Favorites</h1>
+                <ul>
+                    <li><a asp-controller="home" asp-action="index">Home</a></li>
+                    @*<li><span class="slash">/</span><a href="#">Property Catalog</a></li>*@
+                    <li><span class="slash">/</span><span>Favorites</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="homes">
+    <div class="container">
+        <div class="title">
+            <h2>My Favorites</h2>
+            <hr>
+        </div>
+        <div class="row">
+            @if (Model != null && Model.Count>0)
+            {
+                @foreach (var home in Model)
+                {
+                    <div class="col-lg-4 col-md-6 col-12 single-home">
+                        <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">
+                            <img src="assets/img/@home.Images.FirstOrDefault().Path" alt="">
+                        </a>
+                        <div class="caption">
+                            <h4> <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">@home.Address</a> <a onclick="addFavorite(@home.Id,event)" style="padding-right:0; " class="like"><i style="color:#EA2027" class="fas fa-heart"></i></a></h4>
+                            <span>
+                                $@home.Price
+                                <span>
+                                    /
+                                    @if (home.AnnounceType == "Rent")
+                                    {
+                                        @home.Period
+                                    }
+                                    else if (home.AnnounceType == "Sale")
+                                    {
+                                        @("sale")
+                                    }
+                                </span>
+                            </span>
+                            <ul>
+                                <li>
+                                    <i class="fas fa-vector-square"></i>
+                                    <span>
+                                        @if (!string.IsNullOrWhiteSpace(home.Area))
+                                        {
+                                            @home.Area
+                                        } sq ft
+                                    </span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-bath"></i>
+                                    <span>
+                                        @if (home.BathCount > 0)
+                                        {
+                                            @home.BathCount
+                                        }
+                                        else
+                                        {
+                                            @(0)
+                                        }
+                                        bathrooms
+                                    </span>
+                                </li>
+                            </ul>
+
+                            <ul class="second-ul">
+                                <li>
+                                    <span>
+                                        <i class="fas fa-bed"></i>
+                                        @if (home.RoomCount > 0)
+                                        {
+                                            @home.RoomCount
+                                        }
+                                        else
+                                        {
+                                            @(0)
+                                        }
+                                        rooms
+                                    </span>
+                                </li>
+                                <li>
+                                    <span>
+                                        <i class="fas fa-car"></i>
+                                        @if (home.GarageCount > 0)
+                                        {
+                                            @home.GarageCount
+                                        }
+                                        else
+                                        {
+                                            @(0)
+                                        }
+                                        garages
+                                    </span>
+                                </li>
+                            </ul>
+                            <p>
+                                @if (home.Description.Length > 100)
+                                {
+                                    @home.Description.Substring(0, 100)@("...")
+                                }
+                                else
+                                {
+                                    @home.Description
+                                }
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <h1 style=" color: #46474a; margin-left: 10%; margin-top: 20px;">Secilmis Hec Bir Elan Yoxdur</h1>
+            }
+        </div>
+    </div>
+</section>
+
+
+
+@section scripts{
+   
+    <script>
+
+
+        function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+        }
+
+        function addFavorite(id, event) {
+            // event.stopPropagation();
+            event.preventDefault();
+
+            let cardItems = $.cookie('card-items');
+            let items;
+
+            if ($(event.currentTarget.children[0]).hasClass('fas fa-heart')) {
+                $(event.currentTarget).html('<i class="far fa-heart"></i>');
+                console.log('--------ag');
+
+                if (cardItems == null) {
+                    items = [];
+                }
+                else {
+                    items = cardItems.split(',').map(e => parseInt(e));
+                }
+
+
+                //items.forEach(e => {
+                //    if (e==id) {
+                //        $(items).remove(e);
+
+
+                //        console.log('silindi');
+                //    }
+                //});
+                var removeItem = id;
+
+                items = $.grep(items, function (value) {
+                    return value != removeItem;
+                })
+
+                console.log(items);
+
+                $.cookie('card-items', items.toString(), { expires: 5, path: '/'} );
+
+                console.log('cookiden silindi');
+                console.log($.cookie('card-items'));
+
+
+            }
+            else {
+                $(event.currentTarget).html('<i style="color:#EA2027" class="fas fa-heart"></i>');
+                console.log('-----------qirmizi');
+
+
+                if (cardItems == null) {
+                    items = [];
+                }
+                else {
+                    items = cardItems.split(',').map(e => parseInt(e));
+                }
+
+                items.push(id);
+                items = items.filter(onlyUnique);
+
+
+                $.cookie('card-items', items.toString(), { expires: 5, path: '/'});
+
+                console.log('cookide');
+
+            }
+
+            // $('.item-count').removeClass('d-none').html(items.length);
+
+        }
+
+    </script>
+
+}

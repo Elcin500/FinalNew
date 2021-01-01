@@ -1,0 +1,194 @@
+﻿@model List<Home>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<section class="background-img" data-setbg="assets/img/details-background.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Announces</h1>
+                <ul>
+                    <li><a asp-controller="home" asp-action="index">Home</a></li>
+                    @*<li><span class="slash">/</span><a href="#">Property Catalog</a></li>*@
+                    <li><span class="slash">/</span><span>Announces</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="search">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Find Your Home</h2>
+                <form class="row g-3" asp-controller="announces" asp-action="index">
+                    <div class="col-md-3">
+                        <label for="announceType" class="form-label">Announce Type</label>
+                        <select name="announceType" class="form-select">
+                            <option hidden selected>@ViewBag.AnnounceTypeSelected</option>
+                            <option>Sale</option>
+                            <option>Rent</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="categoryId" class="form-label">Category</label>
+                        <select name="categoryId" class="form-select" asp-items="ViewBag.CategoryId">
+                            <option selected>All</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="cityId" class="form-label">State</label>
+                        <select name="cityId" class="form-select" asp-items="ViewBag.CityId">
+                            <option>All</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="metroId" class="form-label">Metro</label>
+                        <select name="metroId" class="form-select" asp-items="ViewBag.MetroId">
+                            <option>All</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <label for="minPrice" class="form-label">Price</label>
+                        <input type="number" value="@ViewBag.MinPriceSelected" name="minPrice" class="form-control" placeholder="Min">
+                    </div>
+                    <div class="col-lg-2 col-6 no-label">
+                        <!-- <label for="inputCity" class="form-label">Max</label> -->
+                        <input type="number" value="@ViewBag.MaxPriceSelected" name="maxPrice" class="form-control" placeholder="Max">
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <label for="minArea" class="form-label">Area (Sq Ft)</label>
+                        <input type="number" value="@ViewBag.MinAreaSelected" name="minArea" class="form-control" placeholder="Min">
+                    </div>
+                    <div class="col-lg-2 col-6 no-label">
+                        <!-- <label for="inputCity" class="form-label">Max</label> -->
+                        <input type="number" value="@ViewBag.MaxAreaSelected" name="maxArea" class="form-control" placeholder="Max">
+                    </div>
+                    <div class="col-lg-1 col-sm-12">
+                        <label for="minRoom" class="form-label">Min Room</label>
+                        <select name="minRoom" class="form-select">
+                            @Html.Raw(ViewBag.MinRoomSelected)
+                            <option value='0'>All</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option value='5'>5 və daha çox</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-1 col-sm-12">
+                        <label for="minBath" class="form-label">Min Bath</label>
+                        <select name="minBath" class="form-select">
+                            @Html.Raw(ViewBag.MinBathSelected)
+                            <option value='0'>All</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option value='4'>4 və daha çox</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="homes">
+    <div class="container">
+        <div class="title">
+            <h2>Announcements</h2>
+            <hr>
+        </div>
+        <div class="row">
+            @foreach (var home in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-12 single-home">
+                    <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">
+                        <img src="assets/img/@home.Images.FirstOrDefault().Path" alt="">
+                    </a>
+                    <div class="caption">
+                        <h4> <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">@home.Address</a><span class="like"><i class="far fa-heart"></i></span></h4>
+                        <span>
+                            $@home.Price <span>
+                                /
+                                @if (home.AnnounceType == "Rent")
+                                {
+                                    @home.Period
+                                }
+                                else if (home.AnnounceType == "Sale")
+                                {
+                                    @("sale")
+                                }
+                            </span>
+                        </span>
+                        <ul>
+                            <li><i class="fas fa-vector-square"></i><span>@home.Area sq ft</span></li>
+                            <li>
+                                <i class="fas fa-bath"></i> <span>
+                                    @if (home.BathCount > 0)
+                                    {
+                                        @home.BathCount
+                                    }
+                                    else
+                                    {
+                                        @(0)
+                                    }
+                                    bathrooms
+                                </span>
+                            </li>
+                        </ul>
+                        <ul class="second-ul">
+                            <li>
+                                <span>
+                                    <i class="fas fa-bed"></i>
+                                    @if (home.RoomCount > 0)
+                                    {
+                                        @home.RoomCount
+                                    }
+                                    else
+                                    {
+                                        @(0)
+                                    }
+                                    rooms
+                                </span>
+                            </li>
+                            <li>
+                                <span>
+                                    <i class="fas fa-car"></i>
+                                    @if (home.GarageCount > 0)
+                                    {
+                                        @home.GarageCount
+                                    }
+                                    else
+                                    {
+                                        @(0)
+                                    }
+                                    garages
+                                </span>
+                            </li>
+                        </ul>
+                        <p>
+                            @if (home.Description.Length > 100)
+                            {
+                                @home.Description.Substring(0, 100)
+                            }
+                            else
+                            {
+                                @home.Description
+                            }
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+

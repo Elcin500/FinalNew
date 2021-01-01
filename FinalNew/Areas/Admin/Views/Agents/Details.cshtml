@@ -1,0 +1,118 @@
+﻿@model FinalHomeSale.Models.Entity.Agent
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="content">
+    <ul class="breadcrumb">
+        <li>
+            <p>YOU ARE HERE</p>
+        </li>
+        <li><a asp-action="Index" class="active">Agents</a> </li>
+    </ul>
+    <div class="page-title">
+        <i class="icon-custom-left"></i>
+        <h3><a asp-action="Index">Agents</a> - <span class="semi-bold">Ətraflı Baxış</span></h3>
+    </div>
+    <div class="row" id="inbox-wrapper">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="grid simple">
+                        <div class="grid-body no-border email-body">
+                            <br>
+                            <dl class="row-fluid">
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Name)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Surname)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Surname)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Phone)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Phone)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Phone2)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Phone2)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Email)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Address)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Address)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Agency)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Agency)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Description)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.FacebookLink)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.FacebookLink)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.InstagramLink)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.InstagramLink)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.TwitterLink)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.TwitterLink)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.ImagePath)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ImagePath)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.CreatedDate)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.CreatedDate)
+                                </dd>
+                                <dd class="col-sm-10">
+                                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-warning">
+                                        <i class="fa fa-pencil"> </i>
+                                    </a>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

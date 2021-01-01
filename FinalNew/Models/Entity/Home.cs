@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -38,6 +39,12 @@ namespace FinalHomeSale.Models.Entity
         public virtual Category Category { get; set; }
 
         public ICollection<HomeImage> Images { get; set; }
+
+        [NotMapped]
+        public IFormFile[] file { get; set; }
+
+        [NotMapped]
+        public int fileSelectedIndex { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
 

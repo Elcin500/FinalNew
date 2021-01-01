@@ -10,6 +10,7 @@ namespace FinalHomeSale.Models.Entity
         public int Id { get; set; }
         public string Path { get; set; }
 
+        public bool? IsMain { get; set; }
 
         public int HomeId { get; set; }
         public virtual Home Home { get; set; }

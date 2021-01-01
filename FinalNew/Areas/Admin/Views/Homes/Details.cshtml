@@ -4,129 +4,155 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<div class="content">
+    <ul class="breadcrumb">
+        <li>
+            <p>YOU ARE HERE</p>
+        </li>
+        <li><a asp-action="Index" class="active">Homes</a> </li>
+    </ul>
+    <div class="page-title">
+        <i class="icon-custom-left"></i>
+        <h3><a asp-action="Index">Homes</a> - <span class="semi-bold">Ətraflı Baxış</span></h3>
+    </div>
+    <div class="row" id="inbox-wrapper">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="grid simple">
+                        <div class="grid-body no-border email-body">
+                            <br>
+                            <div>
+                                <h4>Home</h4>
+                                <hr />
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Address)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Address)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.AnnounceType)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.AnnounceType)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Period)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Period)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Price)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Price)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Area)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Area)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.LandArea)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.LandArea)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.RoomCount)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.RoomCount)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.BathCount)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.BathCount)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.GarageCount)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.GarageCount)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.SellerName)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.SellerName)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Phone)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Phone)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Comment)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Comment)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Description)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Description)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Map)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Map)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.City)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.City.Id)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Metro)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Metro.Id)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Agent)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Agent.Id)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Category)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Category.Id)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.CreatedDate)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.CreatedDate)
+                                    </dd>
+                                    <dd>
+                                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-warning">
+                                        <i class="fa fa-pencil"> </i>
+                                            </a> |
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div>
-    <h4>Home</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AnnounceType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AnnounceType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Period)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Period)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Area)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Area)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.LandArea)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LandArea)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.RoomCount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RoomCount)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BathCount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BathCount)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.GarageCount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.GarageCount)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SellerName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SellerName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Map)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Map)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.City.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Metro)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Metro.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Agent)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Agent.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Category.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-    </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FinalHomeSale.Models.DataContext;
 using FinalHomeSale.Models.Entity;
+using System.IO;
 
 namespace FinalNew.Areas.Admin.Controllers
 {
@@ -52,10 +53,10 @@ namespace FinalNew.Areas.Admin.Controllers
         // GET: Admin/Homes/Create
         public IActionResult Create()
         {
-            ViewData["AgentId"] = new SelectList(_context.Agents, "Id", "Id");
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Id");
-            ViewData["MetroId"] = new SelectList(_context.Metros, "Id", "Id");
+            ViewData["AgentId"] = new SelectList(_context.Agents, "Id", "Name");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name");
+            ViewData["MetroId"] = new SelectList(_context.Metros, "Id", "Name");
             return View();
         }
 
@@ -64,18 +65,42 @@ namespace FinalNew.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Address,AnnounceType,Period,Price,Area,LandArea,RoomCount,BathCount,GarageCount,SellerName,Phone,Comment,Description,Map,CityId,MetroId,AgentId,CategoryId,CreatedDate")] Home home)
+        public async Task<IActionResult> Create(Home home)
         {
+            home.Images = new List<HomeImage>();
+
+            for (int i = 0; i < home.file.Length; i++)
+            {
+                //tttt-tttt-ttttt.js
+                string ext = Path.GetExtension(home.file[i].FileName);
+                string purePath = $"home-{Guid.NewGuid()}{ext}";
+
+                string fileName = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", purePath);
+
+
+                using (var fs = new FileStream(fileName, FileMode.CreateNew, FileAccess.Write))
+                {
+                    home.file[i].CopyTo(fs);
+                }
+
+                home.Images.Add(new HomeImage
+                {
+                    Path = purePath,
+                    IsMain = i == home.fileSelectedIndex
+                });
+
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(home);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AgentId"] = new SelectList(_context.Agents, "Id", "Id", home.AgentId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", home.CategoryId);
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Id", home.CityId);
-            ViewData["MetroId"] = new SelectList(_context.Metros, "Id", "Id", home.MetroId);
+            ViewData["AgentId"] = new SelectList(_context.Agents, "Id", "Name", home.AgentId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", home.CategoryId);
+            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", home.CityId);
+            ViewData["MetroId"] = new SelectList(_context.Metros, "Id", "Name", home.MetroId);
             return View(home);
         }
 
@@ -92,10 +117,10 @@ namespace FinalNew.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["AgentId"] = new SelectList(_context.Agents, "Id", "Id", home.AgentId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", home.CategoryId);
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Id", home.CityId);
-            ViewData["MetroId"] = new SelectList(_context.Metros, "Id", "Id", home.MetroId);
+            ViewData["AgentId"] = new SelectList(_context.Agents, "Id", "Name", home.AgentId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", home.CategoryId);
+            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", home.CityId);
+            ViewData["MetroId"] = new SelectList(_context.Metros, "Id", "Name", home.MetroId);
             return View(home);
         }
 
@@ -104,7 +129,7 @@ namespace FinalNew.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Address,AnnounceType,Period,Price,Area,LandArea,RoomCount,BathCount,GarageCount,SellerName,Phone,Comment,Description,Map,CityId,MetroId,AgentId,CategoryId,CreatedDate")] Home home)
+        public async Task<IActionResult> Edit(int id, Home home)
         {
             if (id != home.Id)
             {
@@ -131,10 +156,10 @@ namespace FinalNew.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AgentId"] = new SelectList(_context.Agents, "Id", "Id", home.AgentId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", home.CategoryId);
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Id", home.CityId);
-            ViewData["MetroId"] = new SelectList(_context.Metros, "Id", "Id", home.MetroId);
+            ViewData["AgentId"] = new SelectList(_context.Agents, "Id", "Name", home.AgentId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", home.CategoryId);
+            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", home.CityId);
+            ViewData["MetroId"] = new SelectList(_context.Metros, "Id", "Name", home.MetroId);
             return View(home);
         }
 

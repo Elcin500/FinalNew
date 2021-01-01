@@ -69,6 +69,11 @@ namespace FinalNew.Areas.Admin.Controllers
         {
             home.Images = new List<HomeImage>();
 
+            if (home.file==null)
+            {
+                return View(home);
+            }
+
             for (int i = 0; i < home.file.Length; i++)
             {
                 //tttt-tttt-ttttt.js

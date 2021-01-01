@@ -29,12 +29,12 @@
             plusBtnClass: undefined
         });
 
-        console.log(options);
+        //console.log(options);
 
         $(that).each(function (index, element) {
 
             let guid = $.makeid(8);
-            console.log(guid);
+            //console.log(guid);
 
             let btnPlus = $(`<button class='img-plus' type='button'>${options.plusInnerHtml}</button>`)
                 .css({
@@ -72,15 +72,19 @@
 
                 let fileInput = $(`<input name='${elName}' type="file" accept="image/x-png,image/gif,image/jpeg"/>`);
 
+                let span = $(`<span id="deleteImg" onclick="deleteImg(event)"><i class="fas fa-trash-alt"></i></span>`);
+
                 let label = $(`<label for='${guid}-${ix}' class='img-thumb' style="background-image:url('/assets/img/img-rendering.gif')"></label>`)
                     .append(fileInput)
+                    .append(span)
                     .css({
                         width: options.tnWidth,
                         height: options.tnHeight
                     });
 
+
                 $(element).find('.viewer-thumbs').append(label);
-                console.log(label);
+                //console.log(label);
 
                 $(`<input value='${ix - 1}' name='${elName}SelectedIndex' id='${guid}-${ix}' type='radio' class="imager-rio">`)
                     .insertBefore(label);
@@ -117,3 +121,4 @@
 
 
 })(jQuery);
+

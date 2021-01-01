@@ -7,6 +7,13 @@
 @section style{ 
     <link href="~/assets/css/imager.css" rel="stylesheet" />
 
+    <style>
+        #deleteImg{
+            font-size:25px;
+            color:red;
+            position:absolute;
+        }
+    </style>
 }
 
 <div class="content">
@@ -27,7 +34,7 @@
                     <br>
                     <div class="row-fluid">
                         <div class="col-md-12">
-                            <form asp-action="Create" enctype="multipart/form-data" method="post" class="row">
+                            <form asp-action="Create" enctype="multipart/form-data" method="post"  class="row">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="col-sm-8">
                                     <div class="row">
@@ -126,7 +133,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
-                                    <input type="submit" value="Create" class="btn btn-default" />
+                                    <input type="submit" id="addHome" value="Create" class="btn btn-default" />
                                 </div>
                             </form>
                         </div>
@@ -135,20 +142,113 @@
             </div>
         </div>
     </div>
-
+    
 </div>
+
+
 
 
 @section scripts{
     <script src="~/assets/js/imager.js"></script>
-<script>
-    $('#viewer1').imgadd({
-        tnWidth: '120px',
-        tnHeight: '120px',
-        fontSize: '55px',
-        plusInnerHtml: '',
-        plusBtnClass: undefined
-    });
-</script>
+    <script>
+
+        $('#addHome').click(function (e) {
+
+            let labels = $('.viewer-thumbs label');
+
+            
+
+            if (labels.length ==1) {
+                if ($(labels).css('background-image') == "https://localhost:44309/assets/img/img-rendering.gif" ) {
+                    $(labels).remove();
+                    //console.log('1de');
+                }
+            }
+
+            if (labels.length > 1) {
+                for (var i = 0; i < labels.length; i++) {
+                    let element = labels[i];
+                    if ($(element).css('background-image') == "https://localhost:44309/assets/img/img-rendering.gif" || $(element).css('background-image') == "assets/img/img-rendering.gif") {
+                        element.remove();
+                        //console.log('2de')
+
+                    }
+                }
+
+            }
+
+            if (!$('.viewer-thumbs label').length > 0 || $('.viewer-thumbs label') == null) {
+                e.preventDefault();
+                alert("Sekil daxil edin");
+                return;
+            }
+
+            
+
+        });
+
+
+        function deleteImg(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+
+            let labelimg = $(e.currentTarget.parentElement).css('background-image');
+            let viewerimg = $('.viewer').css('background-image');
+            let labelsfirst = $('.viewer-thumbs label');
+
+            if (labelsfirst.length == 1) {
+                e.currentTarget.parentElement.remove();
+                $('.viewer').addClass('no-show');
+                $('.viewer').css('background-image', "none");
+                $('.viewer-thumbs input').remove();
+
+            }
+            else {
+                e.currentTarget.parentElement.remove();
+                //if (labelimg == viewerimg) {
+                //    $('.viewer').css('background-image', "none");
+                //}
+                let labelssecond = $('.viewer-thumbs label');
+
+
+                if (labelimg == viewerimg) {
+
+                    if (labelssecond.length == 0) {
+                        $('.viewer').addClass('no-show');
+                        $('.viewer').css('background-image', "none");
+
+                    }
+
+                    if (labelssecond.length == 1) {
+                        $(labelssecond).trigger('click');
+                        console.log('==1');
+                    }
+
+                    if (labelssecond.length > 1) {
+                        $(labelssecond[0]).trigger('click');
+                        console.log('>1');
+
+                    }
+                }
+            }
+
+
+
+
+        }
+
+        $('#viewer1').imgadd({
+            tnWidth: '120px',
+            tnHeight: '120px',
+            fontSize: '55px',
+            plusInnerHtml: '',
+            plusBtnClass: undefined
+        });
+
+
+
+
+    </script>
 
 }

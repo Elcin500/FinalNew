@@ -375,5 +375,4 @@ C:\Users\hp\Source\Repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.dll
 C:\Users\hp\Source\Repos\FinalNewHome\FinalNew\obj\Debug\net5.0\ref\FinalNew.dll
 C:\Users\hp\Source\Repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.pdb
 C:\Users\hp\Source\Repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.genruntimeconfig.cache
-C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.csprojAssemblyReference.cache
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\bin\Debug\net5.0\libman.json

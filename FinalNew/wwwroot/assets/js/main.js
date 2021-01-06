@@ -541,6 +541,25 @@ $('.single-photo-fullscreen-carousel').owlCarousel({
     
   //});
 
+$('#openSearch').click(function (e) {
+    e.preventDefault();
+    if ($('.search form').css('height') == '0px' || $('.search form').css('height') == 0) {
+        $('.search form').css({
+            'transform': 'unset',
+            'height': 'unset'
+        });
+    }
+    else {
+        $('.search form').css({
+            'transform': 'scaleY(0)',
+            'height': '0px'
+        });
+    }
+
+});
+
+
+
 toastr.options = {
     "closeButton": false,
     "debug": false,

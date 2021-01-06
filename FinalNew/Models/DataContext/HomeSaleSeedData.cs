@@ -1,4 +1,4 @@
-﻿using FinalHomeSale.Models.Entity;
+﻿using FinalNew.Models.Entity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinalHomeSale.Models.DataContext
+namespace FinalNew.Models.DataContext
 {
     static public class HomeSaleSeedData
     {
@@ -16,19 +16,139 @@ namespace FinalHomeSale.Models.DataContext
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<HomeSaleDbContext>();
-                db.Database.Migrate(); //update-database
+                //db.Database.Migrate(); //update-database
 
 
-                InitCities(db);
-                InitMetros(db);
-                InitCategories(db);
+                //InitCities(db);
+                //InitMetros(db);
+                //InitCategories(db);
                 InitAgents(db);
                 InitHomes(db);
-                InitAppInfos(db);
+                //InitAppInfos(db);
+                InitNMRDistricts(db);
+                InitBakuDistricts(db);
+
 
             }
 
             return app;
+        }
+
+        private static void InitBakuDistricts(HomeSaleDbContext db)
+        {
+            if (!db.BakuDistricts.Any())
+            {
+                db.AddRange(
+                     new BakuDistrict
+                     {
+                         Name = "Qaradağ",
+                         CityId = 1
+                     },
+                     new BakuDistrict
+                     {
+                         Name = "Binəqədi",
+                         CityId = 1
+                     },
+                     new BakuDistrict
+                     {
+                         Name = "Nizami",
+                         CityId = 1
+                     },
+                     new BakuDistrict
+                     {
+                         Name = "Nərimanov",
+                         CityId = 1
+                     },
+                     new BakuDistrict
+                     {
+                         Name = "Nəsimi",
+                         CityId = 1
+                     },
+                     new BakuDistrict
+                     {
+                         Name = "Pirallahı",
+                         CityId = 1
+                     },
+                     new BakuDistrict
+                     {
+                         Name = "Sabunçu",
+                         CityId = 1
+                     },
+                     new BakuDistrict
+                     {
+                         Name = "Səbail",
+                         CityId = 1
+                     },
+                     new BakuDistrict
+                     {
+                         Name = "Suraxanı",
+                         CityId = 1
+                     },
+                     new BakuDistrict
+                     {
+                         Name = "Xətai",
+                         CityId = 1
+                     },
+                     new BakuDistrict
+                     {
+                         Name = "Xəzər",
+                         CityId = 1
+                     },
+                     new BakuDistrict
+                     {
+                         Name = "Yasamal",
+                         CityId = 1
+                     }
+                    );
+                db.SaveChanges();
+            }
+        }
+
+        private static void InitNMRDistricts(HomeSaleDbContext db)
+        {
+
+            if (!db.NMRDistricts.Any())
+            {
+                db.AddRange(
+                     new NMRDistrict
+                     {
+                         Name = "Babək",
+                         CityId = 6
+                     },
+                     new NMRDistrict
+                     {
+                         Name = "Şərur",
+                         CityId = 6
+                     },
+                     new NMRDistrict
+                     {
+                         Name = "Culfa",
+                         CityId = 6
+                     },
+                     new NMRDistrict
+                     {
+                         Name = "Kəngərli",
+                         CityId = 6
+                     },
+                     new NMRDistrict
+                     {
+                         Name = "Ordubad",
+                         CityId = 6
+                     },
+                     new NMRDistrict
+                     {
+                         Name = "Sədərək",
+                         CityId = 6
+                     },
+                     new NMRDistrict
+                     {
+                         Name = "Şahbuz",
+                         CityId = 6
+                     }
+                    );
+
+                db.SaveChanges();
+            }
         }
 
         private static void InitAppInfos(HomeSaleDbContext db)
@@ -173,23 +293,24 @@ namespace FinalHomeSale.Models.DataContext
                 FacebookLink="facebook.com",
                 InstagramLink="instagram.com",
                 TwitterLink="twitter.com",
-                ImagePath="agent-detail-img.jpg"
+                ImagePath="agent-detail-img.jpg",
+                OwnerId=8
                 });
 
 
-                db.Agents.Add(new Agent
-                {
-                    Name = "Leyla",
-                    Surname = "Əliyeva",
-                    Phone = "060-555-55-54",
-                    Email = "leyla@mail.ru",
-                    Address = "Baku",
-                    Description = "Hər cür evlərin təşkil olunması qısa zamanda.",
-                    FacebookLink = "facebook.com",
-                    InstagramLink = "instagram.com",
-                    TwitterLink = "twitter.com",
-                    ImagePath = "agent-detail-img.jpg"
-                });
+                //db.Agents.Add(new Agent
+                //{
+                //    Name = "Leyla",
+                //    Surname = "Əliyeva",
+                //    Phone = "060-555-55-54",
+                //    Email = "leyla@mail.ru",
+                //    Address = "Baku",
+                //    Description = "Hər cür evlərin təşkil olunması qısa zamanda.",
+                //    FacebookLink = "facebook.com",
+                //    InstagramLink = "instagram.com",
+                //    TwitterLink = "twitter.com",
+                //    ImagePath = "agent-detail-img.jpg"
+                //});
 
                 db.SaveChanges();
             }
@@ -266,6 +387,7 @@ namespace FinalHomeSale.Models.DataContext
                    CategoryId=1,
                    CityId=1,
                    MetroId=1,
+                   OwnerId=3,
                    Images = new[]
                     {
                         new HomeImage
@@ -285,7 +407,6 @@ namespace FinalHomeSale.Models.DataContext
                     }
                 });
 
-
                 db.Homes.Add(new Home
                 {
                     Address = "Eliyev 5",
@@ -294,12 +415,12 @@ namespace FinalHomeSale.Models.DataContext
                     Area = "80",
                     RoomCount = 3,
                     BathCount = 1,
-                    AgentId=1,
                     Phone = "055-799-76-35",
                     Description = "Çox az müddət yaşayış olub. Heç bir xərc tələb etmir",
                     CategoryId = 1,
                     CityId=1,
                     MetroId=2,
+                    OwnerId = 6,
                     Images = new[]
                    {
                         new HomeImage
@@ -319,7 +440,6 @@ namespace FinalHomeSale.Models.DataContext
                     }
                 });
 
-
                 db.Homes.Add(new Home
                 {
                     Address = "Zaur Serifov 5",
@@ -329,12 +449,13 @@ namespace FinalHomeSale.Models.DataContext
                     Area = "150",
                     RoomCount = 5,
                     BathCount = 2,
-                    AgentId = 2,
+                    AgentId = 7,
                     Phone = "055-620-99-99",
                     Description = "Çox az müddət yaşayış olub. Heç bir xərc tələb etmir",
                     CategoryId = 1,
                     CityId = 1,
                     MetroId = 3,
+                    OwnerId = 8,
                     Images = new[]
                    {
                         new HomeImage

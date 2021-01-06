@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "AddRole";
+}
+
+
+<div class="content">
+    <ul class="breadcrumb">
+        <li>
+            <p>YOU ARE HERE</p>
+        </li>
+        <li><a href="#" class="active">Rollar</a> </li>
+    </ul>
+    <div class="page-title">
+        <i class="icon-custom-left"></i>
+        <h3><a asp-action="Roles">Rollar</a> - <span class="semi-bold">Role yarat</span></h3>
+    </div>
+    <div class="row" id="inbox-wrapper">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="grid simple">
+                        <div class="grid-body no-border email-body">
+                            <br>
+                            <div class="row-fluid">
+                                <div class="col-6">
+                                    <form asp-action="AddRole" method="post">
+                                        <div class="form-group">
+                                            <label for="name" class="control-label">Name</label>
+                                            <input name="name" class="form-control" />
+                                            <span class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" value="Create" class="btn btn-default" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

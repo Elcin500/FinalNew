@@ -1,21 +1,38 @@
-﻿using FinalHomeSale.Models.DataContext;
-using FinalHomeSale.Models.Entity;
-using FinalHomeSale.Models.ViewModels;
+﻿using FinalNew.Models.DataContext;
+using FinalNew.Models.Entity;
+using FinalNew.Models.Entity.Membership;
+using FinalNew.Models.FormModel;
+using FinalNew.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
-namespace FinalHomeSale.Controllers
+namespace FinalNew.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
+
+        readonly SignInManager<AppUser> signInManager;
+        readonly UserManager<AppUser> userManager;
+
+        readonly RoleManager<AppRole> roleManagar;
         readonly HomeSaleDbContext db;
 
-        public HomeController(HomeSaleDbContext db)
+        public HomeController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<AppRole> roleManagar, HomeSaleDbContext db)
         {
+            this.signInManager = signInManager;
+            this.userManager = userManager;
+
+            this.roleManagar = roleManagar;
+
             this.db = db;
         }
 
@@ -70,6 +87,135 @@ namespace FinalHomeSale.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(string userName,string password)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            var user = await userManager.FindByNameAsync(userName);
+
+
+            if (user == null)
+            {
+                TempData["message"] = "İstifadəçi adı və ya şifrə səhvdir";
+                return View();
+            }
+
+            //var role =await db.UserRoles.FirstOrDefaultAsync(c => c.UserId == user.Id);
+
+            var clients = await userManager.GetUsersInRoleAsync("Client");
+
+            var agents= await userManager.GetUsersInRoleAsync("Agent");
+
+            if (clients.Contains(user) || agents.Contains(user))
+            {
+
+                string redirectLink = Request.Query["ReturnUrl"];
+
+                if (!string.IsNullOrWhiteSpace(redirectLink))
+                {
+                    return Redirect(redirectLink);
+                }
+
+                var signInResult = await signInManager.PasswordSignInAsync(user, password, true, true);
+
+                if (!signInResult.Succeeded)
+                {
+                    TempData["message"] = "İstifadəçi adı və ya şifrə səhvdir";
+                    return View();
+                }
+
+
+                return RedirectToAction("MyAnnounces", "Client");
+            }
+
+
+            TempData["message"] = "İstifadəçi adı və ya şifrə səhvdir";
+            return View();
+
+
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegistrClient(string usernameRegistr, string emailRegistr, string passwordRegistr)
+        {
+            if (ModelState.IsValid)
+            {
+                if (db.Users.Any(a=>a.NormalizedUserName==usernameRegistr.ToUpper()))
+                {
+                    TempData["message"] = $"{usernameRegistr} istifadəçi adı artıq mövcuddur. Zəhmət olmasa fərqli bir ad yazın";
+                    return RedirectToAction(nameof(Login));
+                }
+                if (db.Users.Any(a => a.NormalizedEmail == emailRegistr.ToUpper()))
+                {
+                    TempData["message"] = $"{emailRegistr}Bu E-mail artıq mövcuddur. Zəhmət olmasa fərqli bir email yazın";
+                    return RedirectToAction(nameof(Login));
+                }
+
+                var user = new AppUser
+                {
+                    UserName = usernameRegistr,
+                    Email = emailRegistr
+                };
+
+                string role = "Client";
+
+                if (userManager.CreateAsync(user, passwordRegistr).Result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, role).Wait();
+                }
+
+                ///////////////////////////////////////////////////////////
+                var userNew = await userManager.FindByNameAsync(usernameRegistr);
+
+
+                if (userNew == null)
+                {
+                    TempData["message"] = "İstifadəçi adı və ya şifrə səhvdir";
+                    return RedirectToAction(nameof(Login));
+                }
+
+                //var roleNew =await db.UserRoles.FirstOrDefaultAsync(c => c.UserId == userNew.Id);
+
+                var clients = await userManager.GetUsersInRoleAsync("Client");
+
+
+                if (clients.Contains(userNew))
+                {
+
+                    string redirectLink = Request.Query["ReturnUrl"];
+
+                    if (!string.IsNullOrWhiteSpace(redirectLink))
+                    {
+                        return Redirect(redirectLink);
+                    }
+
+                    var signInResult = await signInManager.PasswordSignInAsync(userNew, passwordRegistr, true, true);
+
+                    if (!signInResult.Succeeded)
+                    {
+                        TempData["message"] = "İstifadəçi adı və ya şifrə səhvdir";
+                        return RedirectToAction(nameof(Login));
+                    }
+                    return RedirectToAction("AddAnnounce", "client");
+
+                }
+
+                return RedirectToAction(nameof(Login));
+
+                //return RedirectToAction(nameof(Index));
+
+            }
+            return RedirectToAction(nameof(Login));
+        }
+
+
+
         public IActionResult Favorites()
         {
             if (Request.Cookies["card-items"]!=null)
@@ -97,5 +243,12 @@ namespace FinalHomeSale.Controllers
             return View();
 
         }
+
+
+        public IActionResult AccesAccesDenied()
+        {
+            return NotFound();
+        }
+
     }
 }

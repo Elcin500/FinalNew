@@ -32,7 +32,7 @@
                     <div class="agent">
                         <div class="media-top">
                             <div class="media-img">
-                                <a asp-controller="agent" asp-action="details" asp-route-id="@agent.Id"><img src="assets/img/@agent.ImagePath" alt="" width="100" height="100"></a>
+                                <a asp-controller="agent" asp-action="details" asp-route-id="@agent.Id"><img src="uploads/@agent.ImagePath" alt="" width="100" height="100"></a>
                             </div>
                             <div class="media-body">
                                 <a asp-controller="agent" asp-action="details" asp-route-id="@agent.Id"><h4>@agent.Name @agent.Surname</h4></a>

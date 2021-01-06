@@ -1,10 +1,10 @@
-﻿using FinalHomeSale.Models.Entity;
+﻿using FinalNew.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinalHomeSale.Models.ViewModels
+namespace FinalNew.Models.ViewModels
 {
     public class AgentViewModel
     {

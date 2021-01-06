@@ -1,18 +1,27 @@
-﻿using FinalHomeSale.Models.Entity;
+﻿using FinalNew.Models.Entity;
+using FinalNew.Models.Entity.Membership;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace FinalHomeSale.Models.DataContext
+namespace FinalNew.Models.DataContext
 {
-    public class HomeSaleDbContext : DbContext
+    public class HomeSaleDbContext : IdentityDbContext<AppUser, AppRole, int, AppUserClaim, AppUserRole, AppUserLogin, AppRoleClaim, AppUserToken>
     {
         public HomeSaleDbContext(DbContextOptions options)
          : base(options)
         {
         }
+
+
+        #region Membership
+        public DbSet<AppUser> Users { get; set; }
+        public DbSet<AppRole> Roles { get; set; }
+        public DbSet<AppUserClaim> UserClaims { get; set; }
+        public DbSet<AppUserRole> UserRoles { get; set; }
+        public DbSet<AppUserLogin> UserLogins { get; set; }
+        public DbSet<AppRoleClaim> RoleClaims { get; set; }
+        public DbSet<AppUserToken> UserTokens { get; set; }
+        #endregion
 
         public DbSet<Home> Homes { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -22,6 +31,8 @@ namespace FinalHomeSale.Models.DataContext
         public DbSet<Metro> Metros { get; set; }
         public DbSet<AppInfo> AppInfos { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<NMRDistrict> NMRDistricts { get; set; }
+        public DbSet<BakuDistrict> BakuDistricts { get; set; }
 
 
 

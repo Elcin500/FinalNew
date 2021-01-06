@@ -1,0 +1,128 @@
+﻿@model FinalNew.Models.Entity.AppInfo
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class="content">
+    <ul class="breadcrumb">
+        <li>
+            <p>YOU ARE HERE</p>
+        </li>
+        <li><a asp-action="Index" class="active">AppInfo</a> </li>
+    </ul>
+    <div class="page-title">
+        <i class="icon-custom-left"></i>
+        <h3><a asp-action="Index">AppInfo</a> - <span class="semi-bold">Düzəliş et</span></h3>
+    </div>
+    <div class="row" id="inbox-wrapper">
+        <div class="col-md-12">
+            <div class="grid simple">
+                <div class="grid-body no-border email-body">
+                    <br>
+                    <div class="row-fluid">
+                        <div class="col-md-12">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <div class="form-group">
+                                    <label asp-for="AppTitle" class="control-label"></label>
+                                    <input asp-for="AppTitle" class="form-control" />
+                                    <span asp-validation-for="AppTitle" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="LogoPath" class="control-label"></label>
+                                    <input asp-for="LogoPath" class="form-control" />
+                                    <span asp-validation-for="LogoPath" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="FooterLogoPath" class="control-label"></label>
+                                    <input asp-for="FooterLogoPath" class="form-control" />
+                                    <span asp-validation-for="FooterLogoPath" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Description" class="control-label"></label>
+                                    <input asp-for="Description" class="form-control" />
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Address" class="control-label"></label>
+                                    <input asp-for="Address" class="form-control" />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Phone" class="control-label"></label>
+                                    <input asp-for="Phone" class="form-control" />
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Phone2" class="control-label"></label>
+                                    <input asp-for="Phone2" class="form-control" />
+                                    <span asp-validation-for="Phone2" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="WorkOurs" class="control-label"></label>
+                                    <input asp-for="WorkOurs" class="form-control" />
+                                    <span asp-validation-for="WorkOurs" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Email" class="control-label"></label>
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="FacebookLink" class="control-label"></label>
+                                    <input asp-for="FacebookLink" class="form-control" />
+                                    <span asp-validation-for="FacebookLink" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="InstagramLink" class="control-label"></label>
+                                    <input asp-for="InstagramLink" class="form-control" />
+                                    <span asp-validation-for="InstagramLink" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="TwitterLink" class="control-label"></label>
+                                    <input asp-for="TwitterLink" class="form-control" />
+                                    <span asp-validation-for="TwitterLink" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="HomePhoto1" class="control-label"></label>
+                                    <input asp-for="HomePhoto1" class="form-control" />
+                                    <span asp-validation-for="HomePhoto1" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="HomePhoto2" class="control-label"></label>
+                                    <input asp-for="HomePhoto2" class="form-control" />
+                                    <span asp-validation-for="HomePhoto2" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="HomePhoto3" class="control-label"></label>
+                                    <input asp-for="HomePhoto3" class="form-control" />
+                                    <span asp-validation-for="HomePhoto3" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="AnnounceAdvantages" class="control-label"></label>
+                                    <input asp-for="AnnounceAdvantages" class="form-control" />
+                                    <span asp-validation-for="AnnounceAdvantages" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="AgentAdvantages" class="control-label"></label>
+                                    <input asp-for="AgentAdvantages" class="form-control" />
+                                    <span asp-validation-for="AgentAdvantages" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Save" class="btn btn-default" />
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace FinalHomeSale.Migrations
+namespace FinalNew.Migrations
 {
     public partial class isMainForHomeImage : Migration
     {

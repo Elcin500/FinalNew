@@ -1,0 +1,124 @@
+﻿@model IEnumerable<AppUser>
+@inject HomeSaleDbContext db
+@{
+    ViewData["Title"] = "Agents";
+}
+
+
+
+
+<div class="content">
+    <ul class="breadcrumb">
+        <li>
+            <p>YOU ARE HERE</p>
+        </li>
+        <li><a href="#" class="active">Rollar</a> </li>
+    </ul>
+    <div class="page-title">
+        <i class="icon-custom-left"></i>
+        <h3><a asp-action="Roles">Rollar</a> - <span class="semi-bold">Əsas səhifə</span></h3>
+    </div>
+    <div class="row" id="inbox-wrapper">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="grid simple">
+                        <div class="grid-body no-border email-body">
+                            <br>
+                            <div class="row-fluid">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.UserName)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Email)
+                                            </th>
+                                            <th>
+                                                Role
+                                            </th>
+                                            <th>
+                                                @*<a asp-action="AddUser" class="btn btn-sm btn-success"><i class="fa fa-plus"> </i></a>*@
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.UserName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Email)
+                                                </td>
+                                                <td>
+                                                    Client
+                                                </td>
+                                                <td>
+                                                    <a onclick="postRemove(@item.Id, `@item.UserName`)" class="btn btn-sm btn-danger">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts{
+
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+
+    <script>
+        function postRemove(_id,name) {
+            swal({
+                title: "Are you sure?",
+                text:  `"${name}" bazadan silinecek! Razisinizmi?`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        $.ajax({
+                            url: `@Url.Action("DeleteClient")`,
+                            type: "post",
+                            data: { id: _id },
+                            success: function (response) {
+
+                                swal("Məlumat Silindi!", {
+                                    icon: "success",
+                                });
+                                window.location.reload();
+                            },
+                            error: function (response) {
+                                alert("Xeta bas verdi");
+                                console.log(response.error);
+                            }
+                        })
+
+                    }
+                    else {
+                        swal("Məlumat silinmədi!");
+                    }
+                });
+        }
+    </script>
+
+}
+

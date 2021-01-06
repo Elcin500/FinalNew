@@ -1,4 +1,4 @@
-﻿
+﻿@model ICollection<Home>
 @{
     ViewData["Title"] = "MyAnnounces";
 }
@@ -25,146 +25,142 @@
             <hr>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-12 single-home">
-                <a href="homeDetails.html">
-                    <img src="assets/img/home-1.jpg" alt="">
-                </a>
-                <div class="caption">
-                    <h4> <a href="homeDetails.html">Building: 123 on the Park</a></h4>
-                    <span>$4399.00 <span>/ month</span></span>
-
-                    <ul>
-                        <li><i class="fas fa-vector-square"></i><span>1200 sq ft</span></li>
-                        <li><i class="fas fa-bath"></i> <span>2 bathrooms</span> </li>
-                    </ul>
-                    <ul class="second-ul">
-                        <li><span><i class="fas fa-bed"></i> 4 bedrooms</span></li>
-                        <li><span><i class="fas fa-car"></i>2 garages</span></li>
-                    </ul>
-                    <p>
-                        Introducing Brooklyn's most unique and genteel address: 123 on the Park. A stately,
-                        one-of-a-kind rental residence directly overlooking Brooklyn's famed Prospect Park.
-                    </p>
-                    <a class="edit" href="#">Edit</a>
-                    <a class="delete" href="#">Delete</a>
-
+            @foreach (var home in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-12 single-home">
+                    <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">
+                        <img src="uploads/@home.Images.FirstOrDefault().Path" alt="">
+                    </a>
+                    <div class="caption">
+                        <h4>
+                            <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">@home.Address</a>
+                        </h4>
+                        <span>
+                            $@home.Price <span>
+                                /
+                                @if (home.AnnounceType == "Rent")
+                                {
+                                    @home.Period
+                                }
+                                else if (home.AnnounceType == "Sale")
+                                {
+                                    @("sale")
+                                }
+                            </span>
+                        </span>
+                        <ul>
+                            <li>
+                                <i class="fas fa-vector-square"></i><span>
+                                    @if (!string.IsNullOrWhiteSpace(home.Area))
+                                    {
+                                        @home.Area
+                                    } sq ft
+                                </span>
+                            </li>
+                            <li>
+                                <i class="fas fa-bath"></i> <span>
+                                    @if (home.BathCount > 0)
+                                    {
+                                        @home.BathCount
+                                    }
+                                    else
+                                    {
+                                        @(0)
+                                    }
+                                    bathrooms
+                                </span>
+                            </li>
+                        </ul>
+                        <ul class="second-ul">
+                            <li>
+                                <span>
+                                    <i class="fas fa-bed"></i>
+                                    @if (home.RoomCount > 0)
+                                    {
+                                        @home.RoomCount
+                                    }
+                                    else
+                                    {
+                                        @(0)
+                                    }
+                                    rooms
+                                </span>
+                            </li>
+                            <li>
+                                <span>
+                                    <i class="fas fa-car"></i>
+                                    @if (home.GarageCount > 0)
+                                    {
+                                        @home.GarageCount
+                                    }
+                                    else
+                                    {
+                                        @(0)
+                                    }
+                                    garages
+                                </span>
+                            </li>
+                        </ul>
+                        <p>
+                            @if (home.Description.Length > 100)
+                            {
+                                @home.Description.Substring(0, 100)@("...")
+                            }
+                            else
+                            {
+                                @home.Description
+                            }
+                        </p>
+                        <a class="edit" asp-action="EditAnnounce" asp-route-id="@home.Id">Edit</a>
+                        <a class="delete" style="cursor:pointer;" onclick="postRemove(@home.Id, `@home.Address`)">Delete</a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-12 single-home">
-                <a href="#">
-                    <img src="assets/img/home-2.jpg" alt="">
-                </a>
-                <div class="caption">
-                    <h4> <a href="#">2266 48th Ave</a></h4>
-                    <span>$1,339.00 <span>/ month</span></span>
-                    <ul>
-                        <li><i class="fas fa-vector-square"></i><span>1200 sq ft</span></li>
-                        <li><i class="fas fa-bath"></i> <span>2 bathrooms</span> </li>
-                    </ul>
-                    <ul class="second-ul">
-                        <li><span><i class="fas fa-bed"></i> 4 bedrooms</span></li>
-                        <li><span><i class="fas fa-car"></i>2 garages</span></li>
-                    </ul>
-                    <p>
-                        Classic architectural detail, truly superb floor plan & strong upside potential for the
-                        next steward to restore this forever home to greatness.
-                    </p>
-                    <a class="edit" href="#">Edit</a>
-                    <a class="delete" href="#">Delete</a>
-
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-12 single-home">
-                <a href="#">
-                    <img src="assets/img/home-3.jpg" alt="">
-                </a>
-                <div class="caption">
-                    <h4> <a href="#">225 Maywood Dr, San Francisco, CA 94127</a></h4>
-                    <span>$2,229.00<span>/ month</span></span>
-                    <ul>
-                        <li><i class="fas fa-vector-square"></i><span>1200 sq ft</span></li>
-                        <li><i class="fas fa-bath"></i> <span>2 bathrooms</span> </li>
-                    </ul>
-                    <ul class="second-ul">
-                        <li><span><i class="fas fa-bed"></i> 4 bedrooms</span></li>
-                        <li><span><i class="fas fa-car"></i>2 garages</span></li>
-                    </ul>
-                    <p>One of the original homes built at Ocean Beach.</p>
-                    <a class="edit" href="#">Edit</a>
-                    <a class="delete" href="#">Delete</a>
-
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-12 single-home">
-                <a href="#">
-                    <img src="assets/img/home-1.jpg" alt="">
-                </a>
-                <div class="caption">
-                    <h4> <a href="#">Building: 123 on the Park</a></h4>
-                    <span>$4399.00 <span>/ month</span></span>
-                    <ul>
-                        <li><i class="fas fa-vector-square"></i><span>1200 sq ft</span></li>
-                        <li><i class="fas fa-bath"></i> <span>2 bathrooms</span> </li>
-                    </ul>
-                    <ul class="second-ul">
-                        <li><span><i class="fas fa-bed"></i> 4 bedrooms</span></li>
-                        <li><span><i class="fas fa-car"></i>2 garages</span></li>
-                    </ul>
-                    <p>
-                        Introducing Brooklyn's most unique and genteel address: 123 on the Park. A stately,
-                        one-of-a-kind rental residence directly overlooking Brooklyn's famed Prospect Park.
-                    </p>
-                    <a class="edit" href="#">Edit</a>
-                    <a class="delete" href="#">Delete</a>
-
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-12 single-home">
-                <a href="#">
-                    <img src="assets/img/home-2.jpg" alt="">
-                </a>
-                <div class="caption">
-                    <h4> <a href="#">2266 48th Ave</a></h4>
-                    <span>$1,339.00 <span>/ month</span></span>
-                    <ul>
-                        <li><i class="fas fa-vector-square"></i><span>1200 sq ft</span></li>
-                        <li><i class="fas fa-bath"></i> <span>2 bathrooms</span> </li>
-                    </ul>
-                    <ul class="second-ul">
-                        <li><span><i class="fas fa-bed"></i> 4 bedrooms</span></li>
-                        <li><span><i class="fas fa-car"></i>2 garages</span></li>
-                    </ul>
-                    <p>
-                        Classic architectural detail, truly superb floor plan & strong upside potential for the
-                        next steward to restore this forever home to greatness.
-                    </p>
-                    <a class="edit" href="#">Edit</a>
-                    <a class="delete" href="#">Delete</a>
-
-
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-12 single-home">
-                <a href="#">
-                    <img src="assets/img/home-3.jpg" alt="">
-                </a>
-                <div class="caption">
-                    <h4> <a href="#">225 Maywood Dr, San Francisco, CA 94127</a></h4>
-                    <span>$2,229.00<span>/ month</span></span>
-                    <ul>
-                        <li><i class="fas fa-vector-square"></i><span>1200 sq ft</span></li>
-                        <li><i class="fas fa-bath"></i> <span>2 bathrooms</span> </li>
-                    </ul>
-                    <ul class="second-ul">
-                        <li><span><i class="fas fa-bed"></i> 4 bedrooms</span></li>
-                        <li><span><i class="fas fa-car"></i>2 garages</span></li>
-                    </ul>
-                    <p>One of the original homes built at Ocean Beach.</p>
-                    <a class="edit" href="#">Edit</a>
-                    <a class="delete" href="#">Delete</a>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>
 
+
+
+@section scripts{
+
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+
+    <script>
+        function postRemove(_id,name) {
+            swal({
+                title: "Sorğu",
+                text:  `"${name}" bazadan silinecek! Razisinizmi?`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        $.ajax({
+                            url: `@Url.Action("DeleteAnnounce")`,
+                            type: "post",
+                            data: { id: _id },
+                            success: function (response) {
+
+                                swal("Elan Silindi!", {
+                                    icon: "success",
+                                });
+                                window.location.reload();
+                            },
+                            error: function (response) {
+                                alert("Xeta bas verdi");
+                                console.log(response.error);
+                            }
+                        })
+
+                    }
+                    else {
+                        swal("Məlumat silinmədi!");
+                    }
+                });
+        }
+    </script>
+
+}

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace FinalHomeSale.Migrations
+namespace FinalNew.Migrations
 {
     public partial class First : Migration
     {

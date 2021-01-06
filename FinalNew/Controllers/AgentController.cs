@@ -1,6 +1,7 @@
-﻿using FinalHomeSale.Models.DataContext;
-using FinalHomeSale.Models.Entity;
-using FinalHomeSale.Models.ViewModels;
+﻿using FinalNew.Models.DataContext;
+using FinalNew.Models.Entity;
+using FinalNew.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinalHomeSale.Controllers
+namespace FinalNew.Controllers
 {
+    [AllowAnonymous]
     public class AgentController : Controller
     {
         readonly HomeSaleDbContext db;
@@ -197,7 +199,6 @@ namespace FinalHomeSale.Controllers
 
             return View(model);
         }
-
         //[HttpGet]
         //public IActionResult Search(string announceType, int categoryId, int cityId, int metroId,
         // int minPrice, int maxPrice, int minArea, int maxArea, int minRoom, int minBath,int agentId)

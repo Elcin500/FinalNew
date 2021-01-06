@@ -1,10 +1,28 @@
-﻿@model FinalHomeSale.Models.Entity.Home
+﻿@model FinalNew.Models.Entity.Home
 
 @{
     ViewData["Title"] = "Edit";
+    var number = -1;
+
+    var forId = 0;
+    var guid = Guid.NewGuid();
 }
 
 
+@section style{
+    <link href="~/assets/css/imager.css" rel="stylesheet" />
+
+    <style>
+        #deleteImg {
+            font-size: 25px;
+            color: red;
+            position: absolute;
+        }
+        .none {
+            display: none;
+        }
+    </style>
+}
 
 
 <div class="content">
@@ -20,112 +38,158 @@
     </div>
     <div class="row" id="inbox-wrapper">
         <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="grid simple">
-                        <div class="grid-body no-border email-body">
-                            <br>
-                            <div class="row-fluid">
-                                <div class="col-md-4">
-                                    <form asp-action="Edit">
-                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                        <input type="hidden" asp-for="Id" />
-                                        <div class="form-group">
+
+            <div class="grid simple">
+                <div class="grid-body no-border email-body">
+                    <br>
+                    <div class="row-fluid">
+                        <div class="col-md-12">
+                            <form asp-action="Edit" class="row" enctype="multipart/form-data" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <input type="hidden" asp-for="OwnerId" />
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="form-group col-lg-6">
                                             <label asp-for="Address" class="control-label"></label>
                                             <input asp-for="Address" class="form-control" />
                                             <span asp-validation-for="Address" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
-                                            <label asp-for="AnnounceType" class="control-label"></label>
-                                            <input asp-for="AnnounceType" class="form-control" />
+                                        <div class="form-group col-lg-6">
+                                            <label asp-for="AnnounceType" class="control-label">Announce Type</label>
+                                            <select asp-for="AnnounceType" class="form-control">
+                                                <option>Sale</option>
+                                                <option>Rent</option>
+                                            </select>
                                             <span asp-validation-for="AnnounceType" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-6">
                                             <label asp-for="Period" class="control-label"></label>
-                                            <input asp-for="Period" class="form-control" />
+                                            <select asp-for="Period" class="form-control">
+                                                <option selected>All</option>
+                                                <option>Month</option>
+                                                <option>Day</option>
+                                            </select>
                                             <span asp-validation-for="Period" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-6">
+                                            <label asp-for="CategoryId" class="control-label">Category</label>
+                                            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label asp-for="CityId" class="control-label">City</label>
+                                            <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId">
+                                                <option value="0" selected>All</option>
+                                            </select>
+                                            <span asp-validation-for="CityId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-lg-6 none BakuDistrict">
+                                            <label asp-for="BakuDistrictId" class="control-label">Baku District</label>
+                                            <select asp-for="BakuDistrictId" class="form-control" asp-items="ViewBag.BakuDistrictId">
+                                                <option value="0" selected>All</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-lg-6 none NMRDistrict">
+                                            <label asp-for="NMRDistrictId" class="control-label">Naxcivan District</label>
+                                            <select asp-for="NMRDistrictId" class="form-control" asp-items="ViewBag.NMRDistrictId">
+                                                <option value="0" selected>All</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label asp-for="MetroId" class="control-label">Metro</label>
+                                            <select asp-for="MetroId" class="form-control" asp-items="ViewBag.MetroId">
+                                                <option value="0" selected>All</option>
+                                            </select>
+                                            <span asp-validation-for="MetroId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-lg-6 ">
+                                            <label asp-for="AgentId" class="control-label">Agnet</label>
+                                            <select asp-for="AgentId" class="form-control" asp-items="ViewBag.AgentId">
+                                                <option value="0" selected>All</option>
+                                            </select>
+                                            <span asp-validation-for="AgentId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-lg-6">
                                             <label asp-for="Price" class="control-label"></label>
                                             <input asp-for="Price" class="form-control" />
                                             <span asp-validation-for="Price" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-6">
                                             <label asp-for="Area" class="control-label"></label>
                                             <input asp-for="Area" class="form-control" />
                                             <span asp-validation-for="Area" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-6">
                                             <label asp-for="LandArea" class="control-label"></label>
                                             <input asp-for="LandArea" class="form-control" />
                                             <span asp-validation-for="LandArea" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-6">
+                                            <label asp-for="Floor" class="control-label"></label>
+                                            <input asp-for="Floor" class="form-control" />
+                                            <span asp-validation-for="Floor" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-lg-6">
                                             <label asp-for="RoomCount" class="control-label"></label>
                                             <input asp-for="RoomCount" class="form-control" />
                                             <span asp-validation-for="RoomCount" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-6">
                                             <label asp-for="BathCount" class="control-label"></label>
                                             <input asp-for="BathCount" class="form-control" />
                                             <span asp-validation-for="BathCount" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-6">
                                             <label asp-for="GarageCount" class="control-label"></label>
                                             <input asp-for="GarageCount" class="form-control" />
                                             <span asp-validation-for="GarageCount" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-6">
                                             <label asp-for="SellerName" class="control-label"></label>
                                             <input asp-for="SellerName" class="form-control" />
                                             <span asp-validation-for="SellerName" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-6">
                                             <label asp-for="Phone" class="control-label"></label>
                                             <input asp-for="Phone" class="form-control" />
                                             <span asp-validation-for="Phone" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
-                                            <label asp-for="Comment" class="control-label"></label>
-                                            <input asp-for="Comment" class="form-control" />
-                                            <span asp-validation-for="Comment" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Description" class="control-label"></label>
-                                            <input asp-for="Description" class="form-control" />
-                                            <span asp-validation-for="Description" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
+                                        <div class="form-group col-lg-12">
                                             <label asp-for="Map" class="control-label"></label>
                                             <input asp-for="Map" class="form-control" />
                                             <span asp-validation-for="Map" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
-                                            <label asp-for="CityId" class="control-label"></label>
-                                            <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId"></select>
-                                            <span asp-validation-for="CityId" class="text-danger"></span>
+                                        <div class="form-group col-lg-12">
+                                            <label asp-for="Description" class="control-label"></label>
+                                            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                                            <span asp-validation-for="Description" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
-                                            <label asp-for="MetroId" class="control-label"></label>
-                                            <select asp-for="MetroId" class="form-control" asp-items="ViewBag.MetroId"></select>
-                                            <span asp-validation-for="MetroId" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="AgentId" class="control-label"></label>
-                                            <select asp-for="AgentId" class="form-control" asp-items="ViewBag.AgentId"></select>
-                                            <span asp-validation-for="AgentId" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="CategoryId" class="control-label"></label>
-                                            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                                            <span asp-validation-for="CategoryId" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="submit" value="Save" class="btn btn-default" />
-                                        </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col-sm-4" style="background-image:url('~/uploads/@Model.Images.FirstOrDefault().Path')">
+                                    <div class="imager-container" id="viewer1" name="file">
+                                        <div class="viewer" style="width:300px;height:300px;background-image:url('/uploads/@Model.Images.FirstOrDefault().Path');">
+
+                                        </div>
+                                        <div class="viewer-thumbs" name="image">
+
+                                            @foreach (var item in Model.Images)
+                                            {
+                                                <input value="@(number=number+1)" name="fileSelectedIndex" id="@(guid)-@(forId=forId+1)" type="radio" class="imager-rio">
+                                                <label for="@(guid)-@(forId)" class="img-thumb" style="background-image: url('/uploads/@item.Path'); width: 120px; height: 120px;" title="@guid">
+                                                    <input name="oldFiles" hidden type="text" value="@item.Path" accept="image/x-png,image/gif,image/jpeg">
+                                                    <span id="deleteImg" onclick="deleteImg(event)"><i class="fas fa-trash-alt"></i></span>
+                                                </label>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="submit" id="editHome" value="Save" class="btn btn-default" />
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -134,4 +198,156 @@
     </div>
 
 </div>
+
+@section scripts{
+    <script src="~/assets/js/imager.js"></script>
+    <script>
+        let cityId=@Model.CityId
+
+            if (cityId != null) {
+
+                if (cityId == 6) {
+                    $('.NMRDistrict').removeClass('none');
+                }
+
+                if (cityId == 1) {
+                    $('.BakuDistrict').removeClass('none');
+                }
+            }
+
+        $('#CityId').change(function (e) {
+
+            if ($('#CityId').val() == 1) {
+
+                if ($('.BakuDistrict').hasClass('none')) {
+                    $('.BakuDistrict').removeClass('none');
+                    if (!$('.NMRDistrict').hasClass('none')) {
+                        $('.NMRDistrict').addClass('none');
+                    }
+                }
+            }
+            else if ($('#CityId').val() == 6) {
+                if ($('.NMRDistrict').hasClass('none')) {
+                    $('.NMRDistrict').removeClass('none');
+                    if (!$('.BakuDistrict').hasClass('none')) {
+                        $('.BakuDistrict').addClass('none');
+                    }
+                }
+            }
+            else {
+                if (!$('.NMRDistrict').hasClass('none')) {
+                    $('.NMRDistrict').addClass('none');
+                }
+                if (!$('.BakuDistrict').hasClass('none')) {
+                    $('.BakuDistrict').addClass('none');
+                }
+            }
+
+        });
+
+        $('#editHome').click(function (e) {
+
+            let labels = $('.viewer-thumbs label');
+
+
+
+            if (labels.length == 1) {
+                if ($(labels).css('background-image') == "https://localhost:44309/assets/img/img-rendering.gif") {
+                    $(labels).remove();
+                    //console.log('1de');
+                }
+            }
+
+            if (labels.length > 1) {
+                for (var i = 0; i < labels.length; i++) {
+                    let element = labels[i];
+                    if ($(element).css('background-image') == "https://localhost:44309/assets/img/img-rendering.gif" || $(element).css('background-image') == "assets/img/img-rendering.gif") {
+                        element.remove();
+                        //console.log('2de')
+
+                    }
+                }
+
+            }
+
+            if (!$('.viewer-thumbs label').length > 0 || $('.viewer-thumbs label') == null) {
+                e.preventDefault();
+                alert("Sekil daxil edin");
+                return;
+            }
+
+
+
+        });
+
+
+        function deleteImg(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+
+            let labelimg = $(e.currentTarget.parentElement).css('background-image');
+            let viewerimg = $('.viewer').css('background-image');
+            let labelsfirst = $('.viewer-thumbs label');
+
+            if (labelsfirst.length == 1) {
+                e.currentTarget.parentElement.remove();
+                $('.viewer').addClass('no-show');
+                $('.viewer').css('background-image', "none");
+                $('.viewer-thumbs input').remove();
+
+            }
+            else {
+                e.currentTarget.parentElement.remove();
+                //if (labelimg == viewerimg) {
+                //    $('.viewer').css('background-image', "none");
+                //}
+                let labelssecond = $('.viewer-thumbs label');
+
+
+                if (labelimg == viewerimg) {
+
+                    if (labelssecond.length == 0) {
+                        $('.viewer').addClass('no-show');
+                        $('.viewer').css('background-image', "none");
+
+                    }
+
+                    if (labelssecond.length == 1) {
+                        $(labelssecond).trigger('click');
+                        console.log('==1');
+                    }
+
+                    if (labelssecond.length > 1) {
+                        $(labelssecond[0]).trigger('click');
+                        console.log('>1');
+
+                    }
+                }
+            }
+
+
+
+
+        }
+
+        $('.img-thumb').click(function (e) {
+
+            $('.viewer').css('background-image', $(e.currentTarget).css('background-image'));
+        });
+
+        $('#viewer1').imgadd({
+            tnWidth: '120px',
+            tnHeight: '120px',
+            fontSize: '55px',
+            plusInnerHtml: '',
+            plusBtnClass: undefined
+        });
+
+
+
+    </script>
+
+
+}
 

@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-md-4 col-12 col-left">
                 <div class="agent-img">
-                    <img src="assets/img/@Model.Agent.ImagePath" alt="">
+                    <img src="uploads/@Model.Agent.ImagePath" alt="">
                 </div>
                 <div class="agent-contact">
                     <div class="title-agent-name">
@@ -143,11 +143,11 @@
                         @foreach (var home in Model.Homes)
                         {
                             <div class="col-md-6 col-12 single-home">
-                                <a href="homeDetails.html">
-                                    <img src="assets/img/@home.Images.FirstOrDefault().Path" alt="">
+                                <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">
+                                    <img src="uploads/@home.Images.FirstOrDefault().Path" alt="">
                                 </a>
                                 <div class="caption">
-                                    <h4> <a href="homeDetails.html">@home.Address</a></h4>
+                                    <h4> <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">@home.Address</a></h4>
                                     <span>
                                         $@home.Price <span>
                                             /

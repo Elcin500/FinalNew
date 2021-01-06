@@ -1,16 +1,19 @@
-﻿using FinalHomeSale.Models.DataContext;
-using FinalHomeSale.Models.Entity;
-using FinalHomeSale.Models.ViewModels;
+﻿using FinalNew.Models.DataContext;
+using FinalNew.Models.Entity;
+using FinalNew.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace FinalHomeSale.Controllers
+namespace FinalNew.Controllers
 {
+    [AllowAnonymous]
     public class AnnouncesController : Controller
     {
         readonly HomeSaleDbContext db;
@@ -25,12 +28,15 @@ namespace FinalHomeSale.Controllers
         public IActionResult Index(string announceType, int categoryId, int cityId, int metroId,
             int minPrice, int maxPrice, int minArea, int maxArea, int minRoom, int minBath)
         {
+            
             if (string.IsNullOrWhiteSpace(announceType))
             {
                 announceType = "Sale";
             }
 
-            var homes = db.Homes
+            var model = new HomeViewModel();
+
+            model.Homes = db.Homes
             .Include(h => h.Category)
             .Include(h => h.Metro)
             .Include(h => h.City)
@@ -42,37 +48,37 @@ namespace FinalHomeSale.Controllers
 
             if (categoryId != 0)
             {
-                homes = homes.Where(h => h.CategoryId == categoryId).ToList();
+                model.Homes = model.Homes.Where(h => h.CategoryId == categoryId).ToList();
             }
             if (metroId != 0)
             {
-                homes = homes.Where(h => h.MetroId == metroId).ToList();
+                model.Homes = model.Homes.Where(h => h.MetroId == metroId).ToList();
             }
             if (cityId != 0)
             {
-                homes = homes.Where(h => h.CityId == cityId).ToList();
+                model.Homes = model.Homes.Where(h => h.CityId == cityId).ToList();
             }
             if (cityId != 0)
             {
-                homes = homes.Where(h => h.CityId == cityId).ToList();
+                model.Homes = model.Homes.Where(h => h.CityId == cityId).ToList();
             }
 
             if (minPrice != 0)
             {
-                homes = homes.Where(h => h.Price >= minPrice).ToList();
+                model.Homes = model.Homes.Where(h => h.Price >= minPrice).ToList();
             }
             if (maxPrice != 0)
             {
-                homes = homes.Where(h => h.Price <= maxPrice).ToList();
+                model.Homes = model.Homes.Where(h => h.Price <= maxPrice).ToList();
             }
 
             if (minRoom != 0)
             {
-                homes = homes.Where(h => h.RoomCount >= minRoom).ToList();
+                model.Homes = model.Homes.Where(h => h.RoomCount >= minRoom).ToList();
             }
             if (minBath != 0)
             {
-                homes = homes.Where(h => h.BathCount >= minBath).ToList();
+                model.Homes = model.Homes.Where(h => h.BathCount >= minBath).ToList();
             }
             #endregion
 
@@ -162,7 +168,20 @@ namespace FinalHomeSale.Controllers
             }
 
             #endregion
-            return View(homes);
+
+
+            if (Request.Cookies["card-items"] != null)
+            {
+                var itemIds = Request.Cookies["card-items"].Split(",");
+                if (itemIds != null && itemIds.Length > 0)
+                {
+                    model.Ids = itemIds.Where(i => Regex.IsMatch(i, @"\d+")).Select(i => int.Parse(i))
+                        .ToArray();
+                }
+            }
+
+
+            return View(model);
         }
 
 
@@ -190,9 +209,6 @@ namespace FinalHomeSale.Controllers
             return View(model);
         }
 
-        public IActionResult AddAnnounce()
-        {
-            return View();
-        }
+        
     }
 }

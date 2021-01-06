@@ -1,4 +1,4 @@
-﻿@inject FinalHomeSale.Models.DataContext.HomeSaleDbContext db
+﻿@inject FinalNew.Models.DataContext.HomeSaleDbContext db
 
 @{ 
     var appInfo = db.AppInfos.FirstOrDefault();
@@ -22,6 +22,15 @@
           crossorigin="anonymous" />
     <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css">
+    @RenderSection("style", required: false)
+
+    <style>
+        #map {
+            width: 100%;
+            height:400px;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -85,7 +94,7 @@
                                 </a>
                             </div>
                             <div class="right text-center">
-                                <a asp-controller="announces" asp-action="addAnnounce" class="text-center">Elan Yerləşdir</a>
+                                <a asp-controller="client" asp-action="addAnnounce" class="text-center">Elan Yerləşdir</a>
                             </div>
                         </div>
                         <hr>
@@ -194,6 +203,9 @@
         @RenderBody()
     </main>
 
+    <div id="map"></div>
+
+
     <footer class="site-footer">
         <div class="footer-top">
             <div class="container-fluid">
@@ -280,6 +292,7 @@
     </footer>
 
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"
@@ -287,8 +300,23 @@
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="~/lib/toastr.js/toastr.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.43/polyfill.min.js" integrity="sha512-lvWiOP+aMKHllm4THsjzNleVuGOh0WGniJ3lgu/nvCbex1LlaQSxySUjAu/LTJw9FhnSL/PVYoQcckg1Q03+fQ==" crossorigin="anonymous"></script>*@
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5ZGieJIpSSYb7BrauT-51qYDM6OAJSAo&callback=initMap&libraries=&v=weekly"
+            defer></script>
     <script src="assets/js/main.js"></script>
-
     @RenderSection("scripts", required: false)
+<script>
+    //let map;
+
+    function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 8,
+        });
+    }
+
+</script>
+
 </body>
 </html>

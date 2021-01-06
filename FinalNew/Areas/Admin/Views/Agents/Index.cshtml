@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FinalHomeSale.Models.Entity.Agent>
+﻿@model IEnumerable<FinalNew.Models.Entity.Agent>
 
 @{
     ViewData["Title"] = "Index";
@@ -82,7 +82,6 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Agency)
                                     </td>
-
                                     <td>
                                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
                                             <i class="fa fa-pencil"> </i>

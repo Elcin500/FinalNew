@@ -1,5 +1,6 @@
-﻿using FinalHomeSale.Models.DataContext;
-using FinalHomeSale.Models.Entity;
+﻿using FinalNew.Models.DataContext;
+using FinalNew.Models.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinalHomeSale.Areas.Admin.Controllers
+namespace FinalNew.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class AgentsController : Controller
     {
         private readonly HomeSaleDbContext _context;
@@ -35,6 +37,7 @@ namespace FinalHomeSale.Areas.Admin.Controllers
             }
 
             var agent = await _context.Agents
+                .Include(h => h.Owner)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (agent == null)
             {
@@ -101,7 +104,7 @@ namespace FinalHomeSale.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,Phone,Phone2,Email,Address,Agency,Description,FacebookLink,InstagramLink,TwitterLink,ImagePath,CreatedDate")] Agent agent, IFormFile image)
+        public async Task<IActionResult> Edit(int id, Agent agent, IFormFile image)
         {
             if (id != agent.Id)
             {
@@ -162,22 +165,22 @@ namespace FinalHomeSale.Areas.Admin.Controllers
         }
 
         // GET: Admin/Agents/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var agent = await _context.Agents
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (agent == null)
-            {
-                return NotFound();
-            }
+        //    var agent = await _context.Agents
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (agent == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(agent);
-        }
+        //    return View(agent);
+        //}
 
         // POST: Admin/Agents/Delete/5
         [HttpPost, ActionName("Delete")]

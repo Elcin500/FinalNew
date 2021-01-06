@@ -1,4 +1,4 @@
-﻿@model FinalHomeSale.Models.Entity.Home
+﻿@model FinalNew.Models.Entity.Home
 
 @{
     ViewData["Title"] = "Details";
@@ -69,6 +69,12 @@
                                         @Html.DisplayFor(model => model.RoomCount)
                                     </dd>
                                     <dt>
+                                        @Html.DisplayNameFor(model => model.Floor)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Floor)
+                                    </dd>
+                                    <dt>
                                         @Html.DisplayNameFor(model => model.BathCount)
                                     </dt>
                                     <dd>
@@ -117,6 +123,18 @@
                                         @Html.DisplayFor(model => model.City.Id)
                                     </dd>
                                     <dt>
+                                        @Html.DisplayNameFor(model => model.NMRDistrict)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.NMRDistrict.Name)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.BakuDistrict)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.BakuDistrict.Name)
+                                    </dd>
+                                    <dt>
                                         @Html.DisplayNameFor(model => model.Metro)
                                     </dt>
                                     <dd>
@@ -140,10 +158,17 @@
                                     <dd>
                                         @Html.DisplayFor(model => model.CreatedDate)
                                     </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Owner)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Owner.UserName),
+                                        @Html.DisplayFor(model => model.OwnerId)
+                                    </dd>
                                     <dd>
                                         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-warning">
-                                        <i class="fa fa-pencil"> </i>
-                                            </a> |
+                                            <i class="fa fa-pencil"> </i>
+                                        </a> |
                                     </dd>
                                 </dl>
                             </div>

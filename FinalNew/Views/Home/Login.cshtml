@@ -1,6 +1,8 @@
 ﻿
 @{
     ViewData["Title"] = "Login";
+    string message = TempData["message"] as string;
+
 }
 
 <section class="background-img" data-setbg="assets/img/details-background.jpg">
@@ -21,6 +23,16 @@
 
 <section class="login-form">
     <div class="container">
+        @if (message != null)
+        {
+           <div class="row">
+               <div class="col-sm-12">
+                   <div class="alert alert-danger" role="alert">
+                       @message
+                   </div>
+               </div>
+           </div>
+        }
         <div class="title">
             <h2>Sign In</h2>
             <hr>
@@ -29,15 +41,15 @@
             <div class="col-lg-5">
 
                 <ul>
-                    <li class="selected li-login">Login</li>
-                    <li class="li-registr">Registration</li>
+                    <li class="li-login">Login</li>
+                    <li class="li-registr selected">Registration</li>
                     <li class="li-agent-registr">Registr As Agent</li>
                 </ul>
 
-                <form class="row g-3 needs-validation login-form-first" novalidate>
+                <form class="row g-3 needs-validation d-none login-form-first" method="post" asp-action="login" novalidate>
                     <div class="col-12">
                         <label for="username" class="form-label">Username or e-mail</label>
-                        <input type="text" class="form-control" id="username" required>
+                        <input type="text" name="username" class="form-control" id="username" required>
                         <div class="valid-feedback">
                             Looks Good
                         </div>
@@ -47,7 +59,7 @@
                     </div>
                     <div class="col-12">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" required>
+                        <input type="password" name="password" class="form-control" id="password" required>
                         <div class="valid-feedback">
                             Looks Good
                         </div>
@@ -60,10 +72,10 @@
                     </div>
                 </form>
 
-                <form class="row g-3 needs-validation d-none registr-form-second" novalidate>
+                <form class="row g-3 needs-validation registr-form-second" method="post" asp-action="RegistrClient" novalidate>
                     <div class="col-12">
                         <label for="usernameRegistr" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="usernameRegistr" required>
+                        <input type="text" class="form-control" name="usernameRegistr" id="usernameRegistr" required>
                         <div class="valid-feedback">
                             Looks Good
                         </div>
@@ -73,7 +85,7 @@
                     </div>
                     <div class="col-12">
                         <label for="emailRegistr" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="emailRegistr" required>
+                        <input type="email" class="form-control" name="emailRegistr" id="emailRegistr" required>
                         <div class="valid-feedback">
                             Looks Good
                         </div>
@@ -83,7 +95,7 @@
                     </div>
                     <div class="col-12">
                         <label for="passwordRegistr" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="passwordRegistr" required>
+                        <input type="password" class="form-control" name="passwordRegistr" id="passwordRegistr" required>
                         <div class="valid-feedback">
                             Looks Good
                         </div>

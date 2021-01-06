@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FinalHomeSale.Models.Entity.Home>
+﻿@model IEnumerable<FinalNew.Models.Entity.Home>
 
 @{
     ViewData["Title"] = "Index";
@@ -46,6 +46,9 @@
                                     @Html.DisplayNameFor(model => model.Category)
                                 </th>
                                 <th>
+                                    @Html.DisplayNameFor(model => model.Owner)
+                                </th>
+                                <th>
                                     <a asp-action="Create" class="btn btn-sm btn-success"><i class="fa fa-plus"> </i></a>
                                 </th>
                             </tr>
@@ -53,41 +56,43 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Address)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.AnnounceType)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Price)
-                                    </td>
-                                    
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.SellerName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Phone)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Agent.Id)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Category.Id)
-                                    </td>
-                                    <td>
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
-                                            <i class="fa fa-location-arrow"> </i>
-                                        </a>
-                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AnnounceType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SellerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Phone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Agent.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Owner.UserName)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                                        <i class="fa fa-pencil"> </i>
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
+                                        <i class="fa fa-location-arrow"> </i>
+                                    </a>
+                                    <a onclick="postRemove(@item.Id, `@item.Address`)" class="btn btn-sm btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -98,3 +103,46 @@
 
 </div>
 
+     
+@section scripts{
+
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+
+    <script>
+        function postRemove(_id,name) {
+            swal({
+                title: "Sorğu",
+                text:  `"${name}" bazadan silinecek! Razisinizmi?`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        $.ajax({
+                            url: `@Url.Action("Delete")`,
+                            type: "post",
+                            data: { id: _id },
+                            success: function (response) {
+
+                                swal("Elan Silindi!", {
+                                    icon: "success",
+                                });
+                                window.location.reload();
+                            },
+                            error: function (response) {
+                                alert("Xeta bas verdi");
+                                console.log(response.error);
+                            }
+                        })
+
+                    }
+                    else {
+                        swal("Məlumat silinmədi!");
+                    }
+                });
+        }
+    </script>
+
+}

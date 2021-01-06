@@ -607,7 +607,7 @@
 }
 
 main .photo-carousel .item {
-  /*background-color: greenyellow;*/
+  background-color: greenyellow;
   height: 420px;
   width: 100%;
   position: relative;
@@ -715,9 +715,31 @@ main section.search {
 }
 
 main section.search h2 {
-  margin-bottom: 30px;
   color: #46474a;
   font-weight: 700;
+}
+
+main section.search #openSearch {
+  display: inline-block;
+  padding: 5px 17px;
+  background-color: #fdbd47;
+  font-size: 17px;
+  text-decoration: none;
+  color: aliceblue;
+  font-weight: 500;
+  border: 1px solid #fdbd47;
+  border-radius: 10px;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+main section.search #openSearch i {
+  margin-left: 10px;
+}
+
+main section.search #openSearch:hover {
+  background-color: #db7004;
+  border: 1px solid #db7004;
 }
 
 main section.search > .container {
@@ -729,6 +751,15 @@ main section.search > .container {
   padding-bottom: 40px;
   -webkit-box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.22);
           box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.22);
+}
+
+main section.search form {
+  margin-top: 10px;
+  -webkit-transition: .2s;
+  transition: .2s;
+  height: 0px;
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
 }
 
 main section.search form > div {

@@ -1,0 +1,114 @@
+﻿@model IEnumerable<FinalNew.Models.Entity.City>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section style{
+    <style>
+        .buttons {
+            text-align: right;
+        }
+    </style>
+}
+
+
+<div class="content">
+    <ul class="breadcrumb">
+        <li>
+            <p>YOU ARE HERE</p>
+        </li>
+        <li><a asp-action="Index" class="active">Cities</a> </li>
+    </ul>
+    <div class="page-title">
+        <i class="icon-custom-left"></i>
+        <h3><a asp-action="Index">Cities</a> </h3>
+    </div>
+    <div class="row" id="inbox-wrapper">
+        <div class="col-md-12">
+            <div class="grid simple">
+                <div class="grid-body no-border email-body">
+                    <br>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th style="text-align: right;">
+                                    <a asp-action="Create" class="btn btn-sm btn-success"><i class="fa fa-plus"> </i></a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td class="buttons">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                                            <i class="fa fa-pencil"> </i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
+                                            <i class="fa fa-location-arrow"> </i>
+                                        </a>
+                                        <a onclick="postRemove(@item.Id, `@item.Name`)" class="btn btn-sm btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+
+    <script>
+        function postRemove(_id,name) {
+            swal({
+                title: "Are you sure?",
+                text:  `"${name}" bazadan silinecek! Razisinizmi?`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        $.ajax({
+                            url: `@Url.Action("Delete")`,
+                            type: "post",
+                            data: { id: _id },
+                            success: function (response) {
+
+                                swal("Məlumat Silindi!", {
+                                    icon: "success",
+                                });
+                                window.location.reload();
+                            },
+                            error: function (response) {
+                                alert("Xeta bas verdi");
+                                console.log(response.error);
+                            }
+                        })
+
+                    }
+                    else {
+                        swal("Məlumat silinmədi!");
+                    }
+                });
+        }
+    </script>
+
+}

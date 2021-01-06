@@ -54,6 +54,7 @@
 
             let ix = 1;
             let elName = $(element).attr('name');
+
             $(btnPlus).click(function () {
                 // let hasEmpty = false;
 

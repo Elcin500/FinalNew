@@ -82,14 +82,13 @@
                         </div>
                     }
                 </div>
-                <div id="single-photo-carousel-down" class="owl-carousel owl-theme">
+                <div id="single-photo-carousel-down" class="owl-theme owl-carousel">
                     @foreach (var image in Model.Home.Images)
                     {
                         <div class="item">
                             <img src="uploads/@image.Path" width="130" height="86" alt="">
                         </div>
                     }
-
                 </div>
 
                 <div class="table-details">
@@ -326,7 +325,7 @@
                     </div>
                     <div class="media-top">
                         <div class="media-img">
-                            <img src="assets/img/@Model.Agent.ImagePath" alt="" width="100"
+                            <img src="uploads/@Model.Agent.ImagePath" alt="" width="100"
                                  height="100">
                         </div>
                         <div class="media-body">
@@ -378,11 +377,11 @@
                     {
 
                         <div class="recent-home">
-                            <a href="#">
-                                <img src="assets/img/@item.Images.FirstOrDefault().Path" alt="">
+                            <a asp-action="details" asp-route-id="@item.Id">
+                                <img src="uploads/@item.Images.FirstOrDefault().Path" alt="">
                             </a>
                             <div class="caption">
-                                <h4> <a href="#">@item.Address</a></h4>
+                                <h4> <a asp-action="details" asp-route-id="@item.Id">@item.Address</a></h4>
                                 <span>
                                     $@item.Price
                                     <span>
@@ -412,6 +411,7 @@
    
     <script>
 
+       
         function onlyUnique(value, index, self) {
             return self.indexOf(value) === index;
         }

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using FinalNew.Models.Entity.Membership;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinalHomeSale.Models.Entity
+namespace FinalNew.Models.Entity
 {
     public class Agent
     {
@@ -21,6 +23,11 @@ namespace FinalHomeSale.Models.Entity
         public string InstagramLink { get; set; }
         public string TwitterLink { get; set; }
         public string ImagePath { get; set; }
+
+
+        [ForeignKey("Owner")]
+        public int OwnerId { get; set; }
+        public virtual AppUser Owner { get; set; }
 
         [NotMapped]
         public string ImagePathTemp { get; set; }

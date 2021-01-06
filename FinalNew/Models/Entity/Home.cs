@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FinalNew.Models.Entity.Membership;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinalHomeSale.Models.Entity
+namespace FinalNew.Models.Entity
 {
     public class Home
     {
@@ -17,6 +18,7 @@ namespace FinalHomeSale.Models.Entity
         public string Area { get; set; }
         public string LandArea { get; set; }
         public int? RoomCount { get; set; }
+        public int? Floor { get; set; }
         public int? BathCount { get; set; }
         public int? GarageCount { get; set; }
         public string SellerName { get; set; }
@@ -29,6 +31,12 @@ namespace FinalHomeSale.Models.Entity
         public int? CityId { get; set; }
         public virtual City City { get; set; }
 
+        public int? BakuDistrictId { get; set; }
+        public virtual BakuDistrict BakuDistrict { get; set; }
+
+        public int? NMRDistrictId { get; set; }
+        public virtual NMRDistrict NMRDistrict { get; set; }
+
         public int? MetroId { get; set; }
         public virtual Metro Metro { get; set; }
 
@@ -37,6 +45,10 @@ namespace FinalHomeSale.Models.Entity
 
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
+
+        [ForeignKey("Owner")]
+        public int OwnerId { get; set; }
+        public virtual AppUser Owner { get; set; }
 
         public ICollection<HomeImage> Images { get; set; }
 

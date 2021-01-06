@@ -1,0 +1,410 @@
+﻿@model Home
+
+@{
+    ViewData["Title"] = "AddAnnounce";
+}
+
+@section style{
+    <link href="~/assets/css/imager.css" rel="stylesheet" />
+
+    <style>
+        #deleteImg {
+            font-size: 20px;
+            padding-left:7px;
+            color: red;
+            position: absolute;
+        }
+
+        .none {
+            display: none;
+        }
+        .form-group{
+            margin-bottom:20px;
+        }
+        label{
+            margin-bottom:7px;
+        }
+        .btn-add {
+            display: inline-block;
+            background-color: #83AE3E;
+            padding: 7px 21px;
+            font-size: 17px;
+            text-decoration: none;
+            color: aliceblue;
+            font-weight: bold;
+            border: 1px solid #83AE3E;
+            border-radius: 10px!important;
+            -webkit-transition: .3s;
+            transition: .3s;
+        }
+            .btn-add:hover {
+                border-color: #689029;
+                background-color: #689029;
+            }
+    </style>
+}
+
+<section class="background-img" data-setbg="assets/img/details-background.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Single Property Page</h1>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><span class="slash">/</span><a href="#">Property Catalog</a></li>
+                    <li><span class="slash">/</span><span>Single Property Page</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="addhome-main">
+    <div class="container-fluid">
+        <div class="title">
+            <h2>Fill The Form</h2>
+            <hr>
+        </div>
+        <form class="row g-3 needs-validation" asp-action="AddAnnounce" enctype="multipart/form-data" method="post">
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" required />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label asp-for="AnnounceType" class="control-label">Announce Type</label>
+                        <select asp-for="AnnounceType" class="form-select">
+                            <option selected>Sale</option>
+                            <option>Rent</option>
+                        </select>
+                        <span asp-validation-for="AnnounceType" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-lg-6 none Period">
+                        <label asp-for="Period" class="control-label"></label>
+                        <select asp-for="Period" class="form-select">
+                            <option selected>All</option>
+                            <option>Month</option>
+                            <option>Day</option>
+                        </select>
+                        <span asp-validation-for="Period" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label asp-for="CategoryId" class="control-label">Category</label>
+                        <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId"></select>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label asp-for="CityId" class="control-label">City</label>
+                        <select asp-for="CityId" class="form-select" asp-items="ViewBag.CityId">
+                            <option value="0" selected>All</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-6 none BakuDistrict">
+                        <label asp-for="BakuDistrictId" class="control-label">Baku District</label>
+                        <select asp-for="BakuDistrictId" class="form-select" asp-items="ViewBag.BakuDistrictId">
+                            <option value="0" selected>All</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-6 none NMRDistrict">
+                        <label asp-for="NMRDistrictId" class="control-label">Naxcivan District</label>
+                        <select asp-for="NMRDistrictId" class="form-select" asp-items="ViewBag.NMRDistrictId">
+                            <option value="0" selected>All</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-6 MetroId">
+                        <label asp-for="MetroId" class="control-label">Metro</label>
+                        <select asp-for="MetroId" class="form-select" asp-items="ViewBag.MetroId">
+                            <option value="0" selected>All</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label asp-for="Price" class="control-label"></label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-lg-6 Area">
+                        <label asp-for="Area" class="control-label"></label>
+                        <input asp-for="Area" class="form-control" />
+                        <span asp-validation-for="Area" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label asp-for="LandArea" class="control-label"></label>
+                        <input asp-for="LandArea" class="form-control" />
+                        <span asp-validation-for="LandArea" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-lg-6 none Floor">
+                        <label asp-for="Floor" class="control-label"></label>
+                        <input asp-for="Floor" class="form-control" />
+                        <span asp-validation-for="Floor" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-lg-6 RoomCount">
+                        <label asp-for="RoomCount" class="control-label"></label>
+                        <input asp-for="RoomCount" class="form-control" />
+                        <span asp-validation-for="RoomCount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-lg-6 BathCount">
+                        <label asp-for="BathCount" class="control-label"></label>
+                        <input asp-for="BathCount" class="form-control" />
+                        <span asp-validation-for="BathCount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-lg-6 GarageCount">
+                        <label asp-for="GarageCount" class="control-label"></label>
+                        <input asp-for="GarageCount" class="form-control" />
+                        <span asp-validation-for="GarageCount" class="text-danger"></span>
+                    </div>
+                    @if (ViewBag.AgentTrue != true)
+                    {
+                        <div class="form-group col-lg-6">
+                            <label asp-for="SellerName" class="control-label"></label>
+                            <input asp-for="SellerName" class="form-control" />
+                            <span asp-validation-for="SellerName" class="text-danger"></span>
+                        </div>
+                    }
+                    <div class="form-group col-lg-6">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label asp-for="Map" class="control-label"></label>
+                        <input asp-for="Map" class="form-control" />
+                        <span asp-validation-for="Map" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="imager-container" id="viewer1" name="file">
+                    <div class="viewer no-show" style="width:300px;height:300px"></div>
+                    <div class="viewer-thumbs" name="image"></div>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <input type="submit" id="addHome" value="Elanı Yerləşdir" class="btn-add" />
+            </div>
+        </form>
+
+    </div>
+</section>
+
+
+
+
+@section scripts{
+    <script src="~/assets/js/imager.js"></script>
+    <script>
+
+        $('#CityId').change(function (e) {
+
+            if ($('#CityId').val() == 1) {
+
+                if ($('.BakuDistrict').hasClass('none')) {
+                    $('.BakuDistrict').removeClass('none');
+                    if (!$('.NMRDistrict').hasClass('none')) {
+                        $('.NMRDistrict').addClass('none');
+                    }
+                }
+                if ($('.MetroId').hasClass('none')) {
+                    $('.MetroId').removeClass('none');
+                }
+            }
+            else if ($('#CityId').val() == 6) {
+                if ($('.NMRDistrict').hasClass('none')) {
+                    $('.NMRDistrict').removeClass('none');
+                    if (!$('.BakuDistrict').hasClass('none')) {
+                        $('.BakuDistrict').addClass('none');
+                    }
+                }
+            }
+            else {
+                if (!$('.NMRDistrict').hasClass('none')) {
+                    $('.NMRDistrict').addClass('none');
+                }
+                if (!$('.BakuDistrict').hasClass('none')) {
+                    $('.BakuDistrict').addClass('none');
+                }
+            }
+
+            if ($('#CityId').val() != 1) {
+                if (!$('.MetroId').hasClass('none')) {
+                    $('.MetroId').addClass('none');
+                }
+            }
+
+        });
+
+        $('#CategoryId').change(function (e) {
+            if ($('#CategoryId').val()==3) {
+                if (!$('.Area').hasClass('none')) {
+                    $('.Area').addClass('none');
+                }
+                if (!$('.RoomCount').hasClass('none')) {
+                    $('.RoomCount').addClass('none');
+                }
+                if (!$('.BathCount').hasClass('none')) {
+                    $('.BathCount').addClass('none');
+                }
+                if (!$('.GarageCount').hasClass('none')) {
+                    $('.GarageCount').addClass('none');
+                }
+            }
+            else {
+                if ($('.Area').hasClass('none')) {
+                    $('.Area').removeClass('none');
+                }
+                if ($('.RoomCount').hasClass('none')) {
+                    $('.RoomCount').removeClass('none');
+                }
+                if ($('.BathCount').hasClass('none')) {
+                    $('.BathCount').removeClass('none');
+                }
+                if ($('.GarageCount').hasClass('none')) {
+                    $('.GarageCount').removeClass('none');
+                }
+            }
+
+            if ($('#CategoryId').val()==6) {
+                if ($('.Floor').hasClass('none')) {
+                    $('.Floor').removeClass('none');
+                }
+            }
+            else {
+                if (!$('.Floor').hasClass('none')) {
+                    $('.Floor').addClass('none');
+                }
+            }
+
+        });
+
+        $('#AnnounceType').change(function (e) {
+            if ($('#AnnounceType').val() == "Rent") {
+                if ($('.Period').hasClass('none')) {
+                    $('.Period').removeClass('none');
+                }
+            }
+            else {
+                if (!$('.Period').hasClass('none')) {
+                    $('.Period').addClass('none');
+                }
+            }
+        });
+
+        $('#addHome').click(function (e) {
+
+
+            let labels = $('.viewer-thumbs label');
+
+
+            if (labels.length == 1) {
+                if ($(labels).css('background-image') == "https://localhost:44309/assets/img/img-rendering.gif") {
+                    $(labels).remove();
+                    //console.log('1de');
+                }
+            }
+
+            if (labels.length > 1) {
+                for (var i = 0; i < labels.length; i++) {
+                    let element = labels[i];
+                    if ($(element).css('background-image') == "https://localhost:44309/assets/img/img-rendering.gif" || $(element).css('background-image') == "assets/img/img-rendering.gif") {
+                        element.remove();
+                        //console.log('2de')
+
+                    }
+                }
+
+            }
+
+            if (!$('.viewer-thumbs label').length > 0 || $('.viewer-thumbs label') == null) {
+                e.preventDefault();
+                alert("Sekil daxil edin");
+                return;
+            }
+
+        });
+
+
+        function deleteImg(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+
+            let labelimg = $(e.currentTarget.parentElement).css('background-image');
+            let viewerimg = $('.viewer').css('background-image');
+            let labelsfirst = $('.viewer-thumbs label');
+
+            if (labelsfirst.length == 1) {
+                e.currentTarget.parentElement.remove();
+                $('.viewer').addClass('no-show');
+                $('.viewer').css('background-image', "none");
+                $('.viewer-thumbs input').remove();
+
+            }
+            else {
+                e.currentTarget.parentElement.remove();
+                //if (labelimg == viewerimg) {
+                //    $('.viewer').css('background-image', "none");
+                //}
+                let labelssecond = $('.viewer-thumbs label');
+
+
+                if (labelimg == viewerimg) {
+
+                    if (labelssecond.length == 0) {
+                        $('.viewer').addClass('no-show');
+                        $('.viewer').css('background-image', "none");
+
+                    }
+
+                    if (labelssecond.length == 1) {
+                        $(labelssecond).trigger('click');
+                        console.log('==1');
+                    }
+
+                    if (labelssecond.length > 1) {
+                        $(labelssecond[0]).trigger('click');
+                        console.log('>1');
+
+                    }
+                }
+            }
+
+
+
+
+        }
+
+        $('#viewer1').imgadd({
+            tnWidth: '120px',
+            tnHeight: '120px',
+            fontSize: '55px',
+            plusInnerHtml: '',
+            plusBtnClass: undefined
+        });
+
+
+
+
+    </script>
+
+}
+
+
+
+@*<div class="col-md-6 col-right col-12">
+        <div class="row">
+            <div class="col-12">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address">
+            </div>
+            <div class="col-12">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d759.8473936453975!2d49.83113282920154!3d40.378057620346155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307dbd2753b5e1%3A0x94c5b9e402f8a047!2sE119%2C%20Bak%C4%B1%201009%2C%20Azerbaijan!5e0!3m2!1sen!2s!4v1608361669272!5m2!1sen!2s"
+                        width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen=""
+                        aria-hidden="false" tabindex="0"></iframe>
+            </div>
+        </div>
+    </div>*@

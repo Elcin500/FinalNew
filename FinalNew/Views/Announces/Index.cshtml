@@ -1,4 +1,4 @@
-﻿@model List<Home>
+﻿@model HomeViewModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -25,6 +25,7 @@
         <div class="row">
             <div class="col-12">
                 <h2>Find Your Home</h2>
+                <a id="openSearch" role="button">Search<i class="fas fa-sort-down"></i></a>
                 <form class="row g-3" asp-controller="announces" asp-action="index">
                     <div class="col-md-3">
                         <label for="announceType" class="form-label">Announce Type</label>
@@ -107,14 +108,33 @@
             <hr>
         </div>
         <div class="row">
-            @foreach (var home in Model)
+            @foreach (var home in Model.Homes)
             {
                 <div class="col-lg-4 col-md-6 col-12 single-home">
                     <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">
                         <img src="uploads/@home.Images.FirstOrDefault().Path" alt="">
                     </a>
                     <div class="caption">
-                        <h4> <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">@home.Address</a><span class="like"><i class="far fa-heart"></i></span></h4>
+                        <h4>
+                            <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">@home.Address</a>
+                            <a class="like" onclick="addFavorite(@home.Id,event)" style="padding-right:0;">
+                                @if (Model.Ids != null)
+                                {
+                                    @if (Model.Ids.Contains(home.Id))
+                                    {
+                                        <i style="color:#EA2027" class="fas fa-heart"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="far fa-heart"></i>
+                                    }
+                                }
+                                else
+                                {
+                                    <i class="far fa-heart"></i>
+                                }
+                            </a>
+                        </h4>
                         <span>
                             $@home.Price <span>
                                 /
@@ -192,3 +212,85 @@
 </section>
 
 
+@section scripts{
+
+    <script>
+
+        function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+        }
+
+        function addFavorite(id, event) {
+            // event.stopPropagation();
+            event.preventDefault();
+
+            let cardItems = $.cookie('card-items');
+            let items;
+
+            if ($(event.currentTarget.children[0]).hasClass('fas fa-heart')) {
+                $(event.currentTarget).html('<i class="far fa-heart"></i>');
+                console.log('--------ag');
+
+                if (cardItems == null) {
+                    items = [];
+                }
+                else {
+                    items = cardItems.split(',').map(e => parseInt(e));
+                }
+
+
+                //items.forEach(e => {
+                //    if (e==id) {
+                //        $(items).remove(e);
+
+
+                //        console.log('silindi');
+                //    }
+                //});
+                var removeItem = id;
+
+                items = $.grep(items, function (value) {
+                    return value != removeItem;
+                })
+
+                console.log(items);
+
+                $.cookie('card-items', items.toString(), { expires: 5, path: '/' });
+
+                console.log('cookiden silindi');
+                console.log($.cookie('card-items'));
+
+
+            }
+            else {
+                $(event.currentTarget).html('<i style="color:#EA2027" class="fas fa-heart"></i>');
+                console.log('-----------qirmizi');
+
+
+                if (cardItems == null) {
+                    items = [];
+                }
+                else {
+                    items = cardItems.split(',').map(e => parseInt(e));
+                }
+
+                items.push(id);
+                items = items.filter(onlyUnique);
+
+
+                $.cookie('card-items', items.toString(), { expires: 5, path: '/' });
+                console.log('cookide');
+
+            }
+
+
+
+
+            // $('.item-count').removeClass('d-none').html(items.length);
+
+
+        }
+
+    </script>
+
+}

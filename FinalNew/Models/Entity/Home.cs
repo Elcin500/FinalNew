@@ -23,7 +23,6 @@ namespace FinalNew.Models.Entity
         public int? GarageCount { get; set; }
         public string SellerName { get; set; }
         public string Phone { get; set; }
-        public string Comment { get; set; }
         public string Description { get; set; }
         public string Map { get; set; }
 
@@ -59,7 +58,6 @@ namespace FinalNew.Models.Entity
         public int fileSelectedIndex { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
-
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedDate { get; set; }

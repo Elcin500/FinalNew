@@ -58,6 +58,14 @@ namespace FinalNew.Models.DataContext
                 .HasDefaultValueSql("dateadd(HOUR,4,getutcdate())")
                 ;
             });
+
+            modelBuilder.Entity<Comment>(e =>
+            {
+                e.Property(a => a.CreatedDate)
+                //.HasDefaultValue(DateTime.Now)
+                .HasDefaultValueSql("dateadd(HOUR,4,getutcdate())")
+                ;
+            });
         }
     }
 }

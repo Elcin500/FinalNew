@@ -22,8 +22,8 @@ namespace FinalNew.Models.DataContext
                 //InitCities(db);
                 //InitMetros(db);
                 //InitCategories(db);
-                InitAgents(db);
-                InitHomes(db);
+                //InitAgents(db);
+                //InitHomes(db);
                 //InitAppInfos(db);
                 InitNMRDistricts(db);
                 InitBakuDistricts(db);

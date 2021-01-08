@@ -400,3 +400,4 @@ C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\Razor\Areas\Admi
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\Razor\Areas\Admin\Views\Account\AddRole.cshtml.g.cs
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\Razor\Areas\Admin\Views\Account\Clients.cshtml.g.cs
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\Razor\Areas\Admin\Views\Account\Agents.cshtml.g.cs
+C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.csprojAssemblyReference.cache

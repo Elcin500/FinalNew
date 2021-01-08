@@ -4,12 +4,17 @@ using FinalNew.Models.Entity.Membership;
 using FinalNew.Models.FormModel;
 using FinalNew.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -25,8 +30,9 @@ namespace FinalNew.Controllers
 
         readonly RoleManager<AppRole> roleManagar;
         readonly HomeSaleDbContext db;
+        readonly IConfiguration conf;
 
-        public HomeController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<AppRole> roleManagar, HomeSaleDbContext db)
+        public HomeController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<AppRole> roleManagar, HomeSaleDbContext db, IConfiguration conf)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
@@ -34,6 +40,7 @@ namespace FinalNew.Controllers
             this.roleManagar = roleManagar;
 
             this.db = db;
+            this.conf = conf;
         }
 
         public IActionResult Index()
@@ -91,6 +98,15 @@ namespace FinalNew.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string userName,string password)
         {
+            var tryuserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (tryuserId != null)
+            {
+                TempData["message"] = $"Siz artıq daxil olmusunuz";
+                return RedirectToAction(nameof(Login));
+
+            }
+
             if (!ModelState.IsValid)
                 return View();
 
@@ -144,8 +160,17 @@ namespace FinalNew.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegistrClient(string usernameRegistr, string emailRegistr, string passwordRegistr)
         {
+            var tryuserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (tryuserId != null)
+            {
+                TempData["message"] = $"Siz artıq qeydiyyatdan keçmisinin";
+                return RedirectToAction(nameof(Login));
+            }
+
             if (ModelState.IsValid)
             {
+
                 if (db.Users.Any(a=>a.NormalizedUserName==usernameRegistr.ToUpper()))
                 {
                     TempData["message"] = $"{usernameRegistr} istifadəçi adı artıq mövcuddur. Zəhmət olmasa fərqli bir ad yazın";
@@ -153,7 +178,7 @@ namespace FinalNew.Controllers
                 }
                 if (db.Users.Any(a => a.NormalizedEmail == emailRegistr.ToUpper()))
                 {
-                    TempData["message"] = $"{emailRegistr}Bu E-mail artıq mövcuddur. Zəhmət olmasa fərqli bir email yazın";
+                    TempData["message"] = $"{emailRegistr} Bu E-mail artıq mövcuddur. Zəhmət olmasa fərqli bir email yazın";
                     return RedirectToAction(nameof(Login));
                 }
 
@@ -176,7 +201,7 @@ namespace FinalNew.Controllers
 
                 if (userNew == null)
                 {
-                    TempData["message"] = "İstifadəçi adı və ya şifrə səhvdir";
+                    TempData["message"] = "Xəta baş verdi";
                     return RedirectToAction(nameof(Login));
                 }
 
@@ -199,7 +224,7 @@ namespace FinalNew.Controllers
 
                     if (!signInResult.Succeeded)
                     {
-                        TempData["message"] = "İstifadəçi adı və ya şifrə səhvdir";
+                        TempData["message"] = "Xəta baş verdi";
                         return RedirectToAction(nameof(Login));
                     }
                     return RedirectToAction("AddAnnounce", "client");
@@ -214,6 +239,131 @@ namespace FinalNew.Controllers
             return RedirectToAction(nameof(Login));
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegistrAgent(string agentName, string agentSurname, string agentPhone, string agentPhone2, 
+            string agentAdress, string facebookLink, string instagramLink, string twitterLink, string agentDescription, IFormFile image,
+           string agnetUsername, string agentEmail, string agentPassword)
+        {
+            if (ModelState.IsValid)
+            {
+                var tryuserId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+                if (tryuserId!=null)
+                {
+                    TempData["message"] = $"Siz artıq qeydiyyatdan keçmisinin";
+                }
+
+                #region Create User
+                if (db.Users.Any(a => a.NormalizedUserName == agnetUsername.ToUpper()))
+                {
+                    TempData["message"] = $"{agnetUsername} istifadəçi adı artıq mövcuddur. Zəhmət olmasa fərqli bir ad yazın";
+                    return RedirectToAction(nameof(Login));
+                }
+                if (db.Users.Any(a => a.NormalizedEmail == agentEmail.ToUpper()))
+                {
+                    TempData["message"] = $"{agentEmail}Bu E-mail artıq mövcuddur. Zəhmət olmasa fərqli bir email yazın";
+                    return RedirectToAction(nameof(Login));
+                }
+
+                var user = new AppUser
+                {
+                    UserName = agnetUsername,
+                    Email = agentEmail
+                };
+
+                string role = "Agent";
+
+                if (userManager.CreateAsync(user, agentPassword).Result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, role).Wait();
+                }
+
+                ///////////////////////////////////////////////////////////
+
+                #endregion
+
+                var userNew = await userManager.FindByNameAsync(agnetUsername);
+
+                #region Add Agent
+
+                var agent = new Agent
+                {
+                    Name=agentName,
+                    Surname=agentSurname,
+                    Email=userNew.Email,
+                    Phone=agentPhone,
+                    Phone2=agentPhone2,
+                    Address=agentAdress,
+                    FacebookLink=facebookLink,
+                    InstagramLink=instagramLink,
+                    TwitterLink=twitterLink,
+                    Description= agentDescription,
+                    OwnerId=userNew.Id
+                };
+
+                var ext = Path.GetExtension(image.FileName);
+                string purePath = $"agent-{Guid.NewGuid()}{ext}";
+
+                string fileName = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", purePath);
+
+                using (var fs = new FileStream(fileName, FileMode.CreateNew, FileAccess.Write))
+                {
+                    image.CopyTo(fs);
+                }
+
+
+                agent.ImagePath = purePath;
+
+
+                db.Agents.Add(agent);
+                await db.SaveChangesAsync();
+                #endregion
+
+
+                #region Sign in
+
+
+                if (userNew == null)
+                {
+                    TempData["message"] = "İstifadəçi adı və ya şifrə səhvdir";
+                    return RedirectToAction(nameof(Login));
+                }
+
+                //var roleNew =await db.UserRoles.FirstOrDefaultAsync(c => c.UserId == userNew.Id);
+
+                var agents = await userManager.GetUsersInRoleAsync("Agent");
+
+
+                if (agents.Contains(userNew))
+                {
+
+                    string redirectLink = Request.Query["ReturnUrl"];
+
+                    if (!string.IsNullOrWhiteSpace(redirectLink))
+                    {
+                        return Redirect(redirectLink);
+                    }
+
+                    var signInResult = await signInManager.PasswordSignInAsync(userNew, agentPassword, true, true);
+
+                    if (!signInResult.Succeeded)
+                    {
+                        TempData["message"] = "İstifadəçi adı və ya şifrə səhvdir";
+                        return RedirectToAction(nameof(Login));
+                    }
+
+                }
+                #endregion
+
+                return RedirectToAction("AddAnnounce", "client");
+
+                //return RedirectToAction(nameof(Index));
+
+            }
+            return RedirectToAction(nameof(Login));
+        }
 
 
         public IActionResult Favorites()
@@ -241,6 +391,57 @@ namespace FinalNew.Controllers
             
 
             return View();
+
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SendMail(string name, string phone, string email, string message)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+                    var host = conf.GetValue<string>("emailAccount:smtpServer");
+                    var port = conf.GetValue<int>("emailAccount:smtpPort");
+                    var userName = conf.GetValue<string>("emailAccount:userName");
+                    var password = conf.GetValue<string>("emailAccount:password");
+                    //var cc = conf.GetValue<string>("emailAccount:cc")
+                    //    .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    SmtpClient client = new SmtpClient(host, port);
+                    client.Credentials = new NetworkCredential(userName, password);
+                    client.EnableSsl = true;
+
+                    var ourMail = "eracompanygroup@gmail.com";
+
+                    MailMessage mailMessage = new MailMessage(userName, ourMail);
+
+
+                    mailMessage.Subject = "Evim Saytının müştərisindən";
+                    mailMessage.Body = $"Göndərənin adı : {name} <br>" +
+                        $"Göndərənin e-mail adresi : {email} <br>" +
+                        $"Göndərənin telefon nömrəsi : {phone} <br>" +
+                        $"Göndərənin Mesajı : {message}";
+                    mailMessage.IsBodyHtml = true;
+
+                    client.Send(mailMessage);
+
+                    TempData["message"] = "Gönderildi";
+
+                    return RedirectToAction(nameof(Contact));
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            TempData["message"] = "Xəta baş verdi. Zəhmət olmasa daha sonra göndərin";
+
+            return RedirectToAction(nameof(Contact));
 
         }
 

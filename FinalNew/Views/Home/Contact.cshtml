@@ -30,11 +30,15 @@
                 <p>
                     You can contact us any way that is convenient for you. We are available 24/7 via fax or
                     email. You can also use a quick contact form below or visit our office personally.
-                </p>
-                <form class="row g-3 needs-validation" novalidate>
+                </p> 
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert alert-success">@TempData["message"]</div>
+                }
+                <form class="row g-3 needs-validation" asp-action="SendMail" method="post" novalidate>
                     <div class="col-md-6 col-12">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" required>
+                        <input type="text" class="form-control" name="name" required>
                         <div class="valid-feedback">
                             Looks Good
                         </div>
@@ -44,7 +48,7 @@
                     </div>
                     <div class="col-md-6 col-12">
                         <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="phone" required>
+                        <input type="text" class="form-control" name="phone" required>
                         <div class="valid-feedback">
                             Looks Good
                         </div>
@@ -54,7 +58,7 @@
                     </div>
                     <div class="col-12">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" required>
+                        <input type="email" class="form-control" name="email" required>
                         <div class="valid-feedback">
                             Looks Good
                         </div>
@@ -64,12 +68,12 @@
                     </div>
                     <div class="col-12">
                         <label for="message" class="form-label">Message</label>
-                        <textarea class="form-control" id="message" rows="3" required></textarea>
+                        <textarea class="form-control" name="message" rows="3" required></textarea>
                         <div class="valid-feedback">
                             Looks Good
                         </div>
                         <div class="invalid-feedback">
-                            Enter An Email Correctly
+                            Enter A Message
                         </div>
                     </div>
                     <div class="col-md-8 col-12">

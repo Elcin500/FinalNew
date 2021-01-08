@@ -108,104 +108,112 @@
             <hr>
         </div>
         <div class="row">
-            @foreach (var home in Model.Homes)
+            @if (Model.Homes.Count > 0)
             {
-                <div class="col-lg-4 col-md-6 col-12 single-home">
-                    <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">
-                        <img src="uploads/@home.Images.FirstOrDefault().Path" alt="">
-                    </a>
-                    <div class="caption">
-                        <h4>
-                            <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">@home.Address</a>
-                            <a class="like" onclick="addFavorite(@home.Id,event)" style="padding-right:0;">
-                                @if (Model.Ids != null)
-                                {
-                                    @if (Model.Ids.Contains(home.Id))
+
+                @foreach (var home in Model.Homes)
+                {
+                    <div class="col-lg-4 col-md-6 col-12 single-home">
+                        <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">
+                            <img src="uploads/@home.Images.FirstOrDefault().Path" alt="">
+                        </a>
+                        <div class="caption">
+                            <h4>
+                                <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">@home.Address</a>
+                                <a class="like" onclick="addFavorite(@home.Id,event)" style="padding-right:0;">
+                                    @if (Model.Ids != null)
                                     {
-                                        <i style="color:#EA2027" class="fas fa-heart"></i>
+                                        @if (Model.Ids.Contains(home.Id))
+                                        {
+                                            <i style="color:#EA2027" class="fas fa-heart"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="far fa-heart"></i>
+                                        }
                                     }
                                     else
                                     {
                                         <i class="far fa-heart"></i>
                                     }
+                                </a>
+                            </h4>
+                            <span>
+                                $@home.Price <span>
+                                    /
+                                    @if (home.AnnounceType == "Rent")
+                                    {
+                                        @home.Period
+                                    }
+                                    else if (home.AnnounceType == "Sale")
+                                    {
+                                        @("sale")
+                                    }
+                                </span>
+                            </span>
+                            <ul>
+                                <li><i class="fas fa-vector-square"></i><span>@home.Area sq ft</span></li>
+                                <li>
+                                    <i class="fas fa-bath"></i> <span>
+                                        @if (home.BathCount > 0)
+                                        {
+                                            @home.BathCount
+                                        }
+                                        else
+                                        {
+                                            @(0)
+                                        }
+                                        bathrooms
+                                    </span>
+                                </li>
+                            </ul>
+                            <ul class="second-ul">
+                                <li>
+                                    <span>
+                                        <i class="fas fa-bed"></i>
+                                        @if (home.RoomCount > 0)
+                                        {
+                                            @home.RoomCount
+                                        }
+                                        else
+                                        {
+                                            @(0)
+                                        }
+                                        rooms
+                                    </span>
+                                </li>
+                                <li>
+                                    <span>
+                                        <i class="fas fa-car"></i>
+                                        @if (home.GarageCount > 0)
+                                        {
+                                            @home.GarageCount
+                                        }
+                                        else
+                                        {
+                                            @(0)
+                                        }
+                                        garages
+                                    </span>
+                                </li>
+                            </ul>
+                            <p>
+                                @if (home.Description.Length > 100)
+                                {
+                                    @home.Description.Substring(0, 100)
                                 }
                                 else
                                 {
-                                    <i class="far fa-heart"></i>
+                                    @home.Description
                                 }
-                            </a>
-                        </h4>
-                        <span>
-                            $@home.Price <span>
-                                /
-                                @if (home.AnnounceType == "Rent")
-                                {
-                                    @home.Period
-                                }
-                                else if (home.AnnounceType == "Sale")
-                                {
-                                    @("sale")
-                                }
-                            </span>
-                        </span>
-                        <ul>
-                            <li><i class="fas fa-vector-square"></i><span>@home.Area sq ft</span></li>
-                            <li>
-                                <i class="fas fa-bath"></i> <span>
-                                    @if (home.BathCount > 0)
-                                    {
-                                        @home.BathCount
-                                    }
-                                    else
-                                    {
-                                        @(0)
-                                    }
-                                    bathrooms
-                                </span>
-                            </li>
-                        </ul>
-                        <ul class="second-ul">
-                            <li>
-                                <span>
-                                    <i class="fas fa-bed"></i>
-                                    @if (home.RoomCount > 0)
-                                    {
-                                        @home.RoomCount
-                                    }
-                                    else
-                                    {
-                                        @(0)
-                                    }
-                                    rooms
-                                </span>
-                            </li>
-                            <li>
-                                <span>
-                                    <i class="fas fa-car"></i>
-                                    @if (home.GarageCount > 0)
-                                    {
-                                        @home.GarageCount
-                                    }
-                                    else
-                                    {
-                                        @(0)
-                                    }
-                                    garages
-                                </span>
-                            </li>
-                        </ul>
-                        <p>
-                            @if (home.Description.Length > 100)
-                            {
-                                @home.Description.Substring(0, 100)
-                            }
-                            else
-                            {
-                                @home.Description
-                            }
-                        </p>
+                            </p>
+                        </div>
                     </div>
-                </div>
+                }
+            }
+            else
+            {
+                <h1 style=" color: #46474a; margin-left: 10%; margin-top: 20px;">Secilmis Hec Bir Elan Yoxdur</h1>
             }
         </div>
     </div>

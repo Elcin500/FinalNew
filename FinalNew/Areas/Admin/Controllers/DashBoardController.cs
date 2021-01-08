@@ -13,6 +13,8 @@ namespace FinalNew.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
+            //var a = Request.HttpContext.Connection.RemoteIpAddress; 
+
             return View();
         }
         public IActionResult AccesDenied()

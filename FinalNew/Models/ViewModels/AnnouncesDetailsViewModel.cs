@@ -1,4 +1,5 @@
 ﻿using FinalNew.Models.Entity;
+using FinalNew.Models.Entity.Membership;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace FinalNew.Models.ViewModels
         public Home Home { get; set; }
         public List<Home> Homes { get; set; }
         public AppInfo AppInfo { get; set; }
+        public List<AppUser> Owners { get; set; }
 
 
     }

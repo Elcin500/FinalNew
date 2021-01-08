@@ -25,10 +25,10 @@
     @RenderSection("style", required: false)
 
     <style>
-        #map {
+      /*  #map {
             width: 100%;
             height:400px;
-        }
+        }*/
 
     </style>
 </head>
@@ -203,7 +203,7 @@
         @RenderBody()
     </main>
 
-    <div id="map"></div>
+    @*<div id="map"></div>*@
 
 
     <footer class="site-footer">
@@ -301,22 +301,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="~/lib/toastr.js/toastr.min.js"></script>
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.43/polyfill.min.js" integrity="sha512-lvWiOP+aMKHllm4THsjzNleVuGOh0WGniJ3lgu/nvCbex1LlaQSxySUjAu/LTJw9FhnSL/PVYoQcckg1Q03+fQ==" crossorigin="anonymous"></script>*@
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    @*<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5ZGieJIpSSYb7BrauT-51qYDM6OAJSAo&callback=initMap&libraries=&v=weekly"
-            defer></script>
+            defer></script>*@
     <script src="assets/js/main.js"></script>
     @RenderSection("scripts", required: false)
-<script>
-    //let map;
 
-    function initMap() {
-        const map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: -34.397, lng: 150.644 },
-            zoom: 8,
-        });
-    }
-
-</script>
 
 </body>
 </html>

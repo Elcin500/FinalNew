@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FinalNew.Models.Entity.Membership;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FinalNew.Models.Entity
 {
@@ -11,10 +10,13 @@ namespace FinalNew.Models.Entity
         public int Id { get; set; }
         [Required]
         public string Message { get; set; }
-        public string Author { get; set; }
+
+        public int OwnerId { get; set; }
 
         public int HomeId { get; set; }
         public virtual Home Home { get; set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime CreatedDate { get; set; }
     }
 }

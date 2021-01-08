@@ -38,11 +38,15 @@
                         <hr>
                     </div>
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
-
-                    <form class="row g-3 needs-validation" novalidate>
+                    @if (TempData["message"]!=null)
+                    {
+                     <div class="alert alert-success">@TempData["message"]</div> 
+                    }
+                    <form class="row g-3 needs-validation" method="post" asp-action="SendMail" novalidate>
+                        <input type="hidden" name="agentId" value="@Model.Agent.Id" />
                         <div class="col-12">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" required>
+                            <input type="text" class="form-control" name="name" required>
                             <div class="valid-feedback">
                                 Looks Good
                             </div>
@@ -52,7 +56,7 @@
                         </div>
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" required>
+                            <input type="email" class="form-control" name="email" required>
                             <div class="valid-feedback">
                                 Looks Good
                             </div>
@@ -62,7 +66,7 @@
                         </div>
                         <div class="col-12">
                             <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" rows="3" required></textarea>
+                            <textarea class="form-control" name="message" rows="3" required></textarea>
                             <div class="valid-feedback">
                                 Looks Good
                             </div>

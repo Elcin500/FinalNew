@@ -5,9 +5,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace FinalNew.Controllers
@@ -16,10 +19,13 @@ namespace FinalNew.Controllers
     public class AgentController : Controller
     {
         readonly HomeSaleDbContext db;
+        readonly IConfiguration conf;
 
-        public AgentController(HomeSaleDbContext db)
+
+        public AgentController(HomeSaleDbContext db, IConfiguration conf)
         {
             this.db = db;
+            this.conf = conf;
         }
 
         public IActionResult Index()
@@ -28,7 +34,7 @@ namespace FinalNew.Controllers
             return View(agents);
         }
 
-        public IActionResult Details(int id )
+        public IActionResult Details(int id)
         {
             var model = new AgentViewModel();
 
@@ -199,76 +205,61 @@ namespace FinalNew.Controllers
 
             return View(model);
         }
-        //[HttpGet]
-        //public IActionResult Search(string announceType, int categoryId, int cityId, int metroId,
-        // int minPrice, int maxPrice, int minArea, int maxArea, int minRoom, int minBath,int agentId)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var homes = db.Homes
-        //    .Include(h => h.Category)
-        //    .Include(h => h.Metro)
-        //    .Include(h => h.City)
-        //    .Include(h => h.Images)
-        //    .Where(h => h.AgentId == agentId)
-        //    .Where(h => h.AnnounceType == announceType)
-        //    .ToList();
-
-        //        #region search
-
-        //        if (categoryId != 0)
-        //        {
-        //            homes = homes.Where(h => h.CategoryId == categoryId).ToList();
-        //        }
-        //        if (metroId != 0)
-        //        {
-        //            homes = homes.Where(h => h.MetroId == metroId).ToList();
-        //        }
-        //        if (cityId != 0)
-        //        {
-        //            homes = homes.Where(h => h.CityId == cityId).ToList();
-        //        }
-        //        if (cityId != 0)
-        //        {
-        //            homes = homes.Where(h => h.CityId == cityId).ToList();
-        //        }
-
-        //        if (minPrice != 0)
-        //        {
-        //            homes = homes.Where(h => h.Price >= minPrice).ToList();
-        //        }
-        //        if (maxPrice != 0)
-        //        {
-        //            homes = homes.Where(h => h.Price <= maxPrice).ToList();
-        //        }
-
-        //        if (minRoom != 0)
-        //        {
-        //            homes = homes.Where(h => h.RoomCount >= minRoom).ToList();
-        //        }
-        //        if (minBath != 0)
-        //        {
-        //            homes = homes.Where(h => h.BathCount >= minBath).ToList();
-        //        }
-        //        #endregion
+        
 
 
-        //        return Json(new
-        //        {
-        //            error = false,
-        //            homes = homes
-        //        });
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SendMail(int agentId,string name,string email,string message)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var agent = db.Agents.FirstOrDefault(t => t.Id == agentId);
+
+                    var host = conf.GetValue<string>("emailAccount:smtpServer");
+                    var port = conf.GetValue<int>("emailAccount:smtpPort");
+                    var userName = conf.GetValue<string>("emailAccount:userName");
+                    var password = conf.GetValue<string>("emailAccount:password");
+                    //var cc = conf.GetValue<string>("emailAccount:cc")
+                    //    .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    SmtpClient client = new SmtpClient(host, port);
+                    client.Credentials = new NetworkCredential(userName, password);
+                    client.EnableSsl = true;
+
+                    MailMessage mailMessage = new MailMessage(userName, agent.Email);
 
 
-        //    return Json(new
-        //    {
-        //        error = true,
-        //        message="error"
-        //    });
+
+                    mailMessage.Subject = "Evim Saytının müştərisindən";
+                    mailMessage.Body = $"Müştərinin e-mail adresi : {email} <br>" +
+                        $"Müştərinin adı : {name} <br>" +
+                        $"Müştərinin Mesajı : {message}";
+                    mailMessage.IsBodyHtml = true;
+
+                    client.Send(mailMessage);
+
+                    //db.Entry(entity).State = EntityState.Modified;
+                    //await _context.SaveChangesAsync();
+
+                    TempData["message"] = "Gönderildi";
+
+                    return RedirectToAction(nameof(Details),new { id=agentId});
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            TempData["message"] = "Xəta baş verdi. Zəhmət olmasa daha sonra göndərin";
+
+            return RedirectToAction(nameof(Details), new { id = agentId });
+
+        }
 
 
-        //}
     }
 
 }

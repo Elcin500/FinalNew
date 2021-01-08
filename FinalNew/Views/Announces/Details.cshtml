@@ -23,20 +23,24 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <p>Agent</p>
-                @if (Model.Home.SellerName != "" || Model.Home.SellerName != null)
-                {
-                    <a href="#">
-                        @Model.Home.SellerName
-                    </a>
-
-                }
 
                 @if (Model.Home.Agent != null)
                 {
+                    <p>Agent</p>
                     <a asp-controller="agent" asp-action="details" asp-route-id="@Model.Home.Agent.Id">
                         @Model.Home.Agent.Name @Model.Home.Agent.Surname
                     </a>
+                }
+                else
+                {
+                    @if (Model.Home.SellerName != "" || Model.Home.SellerName != null)
+                    {
+                        <p>Seller</p>
+                        <a href="#">
+                            @Model.Home.SellerName
+                        </a>
+
+                    }
                 }
 
             </div>
@@ -195,35 +199,22 @@
                         <h2>Reviews</h2>
                         <hr>
                     </div>
-                    <div class="comment">
-                        <div class="body-left">
-                            <img src="assets/img/agency-1.jpg" alt="">
-                        </div>
-                        <div class="body-right">
-                            <h4>Marilyn Taylor</h4>
-                            <span><i class="far fa-calendar-alt"></i> May 21, 2016 at 5:50 pm</span>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum est laboriosam
-                                repellendus voluptatem impedit nulla at?
-                            </p>
-                            <a href="#"><i class="fas fa-reply"></i>Reply</a>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="comment">
-                        <div class="body-left">
-                            <img src="assets/img/agency-1.jpg" alt="">
-                        </div>
-                        <div class="body-right">
-                            <h4>Marilyn Taylor</h4>
-                            <span><i class="far fa-calendar-alt"></i> May 21, 2016 at 5:50 pm</span>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum est laboriosam
-                                repellendus voluptatem impedit nulla at?
-                            </p>
-                            <a href="#"><i class="fas fa-reply"></i>Reply</a>
-                        </div>
-                    </div>
+                    @if (Model.Home.Comments != null)
+                    {
+                        @foreach (var comment in Model.Home.Comments)
+                        {
+                            <div class="comment">
+                                <div class="body-right" style="margin-left:15px;">
+                                    <h4>@Model.Owners.Where(a=>a.Id== comment.OwnerId).FirstOrDefault().UserName</h4>
+                                    <span><i class="far fa-calendar-alt" style="margin-right:15px;"></i>@comment.CreatedDate.ToString("dddd, dd MMMM yyyy")</span>
+                                    <p style="font-size:18px; margin-top:7px;">
+                                        @comment.Message
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                        }
+                    }
                 </div>
 
                 <div class="comment-form">
@@ -231,30 +222,11 @@
                         <h2>Write Review</h2>
                         <hr>
                     </div>
-                    <form class="row g-3 needs-validation" novalidate>
-                        <div class="col-md-6 col-12">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" required>
-                            <div class="valid-feedback">
-                                Looks Good
-                            </div>
-                            <div class="invalid-feedback">
-                                Enter Your Name
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" required>
-                            <div class="valid-feedback">
-                                Looks Good
-                            </div>
-                            <div class="invalid-feedback">
-                                Enter An Email Correctly
-                            </div>
-                        </div>
+                    <form class="row g-3 needs-validation" id="sendComment" novalidate>
+                        <input type="hidden" name="homeId" value="@Model.Home.Id" />
                         <div class="col-12">
                             <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" rows="3" required></textarea>
+                            <textarea class="form-control" name="message" rows="3" required></textarea>
                             <div class="valid-feedback">
                                 Looks Good
                             </div>
@@ -278,10 +250,16 @@
                 <a>@Model.Home.Phone</a>
                 <a onclick="addFavorite(@Model.Home.Id,event)" style="cursor:pointer;" class="favorite"><i class="fas fa-heart"></i>Add To Favorites</a>
                 <div class="question-form">
-                    <form class="row g-3 needs-validation" novalidate>
+                    @if (TempData["message"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["message"]</div>
+                    }
+                    <form class="row g-3 needs-validation" asp-action="SendMail" method="post" novalidate>
+                        <input type="hidden" name="ownerId" value="@Model.Home.OwnerId" />
+                        <input type="hidden" name="homeId" value="@Model.Home.Id" />
                         <div class="col-12">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" required>
+                            <input type="text" class="form-control" name="name" required>
                             <div class="valid-feedback">
                                 Looks Good
                             </div>
@@ -291,7 +269,7 @@
                         </div>
                         <div class="col-12">
                             <label for="phone" class="form-label">Phone</label>
-                            <input type="text" class="form-control" id="phone" required>
+                            <input type="text" class="form-control" name="phone" required>
                             <div class="valid-feedback">
                                 Looks Good
                             </div>
@@ -301,7 +279,7 @@
                         </div>
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" required>
+                            <input type="email" class="form-control" name="email" required>
                             <div class="valid-feedback">
                                 Looks Good
                             </div>
@@ -311,41 +289,51 @@
                         </div>
                         <div class="col-12">
                             <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" rows="3"></textarea>
+                            <textarea class="form-control" name="message" rows="3" required></textarea>
+                            <div class="valid-feedback">
+                                Looks Good
+                            </div>
+                            <div class="invalid-feedback">
+                                Enter Your Message
+                            </div>
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Send Message</button>
                         </div>
                     </form>
                 </div>
-                <div class="agent">
-                    <div class="title">
-                        <h2>Our Real Estate Agents</h2>
-                        <hr>
-                    </div>
-                    <div class="media-top">
-                        <div class="media-img">
-                            <img src="uploads/@Model.Agent.ImagePath" alt="" width="100"
-                                 height="100">
+                @if (Model.Agent!=null)
+                {
+
+                    <div class="agent">
+                        <div class="title">
+                            <h2>Our Real Estate Agents</h2>
+                            <hr>
                         </div>
-                        <div class="media-body">
-                            <h4>@Model.Agent.Name @Model.Agent.Surname</h4>
-                            <p class="p-top">Listing Agent</p>
-                            <p class="p-bottom"> <span>tel</span> <a href="#">@Model.Agent.Phone</a></p>
+                        <div class="media-top">
+                            <div class="media-img">
+                                <img src="uploads/@Model.Agent.ImagePath" alt="" width="100"
+                                     height="100">
+                            </div>
+                            <div class="media-body">
+                                <h4>@Model.Agent.Name @Model.Agent.Surname</h4>
+                                <p class="p-top">Listing Agent</p>
+                                <p class="p-bottom"> <span>tel</span> <a href="#">@Model.Agent.Phone</a></p>
+                            </div>
                         </div>
+                        <p>
+                            @if (Model.Agent.Description.Length > 35)
+                            {
+                                @Model.Agent.Description.Substring(0, 35)
+                            }
+                            else
+                            {
+                                @Model.Agent.Description
+                            }
+                        </p>
+                        <a asp-controller="agent" asp-action="details" asp-route-id="@Model.Agent.Id">Get in touch</a>
                     </div>
-                    <p>
-                        @if (Model.Agent.Description.Length > 35)
-                        {
-                            @Model.Agent.Description.Substring(0, 35)
-                        }
-                        else
-                        {
-                            @Model.Agent.Description
-                        }
-                    </p>
-                    <a asp-controller="agent" asp-action="details" asp-route-id="@Model.Agent.Id">Get in touch</a>
-                </div>
+                }
                 <div class="detail-socials">
                     <div class="title">
                         <h2>Share</h2>
@@ -411,7 +399,7 @@
    
     <script>
 
-       
+
         function onlyUnique(value, index, self) {
             return self.indexOf(value) === index;
         }
@@ -441,6 +429,53 @@
             // $('.item-count').removeClass('d-none').html(items.length);
 
         }
+
+
+        $('#sendComment').submit(function (e) {
+            e.preventDefault();
+
+            if ($('#message').val() == "") {
+                toastr.error('Boş mesaj göndərmək olmaz', "Xəta");
+                return;
+            }
+
+            //let url = e.currentTarget.action;
+           // let method = e.currentTarget.method;
+            let formData = new FormData(e.currentTarget);
+
+            $.ajax({
+                url: `@Url.Action("CommentAdd")`,
+                type: "post",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.error == true) {
+                        toastr.error(response.message, "Xəta");
+                    }
+                    else {
+                        var comment = `<div class="comment">
+                              <div class="body-right">
+                                  <h4>${response.ownerName}</h4>
+                                  <span><i class="far fa-calendar-alt" style="margin-right:15px;></i>${response.date}</span>
+                                  <p style="font-size:18px; margin-top:7px;">
+                                      ${response.commentMesage}
+                                  </p>
+                              </div>
+                            </div>
+                               <hr>`;
+
+                        $('.review').append(comment);
+                        toastr.success(response.message, "Uğurlu");
+                    }
+                },
+                error: function (response) {
+                    toastr.error("Bilinmeyen xeta ashkarlandi", "Xəta");
+                }
+            });
+
+        });
+
 
     </script>
 

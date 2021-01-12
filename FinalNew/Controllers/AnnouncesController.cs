@@ -37,7 +37,7 @@ namespace FinalNew.Controllers
       
 
         public IActionResult Index(string announceType, int categoryId, int cityId, int metroId,
-            int minPrice, int maxPrice, int minArea, int maxArea, int minRoom, int minBath)
+            int minPrice, int maxPrice, int minArea, int maxArea, int minRoom, int minBath, int pageIndex = 1, int pageSize = 21)
         {
             
             if (string.IsNullOrWhiteSpace(announceType))
@@ -54,6 +54,7 @@ namespace FinalNew.Controllers
             .Include(h => h.Images)
             .Where(h => h.AnnounceType == announceType)
             .ToList();
+
 
             #region search
 
@@ -92,6 +93,14 @@ namespace FinalNew.Controllers
                 model.Homes = model.Homes.Where(h => h.BathCount >= minBath).ToList();
             }
             #endregion
+
+            var query =model.Homes.AsQueryable()
+                .OrderByDescending(a => a.CreatedDate);
+            
+            var viewModel = new AnnouncesPagedViewModel(query, pageIndex, pageSize);
+
+            model.AnnouncesPaged = viewModel;
+
 
             ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Name",categoryId);
 
@@ -155,27 +164,35 @@ namespace FinalNew.Controllers
             if (minRoom == 0)
             {
                 ViewBag.MinRoomSelected = @"<option hidden value='0'>All</option>";
+                ViewBag.MinRoomSelectedPagination = 0;
             }
             else if (minRoom == 5)
             {
                 ViewBag.MinRoomSelected = @"<option hidden value='5'>5 və daha çox</option>";
+                ViewBag.MinRoomSelectedPagination = 5;
+
             }
             else
             {
                 ViewBag.MinRoomSelected = @$"<option hidden>{minRoom}</option>";
+                ViewBag.MinRoomSelectedPagination = minRoom;
+
             }
 
             if (minBath == 0)
             {
                 ViewBag.MinBathSelected = @"<option hidden value='0'>All</option>";
+                ViewBag.MinBathSelectedPagination = 0;
             }
             else if (minBath == 4)
             {
                 ViewBag.MinBathSelected = @"<option hidden value='4'>4 və daha çox</option>";
+                ViewBag.MinBathSelectedPagination = 4;
             }
             else
             {
                 ViewBag.MinBathSelected = @$"<option hidden>{minBath}</option>";
+                ViewBag.MinBathSelectedPagination = minBath;
             }
 
             #endregion

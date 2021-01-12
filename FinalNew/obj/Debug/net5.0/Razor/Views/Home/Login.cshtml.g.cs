@@ -26,8 +26,15 @@ using FinalNew.Models.ViewModels;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\hp\source\repos\FinalNewHome\FinalNew\Views\_ViewImports.cshtml"
+using Final.Resources;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"83e41f5fc36f773caed6aec18a1966ae18ebf775", @"/Views/Home/Login.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"555a44a7818ecb5b1f2aa389b578f23040a5c3fe", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3deb200e221bd0bd61f955fec26d2459e4ff3433", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Login : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-controller", "home", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -120,7 +127,7 @@ using FinalNew.Models.ViewModels;
             }
             );
             WriteLiteral("\r\n<section class=\"background-img\" data-setbg=\"assets/img/details-background.jpg\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-12\">\r\n                <h1>Login</h1>\r\n                <ul>\r\n                    <li>");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "83e41f5fc36f773caed6aec18a1966ae18ebf7758760", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "83e41f5fc36f773caed6aec18a1966ae18ebf7758937", async() => {
                 WriteLiteral("Home");
             }
             );
@@ -179,7 +186,7 @@ using FinalNew.Models.ViewModels;
                 <div class=""row"">
                     <div class=""col-lg-5"">
                         ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "83e41f5fc36f773caed6aec18a1966ae18ebf77511823", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "83e41f5fc36f773caed6aec18a1966ae18ebf77512000", async() => {
                 WriteLiteral(@"
                             <div class=""col-12"">
                                 <label for=""username"" class=""form-label"">Username or e-mail</label>
@@ -228,7 +235,7 @@ using FinalNew.Models.ViewModels;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "83e41f5fc36f773caed6aec18a1966ae18ebf77515388", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "83e41f5fc36f773caed6aec18a1966ae18ebf77515565", async() => {
                 WriteLiteral(@"
                             <div class=""col-12"">
                                 <label for=""usernameRegistr"" class=""form-label"">Username</label>
@@ -287,7 +294,7 @@ using FinalNew.Models.ViewModels;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                    </div>\r\n                    <div class=\"col-lg-12\">\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "83e41f5fc36f773caed6aec18a1966ae18ebf77519725", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "83e41f5fc36f773caed6aec18a1966ae18ebf77519902", async() => {
                 WriteLiteral(@"
                             <div class=""col-md-6 col-12"">
                                 <div class=""row"">
@@ -456,7 +463,7 @@ using FinalNew.Models.ViewModels;
             WriteLiteral("\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>\r\n\r\n\r\n\r\n\r\n");
             DefineSection("scripts", async() => {
                 WriteLiteral("\r\n\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "83e41f5fc36f773caed6aec18a1966ae18ebf77532058", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "83e41f5fc36f773caed6aec18a1966ae18ebf77532235", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

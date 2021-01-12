@@ -26,8 +26,15 @@ using FinalNew.Models.ViewModels;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\hp\source\repos\FinalNewHome\FinalNew\Views\_ViewImports.cshtml"
+using Final.Resources;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f18d9f191f3d34768e4da5e1438911674bc89443", @"/Views/Announces/Details.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"555a44a7818ecb5b1f2aa389b578f23040a5c3fe", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3deb200e221bd0bd61f955fec26d2459e4ff3433", @"/Views/_ViewImports.cshtml")]
     public class Views_Announces_Details : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<AnnouncesDetailsViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-controller", "home", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -82,7 +89,7 @@ using FinalNew.Models.ViewModels;
                 <h1>Single Property Page</h1>
                 <ul>
                     <li>");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc894436696", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc894436873", async() => {
                 WriteLiteral("Home");
             }
             );
@@ -100,7 +107,7 @@ using FinalNew.Models.ViewModels;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("</li>\r\n                    <li><span class=\"slash\">/</span>");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc894438114", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc894438291", async() => {
                 WriteLiteral("Announces");
             }
             );
@@ -140,7 +147,7 @@ using FinalNew.Models.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                    <p>Agent</p>\r\n                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc8944310118", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc8944310295", async() => {
                 WriteLiteral("\r\n                        ");
 #nullable restore
 #line 31 "C:\Users\hp\source\repos\FinalNewHome\FinalNew\Views\Announces\Details.cshtml"
@@ -721,7 +728,7 @@ WriteAttributeValue("", 3342, image.Path, 3342, 11, false);
 #line hidden
 #nullable disable
             WriteLiteral("                </div>\r\n\r\n                <div class=\"comment-form\">\r\n                    <div class=\"title\">\r\n                        <h2>Write Review</h2>\r\n                        <hr>\r\n                    </div>\r\n                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc8944333609", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc8944333786", async() => {
                 WriteLiteral("\r\n                        <input type=\"hidden\" name=\"homeId\"");
                 BeginWriteAttribute("value", " value=\"", 9228, "\"", 9250, 1);
 #nullable restore
@@ -821,7 +828,7 @@ WriteAttributeValue("", 10816, Model.Home.Id, 10816, 14, false);
 #line hidden
 #nullable disable
             WriteLiteral("                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc8944339218", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc8944339395", async() => {
                 WriteLiteral("\r\n                        <input type=\"hidden\" name=\"ownerId\"");
                 BeginWriteAttribute("value", " value=\"", 11328, "\"", 11355, 1);
 #nullable restore
@@ -1008,7 +1015,7 @@ WriteAttributeValue("", 14258, Model.Agent.ImagePath, 14258, 22, false);
 #line hidden
 #nullable disable
             WriteLiteral("                        </p>\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc8944348596", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc8944348773", async() => {
                 WriteLiteral("Get in touch");
             }
             );
@@ -1146,7 +1153,7 @@ WriteAttributeValue("", 16364, Model.AppInfo.InstagramLink, 16364, 28, false);
 #line hidden
 #nullable disable
             WriteLiteral("                        <div class=\"recent-home\">\r\n                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc8944355145", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc8944355322", async() => {
                 WriteLiteral("\r\n                                <img");
                 BeginWriteAttribute("src", " src=\"", 16992, "\"", 17040, 2);
                 WriteAttributeValue("", 16998, "uploads/", 16998, 8, true);
@@ -1190,7 +1197,7 @@ WriteAttributeValue("", 17006, item.Images.FirstOrDefault().Path, 17006, 34, fal
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                            <div class=\"caption\">\r\n                                <h4> ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc8944358060", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f18d9f191f3d34768e4da5e1438911674bc8944358237", async() => {
 #nullable restore
 #line 372 "C:\Users\hp\source\repos\FinalNewHome\FinalNew\Views\Announces\Details.cshtml"
                                                                                 Write(item.Address);

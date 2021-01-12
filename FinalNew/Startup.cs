@@ -1,3 +1,4 @@
+using FinalNew.AppCode.Providers;
 using FinalNew.Models.DataContext;
 using FinalNew.Models.Entity.Membership;
 using Microsoft.AspNetCore.Authorization;
@@ -80,9 +81,19 @@ namespace FinalNew
 
             app.UseStaticFiles();
 
+            InitMemmershipDefaults(app);
+
             app.UseRouting();
 
-            InitMemmershipDefaults(app);
+
+            app.UseRequestLocalization(cfg =>
+            {
+                cfg.AddSupportedCultures("en", "az", "ru");
+                cfg.AddSupportedUICultures("en", "az", "ru");
+                cfg.RequestCultureProviders.Clear(); 
+                cfg.RequestCultureProviders.Add(new AppCultureProvider());
+            });
+
 
 
             app.UseAuthentication();
@@ -99,7 +110,8 @@ namespace FinalNew
 
                 endpoints.MapControllerRoute(
                      name: "default",
-                     pattern: "{controller=home}/{action=index}/{id?}"
+                     pattern: "{lang=az}/{controller=home}/{action=index}/{id?}",
+                    constraints: new { lang = "az|en" }
                      );
 
 
@@ -108,6 +120,7 @@ namespace FinalNew
                   pattern: "signin.html",
                   defaults: new
                   {
+                      //lang="az",
                       controller = "Home",
                       Action = "Login"
                   });
@@ -118,6 +131,7 @@ namespace FinalNew
                 pattern: "accesdenied.html",
                 defaults: new
                 {
+                    //lang = "az",
                     controller = "Home",
                     Action = "AccesDenied"
                 });
@@ -128,14 +142,12 @@ namespace FinalNew
                  pattern: "accesdenied.html",
                  defaults: new {
                      controller = "DashBoard",
-                     Action = "AccesDenied"
+                     Action = "AccesDenied",
+                     area="admin"
                  });
 
 
             });
-
-
-
 
 
         }

@@ -316,6 +316,11 @@
         "runtime": {
           "FinalNew.dll": {}
         },
+        "resources": {
+          "en/FinalNew.resources.dll": {
+            "locale": "en"
+          }
+        },
         "compile": {
           "FinalNew.dll": {}
         }

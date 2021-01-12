@@ -1,14 +1,15 @@
 ﻿using FinalNew.Models.Entity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FinalNew.Models.ViewModels
 {
     public class HomeViewModel
     {
         public List<Home> Homes { get; set; }
+
+        public PagedViewModel HomesPaged { get; set; }
+
+        public AnnouncesPagedViewModel AnnouncesPaged { get; set; }
 
         public List<Agent> Agents { get; set; }
 

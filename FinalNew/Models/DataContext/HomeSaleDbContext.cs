@@ -33,6 +33,8 @@ namespace FinalNew.Models.DataContext
         public DbSet<Comment> Comments { get; set; }
         public DbSet<NMRDistrict> NMRDistricts { get; set; }
         public DbSet<BakuDistrict> BakuDistricts { get; set; }
+        public DbSet<Subscribe> Subscribes { get; set; }
+
 
 
 

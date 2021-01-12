@@ -42,7 +42,7 @@
                         <div class="col-2 login">
                             <i class="fas fa-sign-in-alt"></i>
                             <a asp-controller="home" asp-action="login">
-                                Login/Registration
+                               @LayoutResource.Login_Registration
                             </a>
                         </div>
                         <div class="info col-8">
@@ -94,7 +94,7 @@
                                 </a>
                             </div>
                             <div class="right text-center">
-                                <a asp-controller="client" asp-action="addAnnounce" class="text-center">Elan Yerləşdir</a>
+                                <a asp-controller="client" asp-action="addAnnounce" class="text-center">@LayoutResource.Add_Announce</a>
                             </div>
                         </div>
                         <hr>
@@ -109,20 +109,20 @@
                             </div>
 
                             <ul>
-                                <li><a asp-controller="home" asp-action="index">Home</a></li>
-                                <li><a asp-controller="agent" asp-action="index">Agents</a></li>
-                                <li><a asp-controller="client" asp-action="myannounces">My Announces</a></li>
-                                <li><a asp-controller="home" asp-action="favorites">Favorites</a></li>
-                                <li><a asp-controller="home" asp-action="contact">Contact</a></li>
+                                <li><a asp-controller="home" asp-action="index">@LayoutResource.Home</a></li>
+                                <li><a asp-controller="agent" asp-action="index">@LayoutResource.Agents</a></li>
+                                <li><a asp-controller="client" asp-action="myannounces">@LayoutResource.My_Announces</a></li>
+                                <li><a asp-controller="home" asp-action="favorites">@LayoutResource.Favorites</a></li>
+                                <li><a asp-controller="home" asp-action="contact">@LayoutResource.Contact</a></li>
                                 <li id="lang" class="nav-item hidden">
                                     <img class="lang-img-main" src="assets/img/az.png" alt="">
                                     <span>Az</span>
                                     <i class="fas fa-sort-down"></i>
                                     <div class="hidden-menu none" id="lang-div">
-                                        <a href="#">
+                                        <a asp-route-lang="az"  id="language">
                                             <img class="lang-img" src="assets/img/az.png" alt=""> <span class="lang-hidden-span">Az</span>
                                         </a>
-                                        <a href="#">
+                                        <a asp-route-lang="en" id="language">
                                             <img class="lang-img" src="assets/img/en.png" alt=""> <span class="lang-hidden-span">En</span>
                                         </a>
                                     </div>
@@ -216,31 +216,24 @@
                                 <img src="assets/img/@appInfo.FooterLogoPath" alt="">
                             </a>
                         </div>
-                        <p>@appInfo.Description</p>
+                        <p>@LayoutResource.Layout_small_description</p>
                         <div class="footer-col-bottom">
-                            <p>Headquarters:</p>
-                            @if (!string.IsNullOrWhiteSpace(appInfo.Address))
-                            {
-                                <p>
-                                    @appInfo.Address
-                                </p>
-                            }
-                            <p>Phone <a href="#"> @appInfo.Phone</a></p>
+                            <p>@LayoutResource.Phone<a href="#"> @appInfo.Phone</a></p>
                             <p>Email <a href="#">@appInfo.Email</a></p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-12 col-sm-12 second-col">
                         <h6>Blogroll</h6>
                         <ul>
-                            <li><i class="fas fa-chevron-right"></i><a asp-controller="home" asp-action="index">Home</a></li>
-                            <li><i class="fas fa-chevron-right"></i><a asp-controller="agent" asp-action="index">Agents</a></li>
-                            <li><i class="fas fa-chevron-right"></i><a asp-controller="client" asp-action="myannounces">My Announces</a></li>
-                            <li><i class="fas fa-chevron-right"></i><a asp-controller="home" asp-action="favorites">Favorites</a></li>
-                            <li><i class="fas fa-chevron-right"></i><a asp-controller="home" asp-action="contact">Contact</a></li>
+                            <li><i class="fas fa-chevron-right"></i><a asp-controller="home" asp-action="index">@LayoutResource.Home</a></li>
+                            <li><i class="fas fa-chevron-right"></i><a asp-controller="agent" asp-action="index">@LayoutResource.Agents</a></li>
+                            <li><i class="fas fa-chevron-right"></i><a asp-controller="client" asp-action="myannounces">@LayoutResource.My_Announces</a></li>
+                            <li><i class="fas fa-chevron-right"></i><a asp-controller="home" asp-action="favorites">@LayoutResource.Favorites</a></li>
+                            <li><i class="fas fa-chevron-right"></i><a asp-controller="home" asp-action="contact">@LayoutResource.Contact</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-12 col-sm-12 third-col">
-                        <h6>Recent posts</h6>
+                        <h6>@LayoutResource.Recent_posts</h6>
                         <ul>
                             @foreach (var home in recentHomes)
                             {
@@ -252,21 +245,20 @@
                         </ul>
                     </div>
                     <div class="col-lg-3 col-sm-12 fourth-col">
-                        <h6>Newsletter</h6>
+                        <h6>Abonə ol</h6>
                         <p>
-                            Enter your email address to receive all news, updates on new arrivals, special offers and other
-                            information.
+                            @LayoutResource.Footer_Subscribe_Description
                         </p>
-                        <form class="needs-validation" novalidate>
+                        <form class="needs-validation subscribe" novalidate asp-controller="home" asp-action="subscribe" method="post">
                             <div class="form-row">
                                 <div class="mb-3">
-                                    <input type="email" class="form-control" placeholder="Email" id="email" required>
+                                    <input type="email" class="form-control" placeholder="Email" name="email" required>
                                     <div class="invalid-feedback">
                                         Email Daxil Edin
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                            <button class="btn btn-primary" type="submit">@LayoutResource.Subscribe</button>
                         </form>
                     </div>
                 </div>
@@ -307,6 +299,40 @@
     <script src="assets/js/main.js"></script>
     @RenderSection("scripts", required: false)
 
+<script>
 
+        $('.subscribe').submit(function (e) {
+            e.preventDefault();
+
+            if ($('#email').val() == "") {
+                toastr.error('Email daxil edin', "Xəta");
+                return;
+            }
+
+            let formData = new FormData(e.currentTarget);
+
+            $.ajax({
+                url: `@Url.Action("Subscribe")`,
+                type: "post",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.error == true) {
+                        toastr.error(response.message, "Xəta");
+                    }
+                    else {
+                        toastr.success(response.message, "Uğurlu");
+                    }
+                },
+                error: function (response) {
+                    toastr.error("Bilinmeyen xeta ashkarlandi", "Xəta");
+                }
+            });
+
+        });
+
+
+</script>
 </body>
 </html>

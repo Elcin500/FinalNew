@@ -26,8 +26,15 @@ using FinalNew.Models.ViewModels;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\hp\source\repos\FinalNewHome\FinalNew\Views\_ViewImports.cshtml"
+using Final.Resources;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"cf5bd37ecd0ce4f87a6b9475e1fff246f11b115e", @"/Views/Agent/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"555a44a7818ecb5b1f2aa389b578f23040a5c3fe", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3deb200e221bd0bd61f955fec26d2459e4ff3433", @"/Views/_ViewImports.cshtml")]
     public class Views_Agent_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<Agent>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-controller", "home", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -75,7 +82,7 @@ using FinalNew.Models.ViewModels;
                 <h1>Agents Page</h1>
                 <ul>
                     <li>");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cf5bd37ecd0ce4f87a6b9475e1fff246f11b115e4735", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cf5bd37ecd0ce4f87a6b9475e1fff246f11b115e4912", async() => {
                 WriteLiteral("Home");
             }
             );
@@ -117,7 +124,7 @@ using FinalNew.Models.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                <div class=\"col-lg-4 col-md-6 col-12\">\r\n                    <div class=\"agent\">\r\n                        <div class=\"media-top\">\r\n                            <div class=\"media-img\">\r\n                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cf5bd37ecd0ce4f87a6b9475e1fff246f11b115e6988", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cf5bd37ecd0ce4f87a6b9475e1fff246f11b115e7165", async() => {
                 WriteLiteral("<img");
                 BeginWriteAttribute("src", " src=\"", 1180, "\"", 1210, 2);
                 WriteAttributeValue("", 1186, "uploads/", 1186, 8, true);
@@ -163,7 +170,7 @@ WriteAttributeValue("", 1194, agent.ImagePath, 1194, 16, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                            </div>\r\n                            <div class=\"media-body\">\r\n                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cf5bd37ecd0ce4f87a6b9475e1fff246f11b115e10093", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cf5bd37ecd0ce4f87a6b9475e1fff246f11b115e10270", async() => {
                 WriteLiteral("<h4>");
 #nullable restore
 #line 38 "C:\Users\hp\source\repos\FinalNewHome\FinalNew\Views\Agent\Index.cshtml"

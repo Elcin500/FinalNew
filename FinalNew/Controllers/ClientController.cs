@@ -1,7 +1,9 @@
 ﻿using FinalNew.Models.DataContext;
 using FinalNew.Models.Entity;
+using FinalNew.Models.Entity.Membership;
 using FinalNew.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,10 +21,13 @@ namespace FinalNew.Controllers
     public class ClientController : Controller
     {
         readonly HomeSaleDbContext db;
+        readonly UserManager<AppUser> userManager;
 
-        public ClientController(HomeSaleDbContext db)
+
+        public ClientController(HomeSaleDbContext db, UserManager<AppUser> userManager)
         {
             this.db = db;
+            this.userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -72,7 +77,25 @@ namespace FinalNew.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+                //var user=await userManager.FindByIdAsync(userId);
+
+                //var clients= await userManager.GetUsersInRoleAsync("Client");
+
+                //if (clients.Contains(user))
+                //{
+                //    if (home.SellerName==null || home.SellerName=="")
+                //    {
+                //        ViewBag.NullValue = "Satıcı adı qeyd olunmalıdır";
+                //        return View(home);
+                //    }
+                //    if (home.Phone == null || home.Phone == "" )
+                //    {
+                //        ViewBag.NullValue = "Telefon nömrəsi qeyd olunmalıdır";
+                //        return View(home);
+                //    }
+                //}
 
                 home.Images = new List<HomeImage>();
 
@@ -150,7 +173,6 @@ namespace FinalNew.Controllers
                 }
                 #endregion
 
-                var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
                 var intUserId = int.Parse(userId);
 

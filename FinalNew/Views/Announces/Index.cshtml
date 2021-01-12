@@ -26,7 +26,7 @@
             <div class="col-12">
                 <h2>Find Your Home</h2>
                 <a id="openSearch" role="button">Search<i class="fas fa-sort-down"></i></a>
-                <form class="row g-3" asp-controller="announces" asp-action="index">
+                <form class="row g-3 announce-search-form" asp-controller="announces" asp-action="index">
                     <div class="col-md-3">
                         <label for="announceType" class="form-label">Announce Type</label>
                         <select name="announceType" class="form-select">
@@ -93,7 +93,7 @@
                         </select>
                     </div>
                     <div class="col-lg-2">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary ">Search</button>
                     </div>
                 </form>
             </div>
@@ -111,7 +111,7 @@
             @if (Model.Homes.Count > 0)
             {
 
-                @foreach (var home in Model.Homes)
+                @foreach (var home in Model.AnnouncesPaged.Homes)
                 {
                     <div class="col-lg-4 col-md-6 col-12 single-home">
                         <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">
@@ -210,11 +210,15 @@
                         </div>
                     </div>
                 }
+                @Html.Raw(Model.AnnouncesPaged.GetPagenation(Url, "Index", ViewBag.AnnounceTypeSelected, ViewBag.CategoryId, ViewBag.CityId,
+               ViewBag.MetroId, ViewBag.MinPriceSelected, ViewBag.MaxPriceSelected, ViewBag.MinAreaSelected, ViewBag.MaxAreaSelected,
+               ViewBag.MinRoomSelectedPagination, ViewBag.MinBathSelectedPagination))
             }
             else
             {
                 <h1 style=" color: #46474a; margin-left: 10%; margin-top: 20px;">Secilmis Hec Bir Elan Yoxdur</h1>
             }
+            
         </div>
     </div>
 </section>
@@ -298,6 +302,7 @@
 
 
         }
+       
 
     </script>
 

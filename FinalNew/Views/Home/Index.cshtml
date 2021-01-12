@@ -44,7 +44,7 @@
                     }
                 </span>
             </span>
-            <a asp-controller="announces" asp-action="details" asp-route-id="@carouselHomes[1].Id">Etrafli</a>
+            <a asp-controller="announces" asp-action="details" asp-route-id="@carouselHomes[1].Id">@HomeIndexResource.Read_More</a>
         </div>
     </div>
     <div class="item" data-setbg="assets/img/@Model.AppInfos.HomePhoto2">
@@ -84,7 +84,7 @@
                     }
                 </span>
             </span>
-            <a asp-controller="announces" asp-action="details" asp-route-id="@carouselHomes[2].Id">Etrafli</a>
+            <a asp-controller="announces" asp-action="details" asp-route-id="@carouselHomes[2].Id">@HomeIndexResource.Read_More</a>
         </div>
     </div>
     <div class="item" data-setbg="assets/img/@Model.AppInfos.HomePhoto3">
@@ -124,7 +124,7 @@
                     }
                 </span>
             </span>
-            <a asp-controller="announces" asp-action="details" asp-route-id="@carouselHomes[0].Id">Etrafli</a>
+            <a asp-controller="announces" asp-action="details" asp-route-id="@carouselHomes[0].Id">@HomeIndexResource.Read_More</a>
         </div>
     </div>
 </div>
@@ -134,8 +134,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2>Find Your Home</h2>
-                <a id="openSearch" role="button">Search<i class="fas fa-sort-down"></i></a>
+                <h2>@HomeIndexResource.Find_Your_Home</h2>
+                <a id="openSearch" role="button">@HomeIndexResource.Search<i class="fas fa-sort-down"></i></a>
                 <form class="row g-3" asp-controller="announces" asp-action="index">
                     <div class="col-md-3">
                         <label for="announceType" class="form-label">Announce Type</label>
@@ -200,7 +200,7 @@
                         </select>
                     </div>
                     <div class="col-lg-2">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary">@HomeIndexResource.Search</button>
                     </div>
                 </form>
             </div>
@@ -212,7 +212,7 @@
 <section class="popular-categories">
     <div class="container">
         <div class="title">
-            <h2>Popular categories</h2>
+            <h2>@HomeIndexResource.Popular_Categories</h2>
             <hr>
         </div>
         <div class="row">
@@ -221,7 +221,7 @@
                     <img src="assets/img/categories-1.jpg" width="546" height="410" alt="">
                     <div class="caption">
                         <h4>@Model.Categories[5].Name</h4>
-                        <p><span class="product-count">55</span>properities</p>
+                        <p><span class="product-count">@Model.Homes.Where(a=>a.CategoryId==Model.Categories[5].Id)?.Count()</span>@HomeIndexResource.properities</p>
                     </div>
                 </a>
 
@@ -231,7 +231,7 @@
                     <img src="assets/img/categories-2.jpg" width="546" height="410" alt="">
                     <div class="caption">
                         <h4>@Model.Categories[4].Name</h4>
-                        <p><span class="product-count">36</span>properities</p>
+                        <p><span class="product-count">@Model.Homes.Where(a => a.CategoryId == Model.Categories[4].Id)?.Count()</span>@HomeIndexResource.properities</p>
                     </div>
                 </a>
             </div>
@@ -240,7 +240,7 @@
                     <img src="assets/img/categories-3.jpg" width="546" height="410" alt="">
                     <div class="caption">
                         <h4>@Model.Categories[3].Name</h4>
-                        <p><span class="product-count">24</span>properities</p>
+                        <p><span class="product-count">@Model.Homes.Where(a => a.CategoryId == Model.Categories[3].Id)?.Count()</span>@HomeIndexResource.properities</p>
                     </div>
                 </a>
             </div>
@@ -249,7 +249,7 @@
                     <img src="assets/img/categories-4.jpg" width="546" height="410" alt="">
                     <div class="caption">
                         <h4>@Model.Categories[1].Name</h4>
-                        <p><span class="product-count">15</span>properities</p>
+                        <p><span class="product-count">@Model.Homes.Where(a => a.CategoryId == Model.Categories[1].Id)?.Count()</span>@HomeIndexResource.properities</p>
                     </div>
                 </a>
             </div>
@@ -261,35 +261,35 @@
 <section class="homes">
     <div class="container">
         <div class="title">
-            <h2>Most Viewed Homes</h2>
+            <h2>@HomeIndexResource.Most_Viewed_Homes</h2>
             <hr>
         </div>
         <div class="row">
-            @foreach (var home in Model.Homes)
+            @foreach (var home in Model.HomesPaged.Homes)
             {
                 <div class="col-lg-4 col-md-6 col-12 single-home">
                     <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">
                         <img src="uploads/@home.Images.FirstOrDefault().Path" alt="">
                     </a>
                     <div class="caption">
-                        <h4> 
+                        <h4>
                             <a asp-controller="announces" asp-action="details" asp-route-id="@home.Id">@home.Address</a>
                             <a class="like" onclick="addFavorite(@home.Id,event)" style="padding-right:0;">
-                           @if (Model.Ids!=null)
-                           {
-                                @if (Model.Ids.Contains(home.Id))
-                            {
-                                <i style="color:#EA2027" class="fas fa-heart"></i>
-                            }
-                            else
-                            {
-                            <i class="far fa-heart"></i>
-                            }
-                           } 
-                           else
-                            {
-                            <i class="far fa-heart"></i>
-                            }
+                                @if (Model.Ids != null)
+                                {
+                                    @if (Model.Ids.Contains(home.Id))
+                                    {
+                                        <i style="color:#EA2027" class="fas fa-heart"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="far fa-heart"></i>
+                                    }
+                                }
+                                else
+                                {
+                                    <i class="far fa-heart"></i>
+                                }
                             </a>
                         </h4>
                         <span>
@@ -297,11 +297,18 @@
                                 /
                                 @if (home.AnnounceType == "Rent")
                                 {
-                                    @home.Period
+                                    if (home.Period=="Month")
+                                    {
+                                        @HomeIndexResource.month
+                                    }
+                                    else
+                                    {
+                                        @HomeIndexResource.Day
+                                    }
                                 }
                                 else if (home.AnnounceType == "Sale")
                                 {
-                                    @("sale")
+                                    @HomeIndexResource.sale
                                 }
                             </span>
                         </span>
@@ -371,6 +378,24 @@
                     </div>
                 </div>
             }
+            <nav aria-label="Page navigation">
+            @Html.Raw(Model.HomesPaged.GetPagenation(Url, "Index"))
+                @*<ul class="pagination pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>*@
+            </nav>
         </div>
         <a href="#">View All Proporities</a>
     </div>
@@ -380,7 +405,7 @@
 <section class="our-advantages">
     <div class="container">
         <div class="title">
-            <h2>Our Advantages</h2>
+            <h2>@HomeIndexResource.Our_Advantages</h2>
             <hr>
         </div>
         <div class="row">
@@ -391,7 +416,7 @@
                     </div>
                 </div>
                 <div class="media-bottom">
-                    <h3>Elan Üstünlüklərimiz</h3>
+                    <h3>@HomeIndexResource.Announce_Advantages</h3>
                     <p>
                         @Model.AppInfos.AnnounceAdvantages
                     </p>
@@ -404,7 +429,7 @@
                     </div>
                 </div>
                 <div class="media-bottom">
-                    <h3>Satış Agentləri üçün üstünlüklər</h3>
+                    <h3>@HomeIndexResource.Agent_Advantages</h3>
                     <p>
                         @Model.AppInfos.AgentAdvantages
                     </p>
@@ -417,7 +442,7 @@
                     </div>
                 </div>
                 <div class="media-bottom">
-                    <h3>Privacy and Security</h3>
+                    <h3>@HomeIndexResource.Privacy_and_Security</h3>
                     <p>
                         Search by state then by city to find an of the beach in Los Angeles or in the heart of
                         Atlanta.
@@ -431,7 +456,7 @@
                     </div>
                 </div>
                 <div class="media-bottom">
-                    <h3>Various Locations</h3>
+                    <h3>@HomeIndexResource.Various_Locations</h3>
                     <p>
                         Search by state then by city to find an apartment overlooking the lake in Chicago, within
                         walking distance of the beach in Los Angeles or in the heart of Atlanta.
@@ -446,7 +471,7 @@
 <section class="agents">
     <div class="container">
         <div class="title">
-            <h2>Our Real Estate Agents</h2>
+            <h2>@HomeIndexResource.Our_Real_Estate_Agents</h2>
             <hr>
         </div>
 
@@ -474,7 +499,7 @@
                             @agent.Description
                         }
                     </p>
-                    <a asp-controller="agent" asp-action="details" asp-route-id="@agent.Id">Get in touch</a>
+                    <a asp-controller="agent" asp-action="details" asp-route-id="@agent.Id">@HomeIndexResource.Get_in_touch</a>
                 </div>
             }
         </div>

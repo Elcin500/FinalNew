@@ -1,7 +1,6 @@
 ﻿using FinalNew.Models.DataContext;
 using FinalNew.Models.Entity;
 using FinalNew.Models.Entity.Membership;
-using FinalNew.Models.FormModel;
 using FinalNew.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -43,16 +42,24 @@ namespace FinalNew.Controllers
             this.conf = conf;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageIndex = 1, int pageSize = 9)
         {
             var model = new HomeViewModel();
 
             model.Homes = db.Homes
                .Include(h => h.Category)
                .Include(h => h.Images)
-               .OrderBy(h => Guid.NewGuid())
-               .Take(6)
+               .Take(45)
                .ToList();
+
+            var query = model.Homes.AsQueryable()
+               .OrderByDescending(a => a.CreatedDate);
+
+            var viewModel = new PagedViewModel(query, pageIndex, pageSize);
+
+            model.HomesPaged = viewModel;
+
+
 
             model.Agents = db.Agents.Take(4).ToList();
 
@@ -451,5 +458,33 @@ namespace FinalNew.Controllers
             return NotFound();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Subscribe(string email)
+        {
+            if (ModelState.IsValid)
+            {
+                var subscribe = new Subscribe
+                {
+                    Email = email
+                };
+
+                db.Add(subscribe);
+                await db.SaveChangesAsync();
+                return Json(new
+                {
+                    error = false,
+                    message = "Abonə oldunuz"
+                });
+            }
+            return Json(new
+            {
+                error = true,
+                message = "Xəta baş verdi"
+            });
+        }
+
+       
+
     }
+
 }

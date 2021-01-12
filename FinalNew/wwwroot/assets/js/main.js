@@ -30,7 +30,7 @@ function header() {
 
     $.each(langs, function (index, element) { 
          $(element).click(function (e) { 
-             e.preventDefault();
+            // e.preventDefault();
              
 
              let a=e.currentTarget;

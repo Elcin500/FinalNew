@@ -568,6 +568,21 @@ namespace FinalNew.Migrations
                     b.ToTable("NMRDistricts");
                 });
 
+            modelBuilder.Entity("FinalNew.Models.Entity.Subscribe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscribes");
+                });
+
             modelBuilder.Entity("FinalNew.Models.Entity.Agent", b =>
                 {
                     b.HasOne("FinalNew.Models.Entity.Membership.AppUser", "Owner")

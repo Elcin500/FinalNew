@@ -26,8 +26,15 @@ using FinalNew.Models.ViewModels;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\hp\source\repos\FinalNewHome\FinalNew\Views\_ViewImports.cshtml"
+using Final.Resources;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d56930409186ad23b16200a82edc706d7295a8b7", @"/Views/Home/Favorites.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"555a44a7818ecb5b1f2aa389b578f23040a5c3fe", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3deb200e221bd0bd61f955fec26d2459e4ff3433", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Favorites : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ICollection<Home>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-controller", "home", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -74,7 +81,7 @@ using FinalNew.Models.ViewModels;
                 <h1>My Favorites</h1>
                 <ul>
                     <li>");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d56930409186ad23b16200a82edc706d7295a8b74766", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d56930409186ad23b16200a82edc706d7295a8b74943", async() => {
                 WriteLiteral("Home");
             }
             );
@@ -125,7 +132,7 @@ using FinalNew.Models.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("                    <div class=\"col-lg-4 col-md-6 col-12 single-home\">\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d56930409186ad23b16200a82edc706d7295a8b77108", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d56930409186ad23b16200a82edc706d7295a8b77285", async() => {
                 WriteLiteral("\r\n                            <img");
                 BeginWriteAttribute("src", " src=\"", 1163, "\"", 1211, 2);
                 WriteAttributeValue("", 1169, "uploads/", 1169, 8, true);
@@ -171,7 +178,7 @@ WriteAttributeValue("", 1177, home.Images.FirstOrDefault().Path, 1177, 34, false
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                        <div class=\"caption\">\r\n                            <h4> ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d56930409186ad23b16200a82edc706d7295a8b710219", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d56930409186ad23b16200a82edc706d7295a8b710396", async() => {
 #nullable restore
 #line 37 "C:\Users\hp\source\repos\FinalNewHome\FinalNew\Views\Home\Favorites.cshtml"
                                                                                                        Write(home.Address);

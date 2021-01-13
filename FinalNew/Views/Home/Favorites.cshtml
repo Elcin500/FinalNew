@@ -171,18 +171,18 @@
                     return value != removeItem;
                 })
 
-                console.log(items);
+                //console.log(items);
 
                 $.cookie('card-items', items.toString(), { expires: 5, path: '/'} );
 
-                console.log('cookiden silindi');
-                console.log($.cookie('card-items'));
+               // console.log('cookiden silindi');
+                //console.log($.cookie('card-items'));
 
 
             }
             else {
                 $(event.currentTarget).html('<i style="color:#EA2027" class="fas fa-heart"></i>');
-                console.log('-----------qirmizi');
+                //console.log('-----------qirmizi');
 
 
                 if (cardItems == null) {
@@ -198,7 +198,7 @@
 
                 $.cookie('card-items', items.toString(), { expires: 5, path: '/'});
 
-                console.log('cookide');
+                //console.log('cookide');
 
             }
 

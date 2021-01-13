@@ -30,6 +30,12 @@ namespace FinalNew.Areas.Admin.Controllers
             this.roleManagar = roleManagar;
             this.db = db;
         }
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        public IActionResult LogOut()
+        {
+            signInManager.SignOutAsync();
+            return RedirectToAction("login", "home", new { area = "" });
+        }
 
         [AllowAnonymous]
         public IActionResult Login()

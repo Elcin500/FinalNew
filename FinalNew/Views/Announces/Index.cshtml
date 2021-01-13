@@ -241,7 +241,7 @@
 
             if ($(event.currentTarget.children[0]).hasClass('fas fa-heart')) {
                 $(event.currentTarget).html('<i class="far fa-heart"></i>');
-                console.log('--------ag');
+                //console.log('--------ag');
 
                 if (cardItems == null) {
                     items = [];
@@ -265,12 +265,12 @@
                     return value != removeItem;
                 })
 
-                console.log(items);
+                //console.log(items);
 
                 $.cookie('card-items', items.toString(), { expires: 5, path: '/' });
 
-                console.log('cookiden silindi');
-                console.log($.cookie('card-items'));
+                //console.log('cookiden silindi');
+                //console.log($.cookie('card-items'));
 
 
             }
@@ -291,7 +291,7 @@
 
 
                 $.cookie('card-items', items.toString(), { expires: 5, path: '/' });
-                console.log('cookide');
+                //console.log('cookide');
 
             }
 

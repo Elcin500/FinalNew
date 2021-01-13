@@ -407,7 +407,6 @@ C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.csproj.
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.genruntimeconfig.cache
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.AppCode.Resources.HomeIndexResource.resources
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.AppCode.Resources.HomeIndexResource.en.resources
-C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.csprojAssemblyReference.cache
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\Razor\Areas\Admin\Views\Subscribes\Create.cshtml.g.cs
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\Razor\Areas\Admin\Views\Subscribes\Details.cshtml.g.cs
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\Razor\Areas\Admin\Views\Subscribes\Edit.cshtml.g.cs

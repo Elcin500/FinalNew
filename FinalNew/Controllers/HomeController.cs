@@ -96,6 +96,12 @@ namespace FinalNew.Controllers
             return View();
         }
 
+        public IActionResult LogOut()
+        {
+            signInManager.SignOutAsync();
+            return RedirectToAction("login");
+        }
+
         public IActionResult Login()
         {
             return View();

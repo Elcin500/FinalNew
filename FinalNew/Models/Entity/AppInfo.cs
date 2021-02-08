@@ -27,6 +27,11 @@ namespace FinalNew.Models.Entity
         public string AnnounceAdvantages { get; set; }
         public string AgentAdvantages { get; set; }
 
+        public string CategoryPhoto1 { get; set; }
+        public string CategoryPhoto2 { get; set; }
+        public string CategoryPhoto3 { get; set; }
+        public string CategoryPhoto4 { get; set; }
+
 
 
     }

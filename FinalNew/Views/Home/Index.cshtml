@@ -218,7 +218,7 @@
         <div class="row">
             <div class="col-md-6 col-12 catgeory">
                 <a asp-controller="announces" asp-action="index" asp-route-categoryId="@Model.Categories[5].Id">
-                    <img src="assets/img/categories-1.jpg" width="546" height="410" alt="">
+                    <img src="assets/img/@Model.AppInfos.CategoryPhoto1" width="546" height="410" alt="">
                     <div class="caption">
                         <h4>@Model.Categories[5].Name</h4>
                         <p><span class="product-count">@Model.Homes.Where(a=>a.CategoryId==Model.Categories[5].Id)?.Count()</span>@HomeIndexResource.properities</p>
@@ -228,7 +228,7 @@
             </div>
             <div class="col-md-6 col-12 catgeory">
                 <a asp-controller="announces" asp-action="index" asp-route-categoryId="@Model.Categories[4].Id">
-                    <img src="assets/img/categories-2.jpg" width="546" height="410" alt="">
+                    <img src="assets/img/@Model.AppInfos.CategoryPhoto2" width="546" height="410" alt="">
                     <div class="caption">
                         <h4>@Model.Categories[4].Name</h4>
                         <p><span class="product-count">@Model.Homes.Where(a => a.CategoryId == Model.Categories[4].Id)?.Count()</span>@HomeIndexResource.properities</p>
@@ -237,7 +237,7 @@
             </div>
             <div class="col-md-6 col-12 catgeory">
                 <a asp-controller="announces" asp-action="index" asp-route-categoryId="@Model.Categories[3].Id">
-                    <img src="assets/img/categories-3.jpg" width="546" height="410" alt="">
+                    <img src="assets/img/@Model.AppInfos.CategoryPhoto3" width="546" height="410" alt="">
                     <div class="caption">
                         <h4>@Model.Categories[3].Name</h4>
                         <p><span class="product-count">@Model.Homes.Where(a => a.CategoryId == Model.Categories[3].Id)?.Count()</span>@HomeIndexResource.properities</p>
@@ -246,7 +246,7 @@
             </div>
             <div class="col-md-6 col-12 catgeory">
                 <a asp-controller="announces" asp-action="index" asp-route-categoryId="@Model.Categories[1].Id">
-                    <img src="assets/img/categories-4.jpg" width="546" height="410" alt="">
+                    <img src="assets/img/@Model.AppInfos.CategoryPhoto4" width="546" height="410" alt="">
                     <div class="caption">
                         <h4>@Model.Categories[1].Name</h4>
                         <p><span class="product-count">@Model.Homes.Where(a => a.CategoryId == Model.Categories[1].Id)?.Count()</span>@HomeIndexResource.properities</p>

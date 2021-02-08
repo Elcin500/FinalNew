@@ -119,10 +119,10 @@
                                     <span>Az</span>
                                     <i class="fas fa-sort-down"></i>
                                     <div class="hidden-menu none" id="lang-div">
-                                        <a asp-route-lang="az"  id="language">
+                                        <a asp-route-lang="az" class="lang-az" id="language">
                                             <img class="lang-img" src="assets/img/az.png" alt=""> <span class="lang-hidden-span">Az</span>
                                         </a>
-                                        <a asp-route-lang="en" id="language">
+                                        <a asp-route-lang="en" class="lang-en" id="language">
                                             <img class="lang-img" src="assets/img/en.png" alt=""> <span class="lang-hidden-span">En</span>
                                         </a>
                                     </div>
@@ -300,8 +300,7 @@
     @RenderSection("scripts", required: false)
 
 <script>
-
-        $('.subscribe').submit(function (e) {
+    $('.subscribe').submit(function (e) {
             e.preventDefault();
 
             if ($('#email').val() == "") {
@@ -331,8 +330,6 @@
             });
 
         });
-
-
 </script>
 </body>
 </html>

@@ -45,7 +45,8 @@ namespace FinalNew
                 cfg.Filters.Add(new AuthorizeFilter(policy));
             });
 
-            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<HomeSaleDbContext>();
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<HomeSaleDbContext>()
+                .AddDefaultTokenProviders();
 
 
             services.Configure<IdentityOptions>(cfg => {
@@ -61,7 +62,7 @@ namespace FinalNew
 
             services.ConfigureApplicationCookie(cfg =>
             {
-                cfg.LoginPath = "/signin.html";
+                cfg.LoginPath = "/az/signin";
                 cfg.AccessDeniedPath = "/accesdenied.html";
                 cfg.Cookie.Name = "evim";
                 cfg.ExpireTimeSpan = TimeSpan.FromMinutes(10);
@@ -116,14 +117,16 @@ namespace FinalNew
 
 
                 endpoints.MapControllerRoute(
-                  name: "Signin",
-                  pattern: "signin.html",
+                  name: "signin",
+                  pattern: "/{lang=az}/signin",
                   defaults: new
                   {
-                      //lang="az",
+                      lang="az",
                       controller = "Home",
                       Action = "Login"
-                  });
+                  },
+                    constraints: new { lang = "az|en" }
+                  );
 
                 
                     endpoints.MapControllerRoute(
@@ -131,7 +134,7 @@ namespace FinalNew
                 pattern: "accesdenied.html",
                 defaults: new
                 {
-                    //lang = "az",
+                    lang = "az",
                     controller = "Home",
                     Action = "AccesDenied"
                 });

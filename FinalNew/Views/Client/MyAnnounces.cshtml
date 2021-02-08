@@ -56,7 +56,12 @@
                                         @if (!string.IsNullOrWhiteSpace(home.Area))
                                         {
                                             @home.Area
-                                        } sq ft
+                                        }
+                                        else
+                                        {
+                                            @(0)
+                                        }
+                                        sq ft
                                     </span>
                                 </li>
                                 <li>

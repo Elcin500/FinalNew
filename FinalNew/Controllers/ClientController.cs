@@ -366,10 +366,6 @@ namespace FinalNew.Controllers
         }
 
 
-
-
-
-
         [HttpPost]
         public async Task<IActionResult> DeleteAnnounce(int id)
         {
@@ -401,6 +397,7 @@ namespace FinalNew.Controllers
         {
             return db.Homes.Any(e => e.Id == id);
         }
+
 
     }
 }

@@ -40,7 +40,7 @@ namespace FinalNew.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AppTitle,LogoPath,FooterLogoPath,Description,Address,Phone,Phone2,WorkOurs,Email,FacebookLink,InstagramLink,TwitterLink,HomePhoto1,HomePhoto2,HomePhoto3,AnnounceAdvantages,AgentAdvantages")] AppInfo appInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,AppTitle,LogoPath,FooterLogoPath,Description,Address,Phone,Phone2,WorkOurs,Email,FacebookLink,InstagramLink,TwitterLink,HomePhoto1,HomePhoto2,HomePhoto3,AnnounceAdvantages,AgentAdvantages,CategoryPhoto1,CategoryPhoto2,CategoryPhoto3,CategoryPhoto4")] AppInfo appInfo)
         {
             if (id != appInfo.Id)
             {
@@ -65,7 +65,7 @@ namespace FinalNew.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return View();
             }
             return View(appInfo);
         }

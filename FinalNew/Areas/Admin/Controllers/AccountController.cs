@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace FinalNew.Areas.Admin.Controllers
@@ -49,8 +50,17 @@ namespace FinalNew.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
-            
-            var user = await userManager.FindByNameAsync(model.UserName);
+
+            AppUser user;
+
+            if (Regex.IsMatch(model.UserName, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))
+            {
+                user = await userManager.FindByEmailAsync(model.UserName);
+            }
+            else
+            {
+                user = await userManager.FindByNameAsync(model.UserName);
+            }
 
 
             if (user == null)
@@ -106,6 +116,7 @@ namespace FinalNew.Areas.Admin.Controllers
 
         public async Task<IActionResult> Users()
         {
+           
             return View(await db.Users.ToListAsync());
         }
 

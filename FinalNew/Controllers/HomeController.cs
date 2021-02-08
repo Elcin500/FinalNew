@@ -42,7 +42,7 @@ namespace FinalNew.Controllers
             this.conf = conf;
         }
 
-        public IActionResult Index(int pageIndex = 1, int pageSize = 9)
+        public IActionResult Index(int pageIndex = 1, int pageSize = 2)
         {
             var model = new HomeViewModel();
 
@@ -99,7 +99,7 @@ namespace FinalNew.Controllers
         public IActionResult LogOut()
         {
             signInManager.SignOutAsync();
-            return RedirectToAction("login");
+            return RedirectToAction("Index");
         }
 
         public IActionResult Login()
@@ -123,8 +123,18 @@ namespace FinalNew.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            var user = await userManager.FindByNameAsync(userName);
+            AppUser user;
 
+            if (Regex.IsMatch(userName, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))
+            {
+                 user = await userManager.FindByEmailAsync(userName);
+            }
+            else
+            {
+                 user = await userManager.FindByNameAsync(userName);
+            }
+
+            
 
             if (user == null)
             {
@@ -489,7 +499,92 @@ namespace FinalNew.Controllers
             });
         }
 
-       
+
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgetPassword(ForgetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user =await userManager.FindByEmailAsync(model.Email);
+
+                if (user != null)
+                {
+                    var token = await userManager.GeneratePasswordResetTokenAsync(user);
+
+                    var passwordResetLink = Url.Action("ResetPassword","Home", new {email=model.Email,token=token },Request.Scheme);
+
+                    
+                    var host = conf.GetValue<string>("emailAccount:smtpServer");
+                    var port = conf.GetValue<int>("emailAccount:smtpPort");
+                    var userName = conf.GetValue<string>("emailAccount:userName");
+                    var password = conf.GetValue<string>("emailAccount:password");
+
+                    SmtpClient client = new SmtpClient(host, port);
+                    client.Credentials = new NetworkCredential(userName, password);
+                    client.EnableSsl = true;
+
+                    MailMessage mailMessage = new MailMessage(userName, model.Email);
+
+
+
+                    mailMessage.Subject = "Evim Saytından";
+                    mailMessage.Body = $"{passwordResetLink}";
+                    mailMessage.IsBodyHtml = true;
+
+                    client.Send(mailMessage);
+
+
+                    ViewData["Info"] = "Email adresinizə link göndərildi. Zəhmət olmasa həmin linkə daxil olun";
+                    return View(model);
+                }
+                ViewData["Info"] = "Istifadeci tapilmadi";
+                return View(model);
+            }
+            return View(model);
+        }
+
+
+
+        public IActionResult ResetPassword(string email,string token)
+        {
+            if (email==null || token==null)
+            {
+                return NotFound();
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+
+                if (user!=null)
+                {
+                    var result =await userManager.ResetPasswordAsync(user,model.Token,model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction(nameof(Login));
+                    }
+
+                    ViewBag.Info = "Xeta bas verdi";
+                    return View(model);
+                }
+                ViewBag.Info = "Istifadeci tapilmadi";
+                return View(model);
+            }
+
+            return View(model);
+        }
 
     }
 

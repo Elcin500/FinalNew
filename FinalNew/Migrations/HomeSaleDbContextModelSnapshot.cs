@@ -96,6 +96,18 @@ namespace FinalNew.Migrations
                     b.Property<string>("AppTitle")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CategoryPhoto1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CategoryPhoto2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CategoryPhoto3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CategoryPhoto4")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 

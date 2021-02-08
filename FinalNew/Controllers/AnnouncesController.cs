@@ -37,7 +37,7 @@ namespace FinalNew.Controllers
       
 
         public IActionResult Index(string announceType, int categoryId, int cityId, int metroId,
-            int minPrice, int maxPrice, int minArea, int maxArea, int minRoom, int minBath, int pageIndex = 1, int pageSize = 21)
+            int minPrice, int maxPrice, int minArea, int maxArea, int minRoom, int minBath, int pageIndex = 1, int pageSize = 4)
         {
             
             if (string.IsNullOrWhiteSpace(announceType))

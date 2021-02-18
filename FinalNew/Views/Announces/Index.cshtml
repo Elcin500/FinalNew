@@ -26,7 +26,7 @@
             <div class="col-12">
                 <h2>Find Your Home</h2>
                 <a id="openSearch" role="button">Search<i class="fas fa-sort-down"></i></a>
-                <form class="row g-3 announce-search-form" asp-controller="announces" asp-action="index">
+                <form class="row g-3 announce-search-form" method="get" asp-controller="announces" asp-action="index">
                     <div class="col-md-3">
                         <label for="announceType" class="form-label">Announce Type</label>
                         <select name="announceType" class="form-select">

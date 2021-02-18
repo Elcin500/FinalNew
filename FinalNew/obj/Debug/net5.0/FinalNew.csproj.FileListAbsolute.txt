@@ -413,4 +413,3 @@ C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.pdb
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.genruntimeconfig.cache
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\Razor\Views\Home\ForgetPassword.cshtml.g.cs
 C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\Razor\Views\Home\ResetPassword.cshtml.g.cs
-C:\Users\hp\source\repos\FinalNewHome\FinalNew\obj\Debug\net5.0\FinalNew.csprojAssemblyReference.cache
